@@ -97,7 +97,7 @@ Tên của Angular Directive được viết theo kiểu &lt;a href=&quot;http:/
 &lt;span class=&quot;blue&quot;&gt;&amp;lt;my-directive&amp;gt;&amp;lt;/my-directive&amp;gt;&lt;/span&gt;&lt;/li&gt;
   &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;c&lt;/span&gt;lass (C)&lt;br /&gt;
 &lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; class=&lt;span class=&quot;red&quot;&gt;”my-directive”&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;Kiểu co&lt;span class=&quot;green&quot;&gt;m&lt;/span&gt;ment (C)&lt;br /&gt;
+  &lt;li&gt;Kiểu co&lt;span class=&quot;green&quot;&gt;m&lt;/span&gt;ment (M)&lt;br /&gt;
 &lt;code&gt;&amp;lt;!-- directive: my-directive --&amp;gt;&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
 
