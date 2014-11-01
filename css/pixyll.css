@@ -816,7 +816,8 @@ h5,
 .h5,
 h6,
 .h6 {
-  font-family: "Lato", 'Helvetica Neue', Helvetica, sans-serif;
+  @import url(http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic);
+  font-family: "Droid Serif", "Lato", 'Helvetica Neue', Helvetica, sans-serif;
   font-weight: 900;
   line-height: 1.2;
   margin: 1.414em 0 0.5em; }
@@ -850,7 +851,9 @@ h6,
 
   .h1,
   h1 {
-    font-size: 3.250rem; }
+    /* TaiNX MODIFY
+    font-size: 3.250rem;*/
+    font-size: 2.750rem; }
 
   .h2,
   h2 {
@@ -868,7 +871,9 @@ h6,
   p,
   li {
     font-size: 1.25rem;
-    line-height: 1.8; }
+    line-height: 1.8;
+    /*TaiNX MODIFY*/
+    text-align: justify; }
 
   .small {
     font-size: 1rem; }
@@ -888,7 +893,9 @@ h6,
 @media screen and (max-width: 48em) {
   .h1,
   h1 {
-    font-size: 2.827rem; }
+    /* TaiNX MODIFY
+    font-size: 2.827rem;*/
+    font-size: 2.327rem; }
 
   .h2,
   h2 {
@@ -921,7 +928,9 @@ h6,
 @media screen and (min-width: 64em) {
   .h1,
   h1 {
-    font-size: 4.498rem; }
+    /* TaiNX MODIFY
+    font-size: 4.498rem;*/
+    font-size: 3.998rem; }
 
   .h2,
   h2 {

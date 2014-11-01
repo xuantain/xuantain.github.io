@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tìm hiểu về angularjs directives &#8211; xuantain's blog</title>
+    <title>Tìm hiểu về AngularJS Directives &#8211; xuantain's blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Đây là bài viết tìm hiểu về Directive và cách tạo một Custom Directivetrong AngularJS.">
+    <meta name="description" content="Đây là bài viết tìm hiểu về AngularJS Directives và cách tạo một Custom Directive.">
     <meta name="author" content="Nguyen Xuan tai">
     <meta name="keywords" content="javascript, angularjs">
     <link rel="canonical" href="http://xuantain.github.io/javascript/angularjs/tim-hieu-ve-angularjs-directives.html">
@@ -22,7 +22,7 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Tìm hiểu về angularjs directives">
+    <meta property="og:title" content="Tìm hiểu về AngularJS Directives">
     <meta property="og:description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.">
     <meta property="og:url" content="http://xuantain.github.io/javascript/angularjs/tim-hieu-ve-angularjs-directives.html">
     <meta property="og:site_name" content="xuantain's blog">
@@ -52,14 +52,14 @@
 
 
 <div class="post-header mb2">
-  <h1 class="py2">Tìm hiểu về angularjs directives</h1>
+  <h1 class="py2">Tìm hiểu về AngularJS Directives</h1>
   <span class="post-meta">Oct 24, 2014</span><br>
   
   <span class="post-meta small">6 minute read</span>
 </div>
 
 <article class="post-content">
-  <h3 id="angular-directive">Angular Directive</h3>
+  <h3 id="angular-directives">Angular Directives</h3>
 
 <p>Các thuộc tính, id, class, name, onClick, onChange, … của một DOM element được gọi chung là directive. AngularJS sẽ dựa vào những directive đó để đính kèm các chỉ thị hoặc các sự kiện tới DOM element cần xử lý. </p>
 
@@ -74,7 +74,7 @@ Giả sử trong tình huống bạn muốn hiển thị nhiều vùng dữ li�
 
 <p>Tình huống trên đưa ra chỉ để giúp bạn dễ hình dung về directive, nhưng chưa nói lên đầy đủ ý nghĩa của directive. Bài viết này sẽ đưa ra những demo và giải thích để bạn hiểu rõ hơn.</p>
 
-<h2 id="angularjs-directive-hot-ng-nh-th-no">AngularJS Directive hoạt động như thế nào?</h2>
+<h2 id="angularjs-directives-hot-ng-nh-th-no">AngularJS Directives hoạt động như thế nào?</h2>
 <p>Khi trình biên dịch HTML render ra các DOM element, nó sẽ quét qua toàn bộ các element bên trong theo trình tự từ trên xuống dưới, nếu gặp DOM element có khai báo directive khớp với directive của AngularJS, hoặc là custom directive thì DOM element đó sẽ được Angular theo dõi các sự kiện tác động lên nó để đưa ra các xử lý tương ứng mà directive đó đã định nghĩa. </p>
 
 <p>AngularJS có sẵn một bộ directive: ng-app, ng-module, ng-controller, ng-bind, …  Để phát triển ứng dụng với AngularJS thì cần phải nắm rõ cách hoạt động và mục đích sử dụng của những directive đó. Trong phạm vi bài viết này sẽ không giải thích và hướng dẫn cách dùng những directive sẵn có của AngularJS.</p>
@@ -135,7 +135,7 @@ Tên của Angular Directive được viết theo kiểu <a href="http://en.wiki
   <span class="p">};</span>
 <span class="p">});</span></code></pre></div>
 
-<h1 id="gii-thch-cc-thuc-tnh-khai-bo">Giải thích các thuộc tính khai báo</h1>
+<h1 id="cc-thuc-tnh-khai-bo">Các thuộc tính khai báo</h1>
 
 <ul>
   <li>restrict : khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive.</li>

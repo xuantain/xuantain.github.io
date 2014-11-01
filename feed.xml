@@ -7,8 +7,8 @@
     <atom:link href="http://xuantain.github.io/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Tìm hiểu về angularjs directives</title>
-        <description>&lt;h3 id=&quot;angular-directive&quot;&gt;Angular Directive&lt;/h3&gt;
+        <title>Tìm hiểu về AngularJS Directives</title>
+        <description>&lt;h3 id=&quot;angular-directives&quot;&gt;Angular Directives&lt;/h3&gt;
 
 &lt;p&gt;Các thuộc tính, id, class, name, onClick, onChange, … của một DOM element được gọi chung là directive. AngularJS sẽ dựa vào những directive đó để đính kèm các chỉ thị hoặc các sự kiện tới DOM element cần xử lý. &lt;/p&gt;
 
@@ -23,7 +23,7 @@ Giả sử trong tình huống bạn muốn hiển thị nhiều vùng dữ li�
 
 &lt;p&gt;Tình huống trên đưa ra chỉ để giúp bạn dễ hình dung về directive, nhưng chưa nói lên đầy đủ ý nghĩa của directive. Bài viết này sẽ đưa ra những demo và giải thích để bạn hiểu rõ hơn.&lt;/p&gt;
 
-&lt;h2 id=&quot;angularjs-directive-hot-ng-nh-th-no&quot;&gt;AngularJS Directive hoạt động như thế nào?&lt;/h2&gt;
+&lt;h2 id=&quot;angularjs-directives-hot-ng-nh-th-no&quot;&gt;AngularJS Directives hoạt động như thế nào?&lt;/h2&gt;
 &lt;p&gt;Khi trình biên dịch HTML render ra các DOM element, nó sẽ quét qua toàn bộ các element bên trong theo trình tự từ trên xuống dưới, nếu gặp DOM element có khai báo directive khớp với directive của AngularJS, hoặc là custom directive thì DOM element đó sẽ được Angular theo dõi các sự kiện tác động lên nó để đưa ra các xử lý tương ứng mà directive đó đã định nghĩa. &lt;/p&gt;
 
 &lt;p&gt;AngularJS có sẵn một bộ directive: ng-app, ng-module, ng-controller, ng-bind, …  Để phát triển ứng dụng với AngularJS thì cần phải nắm rõ cách hoạt động và mục đích sử dụng của những directive đó. Trong phạm vi bài viết này sẽ không giải thích và hướng dẫn cách dùng những directive sẵn có của AngularJS.&lt;/p&gt;
@@ -84,7 +84,7 @@ Tên của Angular Directive được viết theo kiểu &lt;a href=&quot;http:/
   &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;gii-thch-cc-thuc-tnh-khai-bo&quot;&gt;Giải thích các thuộc tính khai báo&lt;/h1&gt;
+&lt;h1 id=&quot;cc-thuc-tnh-khai-bo&quot;&gt;Các thuộc tính khai báo&lt;/h1&gt;
 
 &lt;ul&gt;
   &lt;li&gt;restrict : khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive.&lt;/li&gt;
