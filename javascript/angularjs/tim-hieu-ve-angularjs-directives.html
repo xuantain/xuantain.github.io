@@ -55,32 +55,42 @@
   <h1 class="py2">Tìm hiểu về AngularJS Directives</h1>
   <span class="post-meta">Oct 24, 2014</span><br>
   
-  <span class="post-meta small">6 minute read</span>
+  <span class="post-meta small">8 minute read</span>
 </div>
 
 <article class="post-content">
-  <h3 id="angular-directives">Angular Directives</h3>
+  <h3 id="directives-l-g">Directives là gì?</h3>
 
-<p>Các thuộc tính, id, class, name, onClick, onChange, … của một DOM element được gọi chung là directive. AngularJS sẽ dựa vào những directive đó để đính kèm các chỉ thị hoặc các sự kiện tới DOM element cần xử lý. </p>
+<p>Các thuộc tính, id, class, name, onClick, … của một DOM element được gọi chung là directives. AngularJS sẽ dựa vào những directive đó để đính kèm các chỉ thị hoặc các sự kiện tới DOM element cần xử lý, thậm chí là thay đổi cấu trúc của DOM. </p>
 
-<p>Để hiểu về Directive trong AngularJS, các bạn xem qua tình huống sau:
-Giả sử trong tình huống bạn muốn hiển thị nhiều vùng dữ liệu có cùng format về giao diện, nhưng khác nhau về nội dung dữ liệu thì có nhiều cách để thực hiện.</p>
+<p>AngularJS có sẵn một bộ directives: ng-app, ng-module, ng-controller, …  Để phát triển ứng dụng với AngularJS thì cần phải nắm rõ cách hoạt động và mục đích sử dụng của những directive đó. Trong phạm vi bài viết này sẽ không giải thích và hướng dẫn cách sử dụng những directive sẵn có của AngularJS.</p>
+
+<h3 id="cch-directives-c-bin-dch">Cách directives được biên dịch</h3>
+<p>Khi một trang được load thì web brower sẽ tự động parses HTML vào DOM.
+Việc biên dịch HTML được thực thi trong 3 bước:</p>
+
+<ol>
+  <li>$compile sẽ quét qua các DOM elements, nếu compiler tìm thấy element nào có khai báo directive, thì directive tương ứng sẽ được thêm vào danh sách các directives phù hợp với DOM element. Một element có thể khai báo nhiều directives.</li>
+  <li>Khi một DOM element khai báo nhiều directives, compiler sẽ sắp xếp thứ tự biên dịch các directives theo thuộc tính priority của mỗi directive. Compiler functions của mỗi directive sẽ được thực thi. Mỗi compiler function có thể làm thay đổi DOM. Mỗi compiler function phải trả về một link function, xử lý liên kết giữa DOM và scope.</li>
+  <li>$compile liên kết template với scope bằng cách gọi linking function đã liên kết từ bước 2. Đăng ký theo dõi các elements và thiết lập cơ chế $watchs với scope của directive được cấu hình.</li>
+</ol>
+
+<p>Sau khi thực thi biên dịch HTML thì giữa scope và DOM sẽ có sự ràng buộc (a live binding), một thay đổi ở model trên compiled scope sẽ được ánh xạ vào DOM.</p>
+
+<h3 id="directives-scope">Directive’s scope</h3>
+<p>Mặc định thì dỉective sẽ lấy scope cha bên ngoài, nhưng trong một số truờng hợp chúng ta muốn directive khai báo thêm các thuộc tính và function khác chỉ sử dụng bên trong nội bộ directive, mà lại không làm ảnh huởng đến scope cha bên ngoài thì có 2 lựa chọn:</p>
 
 <ul>
-  <li>Cách 1: Bạn có thể viết code ở những vị trí cần hiển thị. Cách này chắc chắn code sẽ rất thừa thải và không có khả năng tái sử dụng, rất cực khổ khi bạn muốn thay đổi format giao diện cho phần hiển thị đó, vì phải tìm đến từng nơi.</li>
-  <li>Cách 2: Bạn có thể tạo một template chung và sử dụng javascript hay jQuery để đưa dữ liệu vào template mỗi khi gọi, nhưng cách này chỉ mới nghĩ thôi đã thấy rối rắm, và chắc chắn code để xử lý tình huống này sẽ không ít và đôi khi có thể là phức tạp.</li>
-  <li>Cách 3: Bạn có thể sử dụng AngularJS và tạo một directive cho phần hiển thị đó. Cách này rất gọn gàng và tường minh, có thể tái sử dụng ở nhiều nơi, việc chỉnh sửa cũng dễ dàng hơn.</li>
+  <li>A child scope: scope này thừa kế từ scope cha bên ngoài, và có thể được khai báo thêm các property, function khác.</li>
+  <li>An isolated scope: là một scope riêng mới, không thừa kế gì từ scope bên ngoài, chỉ tồn tại mỗi mình nó.</li>
 </ul>
 
-<p>Tình huống trên đưa ra chỉ để giúp bạn dễ hình dung về directive, nhưng chưa nói lên đầy đủ ý nghĩa của directive. Bài viết này sẽ đưa ra những demo và giải thích để bạn hiểu rõ hơn.</p>
+<p>Sử dụng isolate scope cho truờng hợp khi chúng ta tạo một custom directive, và muốn tái sử dụng directive đó.</p>
 
-<h2 id="angularjs-directives-hot-ng-nh-th-no">AngularJS Directives hoạt động như thế nào?</h2>
-<p>Khi trình biên dịch HTML render ra các DOM element, nó sẽ quét qua toàn bộ các element bên trong theo trình tự từ trên xuống dưới, nếu gặp DOM element có khai báo directive khớp với directive của AngularJS, hoặc là custom directive thì DOM element đó sẽ được Angular theo dõi các sự kiện tác động lên nó để đưa ra các xử lý tương ứng mà directive đó đã định nghĩa. </p>
+<p>Sử dụng isolate scope không có nghĩa là không truy cập đuợc vào scope cha bên ngoài.</p>
 
-<p>AngularJS có sẵn một bộ directive: ng-app, ng-module, ng-controller, ng-bind, …  Để phát triển ứng dụng với AngularJS thì cần phải nắm rõ cách hoạt động và mục đích sử dụng của những directive đó. Trong phạm vi bài viết này sẽ không giải thích và hướng dẫn cách dùng những directive sẵn có của AngularJS.</p>
-
-<p>Tạo custom directive:
-Tên của Angular Directive được viết theo kiểu <a href="http://en.wikipedia.org/wiki/CamelCase">camelCase</a>.</p>
+<h3 id="to-custom-directive">Tạo custom directive</h3>
+<p>Tên của Angular Directives được khai báo theo kiểu <a href="http://en.wikipedia.org/wiki/CamelCase">camelCase</a>.</p>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">angular</span><span class="o">.</span><span class="n">module</span><span class="p">(</span><span class="s1">&#39;myDemoModule&#39;</span><span class="p">,</span> <span class="o">[]</span><span class="p">)</span>
   <span class="o">.</span><span class="n">directive</span><span class="p">(</span><span class="s1">&#39;myDemoDirective&#39;</span><span class="p">,</span> <span class="n">function</span><span class="p">(){</span>
@@ -89,27 +99,10 @@ Tên của Angular Directive được viết theo kiểu <a href="http://en.wiki
    <span class="p">};</span>
 <span class="p">});</span></code></pre></div>
 
-<p>index.html</p>
+<!-- <iframe src="http://embed.plnkr.co/0TCzKZfaq17oQCRkgV0K/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="250px" width="100%px"></iframe>
+ -->
 
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="n">div</span> <span class="n">ng</span><span class="o">-</span><span class="n">app</span><span class="o">=</span><span class="s2">&quot;myDemoModule&quot;</span><span class="o">&gt;</span>
-	<span class="o">&lt;</span><span class="n">div</span> <span class="n">ng</span><span class="o">-</span><span class="n">controller</span><span class="o">=</span><span class="s2">&quot;demoController&quot;</span><span class="o">&gt;</span>
-        <span class="no">Hello</span> <span class="o">&lt;</span><span class="n">input</span> <span class="n">ng</span><span class="o">-</span><span class="n">model</span><span class="o">=</span><span class="s1">&#39;name&#39;</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">hr</span><span class="o">/&gt;</span>
-  	    <span class="o">&lt;</span><span class="n">span</span> <span class="n">ng</span><span class="o">-</span><span class="n">bind</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; &lt;br/</span><span class="o">&gt;</span>
-	    <span class="o">&lt;</span><span class="n">span</span> <span class="ss">ng</span><span class="p">:</span><span class="n">bind</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; &lt;br/</span><span class="o">&gt;</span>
-	    <span class="o">&lt;</span><span class="n">span</span> <span class="n">ng_bind</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; &lt;br/</span><span class="o">&gt;</span>
-	    <span class="o">&lt;</span><span class="n">span</span> <span class="n">data</span><span class="o">-</span><span class="n">ng</span><span class="o">-</span><span class="n">bind</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; &lt;br/</span><span class="o">&gt;</span>
-	    <span class="o">&lt;</span><span class="n">span</span> <span class="n">x</span><span class="o">-</span><span class="n">ng</span><span class="o">-</span><span class="n">bind</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="o">&gt;&lt;</span><span class="sr">/span&gt; &lt;br/</span><span class="o">&gt;</span>
-	<span class="o">&lt;</span><span class="sr">/div&gt;</span>
-<span class="sr">&lt;/</span><span class="n">div</span><span class="o">&gt;</span></code></pre></div>
-
-<p>script.js</p>
-
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">angular</span><span class="o">.</span><span class="n">module</span><span class="p">(</span><span class="s1">&#39;myDemoModule&#39;</span><span class="p">,</span> <span class="o">[]</span><span class="p">)</span>
-  <span class="o">.</span><span class="n">controller</span><span class="p">(</span><span class="s1">&#39;demoController&#39;</span><span class="p">,</span> <span class="o">[</span><span class="s1">&#39;$scope&#39;</span><span class="p">,</span> <span class="n">function</span><span class="p">(</span><span class="vg">$scope</span><span class="p">)</span> <span class="p">{</span>
-    <span class="vg">$scope</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;This is my Angular demo&#39;</span><span class="p">;</span>
-<span class="p">}</span><span class="o">]</span><span class="p">);</span></code></pre></div>
-
-<p>Một mẫu định nghĩa directive</p>
+<h4 id="mt-mu-nh-ngha-directive">Một mẫu định nghĩa directive</h4>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">myDemoModule</span> <span class="o">=</span> <span class="n">angular</span><span class="o">.</span><span class="n">module</span><span class="p">(</span><span class="s1">&#39;myDemoModule&#39;</span><span class="p">,</span> <span class="o">[]</span><span class="p">);</span>
 <span class="n">myDemoModule</span><span class="o">.</span><span class="n">directive</span><span class="p">(</span><span class="err">‘</span><span class="n">myDemoDirective</span><span class="err">’</span><span class="p">,</span> <span class="n">function</span> <span class="n">factory</span><span class="p">(</span><span class="n">injectables</span><span class="p">)</span> <span class="p">{</span>
@@ -135,11 +128,10 @@ Tên của Angular Directive được viết theo kiểu <a href="http://en.wiki
   <span class="p">};</span>
 <span class="p">});</span></code></pre></div>
 
-<h1 id="cc-thuc-tnh-khai-bo">Các thuộc tính khai báo</h1>
+<h4 id="cc-thuc-tnh-khai-bo">Các thuộc tính khai báo</h4>
 
-<ul>
-  <li>restrict : khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive.</li>
-</ul>
+<h5 id="emrestrictem"><em>restrict</em></h5>
+<p>khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive.</p>
 
 <ol>
   <li>Kiểu <span class="green">a</span>ttribute (A)<br />
@@ -173,6 +165,59 @@ index.html</p>
 		<span class="ss">template</span><span class="p">:</span> <span class="s1">&#39;&lt;p&gt;This is my Angular directive demo&lt;/p&gt;&#39;</span>
 	   <span class="p">};</span>
 <span class="p">});</span></code></pre></div>
+
+<h5 id="empriorityem"><em>priority</em></h5>
+<p>Thứ tự thực thi directive.</p>
+
+<p>Khi một DOM element khai báo nhiều directive thì cần phân định rõ thứ tự thực thi directive, vì vậy priority được dùng để sắp xếp các directive trước khi compile function  được gọi. Priority được khai báo kiểu number, theo thứ tự thực thi 0 → 1 → 2 → … → n (Giá trị mặc định của priority là “0”). </p>
+
+<p>Trường hợp các directive có giá trị priority bị trùng nhau thì trình biên dịch sẽ thực thi directive được khai báo trước.</p>
+
+<p>Các “pre-link” function cũng được thực thi theo thứ tự của priority, còn “post-link” thì được thực thi theo thứ tự ngược lại. </p>
+
+<p><ins>VD:</ins><br />
+Các directive02, directive01, directive03 đều khai báo “priority: 1”</p>
+
+<ul>
+  <li>“&lt;p  directive02 directive01 directive03 &gt;&lt;/p&gt;” : Thứ tự thực thi sẽ là: directive02 →  directive01 →  directive03.</li>
+  <li>
+    <p directive03="" directive01="" directive02=""></p>
+    <p>: Thứ tự thực thi sẽ là: directive03 →  directive01 →  directive02.</p>
+  </li>
+</ul>
+
+<p>Nếu các directive đó đều có tác động đến việc hiển thị của DOM element, thì trình biên dịch sẽ ưu tiên xử lý của directive có giá trị priority nhỏ nhất.</p>
+
+<h5 id="emtemplateem"><em>template</em></h5>
+
+<h5 id="emtemplateurlem"><em>templateUrl</em></h5>
+
+<h5 id="emreplaceem"><em>replace</em></h5>
+
+<h5 id="emtranscludeem"><em>transclude</em></h5>
+
+<h5 id="emscopeem"><em>scope</em></h5>
+
+<h5 id="emcontrollerem"><em>controller</em></h5>
+
+<h5 id="emrequireem"><em>require</em></h5>
+
+<h5 id="emlinkem"><em>link</em></h5>
+
+<h5 id="emcompileem"><em>compile</em></h5>
+
+<p><del>
+Để dễ hiểu về AngularJS Directive, hãy xem qua tình huống sau:
+Giả sử trong tình huống bạn muốn hiển thị nhiều vùng dữ liệu có cùng format về giao diện, nhưng khác nhau về nội dung dữ liệu thì có nhiều cách để thực hiện.</del></p>
+
+<ul>
+  <li><del>Cách 1: Bạn có thể viết code ở những vị trí cần hiển thị. Cách này chắc chắn code sẽ rất thừa thải và không có khả năng tái sử dụng, rất khó khăn khi bạn muốn thay đổi format giao diện cho phần hiển thị đó vì phải tìm đến từng nơi.</del></li>
+  <li><del>Cách 2: Bạn có thể tạo một template chung và sử dụng javascript hay jQuery để đưa dữ liệu vào template mỗi khi gọi, nhưng cách này tương đối phức tạp, và xử lý tình huống này code sẽ không ít.</del></li>
+  <li><del>Cách 3: Bạn có thể sử dụng AngularJS và tạo một directive cho phần hiển thị đó. Cách này rất gọn gàng và tường minh, có thể tái sử dụng ở nhiều nơi, việc chỉnh sửa cũng dễ dàng hơn.</del></li>
+</ul>
+
+<p><del>Tình huống trên đưa ra chỉ để dễ hình dung về directive, nhưng chưa nói lên đầy đủ ý nghĩa của directive. Bài viết này sẽ đưa ra những demo và giải thích để bạn hiểu rõ hơn.
+</del></p>
 
 </article>
 
