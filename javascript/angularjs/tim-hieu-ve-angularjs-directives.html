@@ -55,7 +55,7 @@
   <h1 class="py2">Tìm hiểu về AngularJS Directives</h1>
   <span class="post-meta">Oct 24, 2014</span><br>
   
-  <span class="post-meta small">8 minute read</span>
+  <span class="post-meta small">7 minute read</span>
 </div>
 
 <article class="post-content">
@@ -107,26 +107,26 @@ Việc biên dịch HTML được thực thi trong 3 bước:</p>
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">myDemoModule</span> <span class="o">=</span> <span class="n">angular</span><span class="o">.</span><span class="n">module</span><span class="p">(</span><span class="s1">&#39;myDemoModule&#39;</span><span class="p">,</span> <span class="o">[]</span><span class="p">);</span>
 <span class="n">myDemoModule</span><span class="o">.</span><span class="n">directive</span><span class="p">(</span><span class="err">‘</span><span class="n">myDemoDirective</span><span class="err">’</span><span class="p">,</span> <span class="n">function</span> <span class="n">factory</span><span class="p">(</span><span class="n">injectables</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">return</span> <span class="p">{</span>
-    <span class="ss">restrict</span><span class="p">:</span> <span class="err">“</span><span class="no">AECM</span><span class="err">”</span><span class="p">,</span> <span class="sr">//</span> <span class="n">ki</span><span class="err">ể</span><span class="n">u</span> <span class="n">string</span>
-    <span class="ss">priority</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="sr">//</span> <span class="n">ki</span><span class="err">ể</span><span class="n">u</span> <span class="n">number</span><span class="p">,</span>
-    <span class="ss">template</span><span class="p">:</span> <span class="s2">&quot;&lt;p&gt;&lt;/p&gt;&quot;</span><span class="p">,</span> <span class="sr">//</span> <span class="n">ki</span><span class="err">ể</span><span class="n">u</span> <span class="n">string</span>
-    <span class="ss">templateUrl</span><span class="p">:</span> <span class="err">“</span><span class="n">myDirectivesFolder</span> <span class="o">/</span> <span class="n">demoTempDirective</span><span class="o">.</span><span class="n">html</span><span class="err">”</span><span class="p">,</span> <span class="sr">//</span><span class="n">ki</span><span class="err">ể</span><span class="n">u</span> <span class="n">string</span>
-    <span class="ss">replace</span><span class="p">:</span> <span class="kp">true</span><span class="p">,</span> <span class="sr">//</span> <span class="n">ki</span><span class="err">ể</span><span class="n">u</span> <span class="n">boolean</span>
-    <span class="ss">transclude</span><span class="p">:</span> <span class="kp">false</span><span class="p">,</span> <span class="sr">//</span> <span class="n">ki</span><span class="err">ể</span><span class="n">u</span> <span class="n">boolean</span>
-    <span class="ss">scope</span><span class="p">:</span> <span class="p">{</span>
-      <span class="ss">title</span><span class="p">:</span> <span class="s1">&#39;@&#39;</span>
-    <span class="p">},</span> <span class="sr">//</span> <span class="n">ki</span><span class="err">ể</span><span class="n">u</span> <span class="n">bool</span> <span class="n">ho</span><span class="err">ặ</span><span class="n">c</span> <span class="n">object</span>
-    <span class="ss">controller</span><span class="p">:</span> <span class="n">function</span> <span class="n">controllerConstructor</span><span class="p">(</span><span class="vg">$scope</span><span class="p">,</span> <span class="vg">$element</span><span class="p">,</span> <span class="vg">$attrs</span><span class="p">,</span> <span class="vg">$transclude</span><span class="p">)</span> <span class="p">{</span><span class="err">…</span><span class="p">},</span>
-    <span class="nb">require</span><span class="p">:</span> <span class="o">[</span><span class="s1">&#39;^myTabs&#39;</span><span class="p">,</span> <span class="s1">&#39;^myModel&#39;</span><span class="o">]</span><span class="p">,</span> <span class="sr">//</span> <span class="n">ki</span><span class="err">ể</span><span class="n">u</span> <span class="n">string</span>
-    <span class="ss">link</span><span class="p">:</span> <span class="n">function</span> <span class="n">postLink</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">iElement</span><span class="p">,</span> <span class="n">iAttrs</span><span class="p">)</span> <span class="p">{</span><span class="err">…</span><span class="p">},</span>
-    <span class="ss">compile</span><span class="p">:</span> <span class="n">function</span> <span class="n">compile</span><span class="p">(</span><span class="n">tElement</span><span class="p">,</span> <span class="n">tAttrs</span><span class="p">,</span> <span class="n">transclude</span><span class="p">)</span> <span class="p">{</span>
-      <span class="k">return</span> <span class="p">{</span>
-        <span class="ss">pre</span><span class="p">:</span> <span class="n">function</span> <span class="n">preLink</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">iElement</span><span class="p">,</span> <span class="n">iAttrs</span><span class="p">,</span> <span class="n">controller</span><span class="p">)</span> <span class="p">{</span><span class="err">…</span><span class="p">},</span>
-        <span class="ss">post</span><span class="p">:</span> <span class="n">function</span> <span class="n">postLink</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="n">iElement</span><span class="p">,</span> <span class="n">iAttrs</span><span class="p">,</span> <span class="n">controller</span><span class="p">)</span> <span class="p">{</span><span class="err">…</span><span class="p">}</span>
-      <span class="p">}</span>
-    <span class="p">}</span>
-  <span class="p">};</span>
-<span class="p">});</span></code></pre></div>
+    <span class="ss">restrict</span><span class="p">:</span> <span class="s2">&quot;AECM”, // kiểu string</span>
+<span class="s2">    priority: 3, // kiểu number,</span>
+<span class="s2">    template: &quot;</span><span class="o">&lt;</span><span class="nb">p</span><span class="o">&gt;&lt;</span><span class="sr">/p&gt;&quot;, /</span><span class="o">/</span> <span class="n">ki</span><span class="err">ể</span><span class="n">u</span> <span class="n">string</span>
+    <span class="ss">templateUrl</span><span class="p">:</span> <span class="s2">&quot;myDirectivesFolder / demoTempDirective.html”, //kiểu string</span>
+<span class="s2">    replace: true, // kiểu boolean</span>
+<span class="s2">    transclude: false, // kiểu boolean</span>
+<span class="s2">    scope: {</span>
+<span class="s2">      title: &#39;@&#39;</span>
+<span class="s2">    }, // kiểu bool hoặc object</span>
+<span class="s2">    controller: function controllerConstructor($scope, $element, $attrs, $transclude) {…},</span>
+<span class="s2">    require: [&#39;^myTabs&#39;, &#39;^myModel&#39;], // kiểu string</span>
+<span class="s2">    link: function postLink(scope, iElement, iAttrs) {…},</span>
+<span class="s2">    compile: function compile(tElement, tAttrs, transclude) {</span>
+<span class="s2">      return {</span>
+<span class="s2">        pre: function preLink(scope, iElement, iAttrs, controller) {…},</span>
+<span class="s2">        post: function postLink(scope, iElement, iAttrs, controller) {…}</span>
+<span class="s2">      }</span>
+<span class="s2">    }</span>
+<span class="s2">  };</span>
+<span class="s2">});</span></code></pre></div>
 
 <h4 id="cc-thuc-tnh-khai-bo">Các thuộc tính khai báo</h4>
 
