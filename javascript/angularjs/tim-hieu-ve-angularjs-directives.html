@@ -55,7 +55,7 @@
   <h1 class="py2">Tìm hiểu về AngularJS Directives</h1>
   <span class="post-meta">Oct 24, 2014</span><br>
   
-  <span class="post-meta small">7 minute read</span>
+  <span class="post-meta small">8 minute read</span>
 </div>
 
 <article class="post-content">
@@ -149,7 +149,7 @@ index.html</p>
 
 <div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">&lt;</span><span class="n">div</span> <span class="n">ng</span><span class="o">-</span><span class="n">app</span><span class="o">=</span><span class="s2">&quot;myDemoModule&quot;</span><span class="o">&gt;</span>
 	<span class="o">&lt;</span><span class="n">div</span> <span class="n">ng</span><span class="o">-</span><span class="n">controller</span><span class="o">=</span><span class="s2">&quot;demoController&quot;</span><span class="o">&gt;</span>  
-	        <span class="o">&lt;</span><span class="no">ANY</span> <span class="n">my</span><span class="o">-</span><span class="n">demo</span><span class="o">-</span><span class="n">directive</span><span class="o">&gt;&lt;</span><span class="no">ANY</span><span class="o">&gt;</span>
+	    <span class="o">&lt;</span><span class="no">ANY</span> <span class="n">my</span><span class="o">-</span><span class="n">demo</span><span class="o">-</span><span class="n">directive</span><span class="o">&gt;&lt;</span><span class="no">ANY</span><span class="o">&gt;</span>
   	    <span class="o">&lt;</span><span class="n">my</span><span class="o">-</span><span class="n">demo</span><span class="o">-</span><span class="n">directive</span><span class="o">&gt;&lt;</span><span class="sr">/my-demo-directive&gt;</span>
 <span class="sr">	    &lt;ANY class=&quot;my-demo-directive&quot;&gt;&lt;/</span><span class="no">ANY</span><span class="o">&gt;</span>
 	    <span class="o">&lt;!--</span> <span class="ss">directive</span><span class="p">:</span> <span class="n">my</span><span class="o">-</span><span class="n">demo</span><span class="o">-</span><span class="n">directive</span> <span class="o">--&gt;</span>
@@ -176,25 +176,48 @@ index.html</p>
 <p>Các “pre-link” function cũng được thực thi theo thứ tự của priority, còn “post-link” thì được thực thi theo thứ tự ngược lại. </p>
 
 <p><ins>VD:</ins><br />
-Các directive02, directive01, directive03 đều khai báo “priority: 1”</p>
+Các directive02, directive01, directive03 đều khai báo <span class="red">“priority: 1”</span></p>
 
 <ul>
-  <li>“&lt;p  directive02 directive01 directive03 &gt;&lt;/p&gt;” : Thứ tự thực thi sẽ là: directive02 →  directive01 →  directive03.</li>
-  <li>
-    <p directive03="" directive01="" directive02=""></p>
-    <p>: Thứ tự thực thi sẽ là: directive03 →  directive01 →  directive02.</p>
-  </li>
+  <li><span class="blue">&lt;p</span> <span class="red">directive02 directive01 directive03</span> <span class="blue">&gt;&lt;/p&gt;</span><br />
+Thứ tự thực thi sẽ là: directive02 →  directive01 →  directive03.</li>
+  <li><span class="blue">&lt;p</span> <span class="red">directive03 directive01 directive02</span> <span class="blue">&gt;&lt;/p&gt;</span><br />
+Thứ tự thực thi sẽ là: directive03 →  directive01 →  directive02.</li>
 </ul>
 
 <p>Nếu các directive đó đều có tác động đến việc hiển thị của DOM element, thì trình biên dịch sẽ ưu tiên xử lý của directive có giá trị priority nhỏ nhất.</p>
 
 <h5 id="emtemplateem"><em>template</em></h5>
+<p>Định nghĩa template cho directive của bạn (không sử dụng nếu dùng <a href="#templateUrl">templateURL</a>).</p>
+
+<p><ins>VD:</ins> template: “&lt;p&gt;This is my demoTemplate&lt;/p&gt;”</p>
 
 <h5 id="emtemplateurlem"><em>templateUrl</em></h5>
 
+<p>Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. không sử dụng nếu dùng template, nếu không directive sẽ ưu tiên sử dụng nội dung trong template.</p>
+
+<p><ins>VD:</ins></p>
+
 <h5 id="emreplaceem"><em>replace</em></h5>
 
+<p>Replace nhận giá trị kỉểu boolean, mặc định là false.</p>
+
+<ul>
+  <li>True: Thay thế DOM element có khai báo directive bằng nội dung của directive tương ứng.</li>
+  <li>False: Đưa nội dung của directive vào bên trong DOM element khai báo directive đó.</li>
+</ul>
+
+<p><ins>VD:</ins></p>
+
 <h5 id="emtranscludeem"><em>transclude</em></h5>
+<p>Transclude nhận giá trị kỉểu boolean, mặc định là false.</p>
+
+<ul>
+  <li>True: Tách hết nội dung bên trong DOM element, sau đó thực thi directive, và cuối cùng là append hết phần nội dung đã tách vào DOM element.</li>
+  <li>False: Thay thế hết tất cả nội dung bên trong DOM element bằng nội dung của directive được khai báo.</li>
+</ul>
+
+<p><ins>VD:</ins></p>
 
 <h5 id="emscopeem"><em>scope</em></h5>
 

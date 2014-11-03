@@ -98,7 +98,7 @@ index.html&lt;/p&gt;
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;myDemoModule&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
 	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;demoController&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;  
-	        &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ANY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;demo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ANY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
+	    &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ANY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;demo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ANY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
   	    &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;demo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/my-demo-directive&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;sr&quot;&gt;	    &amp;lt;ANY class=&amp;quot;my-demo-directive&amp;quot;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ANY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
 	    &lt;span class=&quot;o&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;demo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
@@ -125,25 +125,48 @@ index.html&lt;/p&gt;
 &lt;p&gt;Các “pre-link” function cũng được thực thi theo thứ tự của priority, còn “post-link” thì được thực thi theo thứ tự ngược lại. &lt;/p&gt;
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;
-Các directive02, directive01, directive03 đều khai báo “priority: 1”&lt;/p&gt;
+Các directive02, directive01, directive03 đều khai báo &lt;span class=&quot;red&quot;&gt;“priority: 1”&lt;/span&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;“&amp;lt;p  directive02 directive01 directive03 &amp;gt;&amp;lt;/p&amp;gt;” : Thứ tự thực thi sẽ là: directive02 →  directive01 →  directive03.&lt;/li&gt;
-  &lt;li&gt;
-    &lt;p directive03=&quot;&quot; directive01=&quot;&quot; directive02=&quot;&quot;&gt;&lt;/p&gt;
-    &lt;p&gt;: Thứ tự thực thi sẽ là: directive03 →  directive01 →  directive02.&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;&lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive02 directive01 directive03&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;br /&gt;
+Thứ tự thực thi sẽ là: directive02 →  directive01 →  directive03.&lt;/li&gt;
+  &lt;li&gt;&lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive03 directive01 directive02&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;br /&gt;
+Thứ tự thực thi sẽ là: directive03 →  directive01 →  directive02.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;Nếu các directive đó đều có tác động đến việc hiển thị của DOM element, thì trình biên dịch sẽ ưu tiên xử lý của directive có giá trị priority nhỏ nhất.&lt;/p&gt;
 
 &lt;h5 id=&quot;emtemplateem&quot;&gt;&lt;em&gt;template&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Định nghĩa template cho directive của bạn (không sử dụng nếu dùng &lt;a href=&quot;#templateUrl&quot;&gt;templateURL&lt;/a&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt; template: “&amp;lt;p&amp;gt;This is my demoTemplate&amp;lt;/p&amp;gt;”&lt;/p&gt;
 
 &lt;h5 id=&quot;emtemplateurlem&quot;&gt;&lt;em&gt;templateUrl&lt;/em&gt;&lt;/h5&gt;
 
+&lt;p&gt;Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. không sử dụng nếu dùng template, nếu không directive sẽ ưu tiên sử dụng nội dung trong template.&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
+
 &lt;h5 id=&quot;emreplaceem&quot;&gt;&lt;em&gt;replace&lt;/em&gt;&lt;/h5&gt;
 
+&lt;p&gt;Replace nhận giá trị kỉểu boolean, mặc định là false.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;True: Thay thế DOM element có khai báo directive bằng nội dung của directive tương ứng.&lt;/li&gt;
+  &lt;li&gt;False: Đưa nội dung của directive vào bên trong DOM element khai báo directive đó.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
+
 &lt;h5 id=&quot;emtranscludeem&quot;&gt;&lt;em&gt;transclude&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Transclude nhận giá trị kỉểu boolean, mặc định là false.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;True: Tách hết nội dung bên trong DOM element, sau đó thực thi directive, và cuối cùng là append hết phần nội dung đã tách vào DOM element.&lt;/li&gt;
+  &lt;li&gt;False: Thay thế hết tất cả nội dung bên trong DOM element bằng nội dung của directive được khai báo.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;emscopeem&quot;&gt;&lt;em&gt;scope&lt;/em&gt;&lt;/h5&gt;
 
