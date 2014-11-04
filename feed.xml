@@ -34,48 +34,31 @@ Việc biên dịch HTML được thực thi trong 3 bước:&lt;/p&gt;
   &lt;li&gt;An isolated scope: là một scope riêng mới, không thừa kế gì từ scope bên ngoài, chỉ tồn tại mỗi mình nó.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Sử dụng isolate scope cho truờng hợp khi chúng ta tạo một custom directive, và muốn tái sử dụng directive đó.&lt;/p&gt;
-
-&lt;p&gt;Sử dụng isolate scope không có nghĩa là không truy cập đuợc vào scope cha bên ngoài.&lt;/p&gt;
+&lt;p&gt;Sử dụng isolate scope cho truờng hợp khi chúng ta tạo một custom directive, và muốn tái sử dụng directive đó. Nhưng sử dụng isolate scope không có nghĩa là không truy cập đuợc vào scope cha bên ngoài. Phần hướng dẫn tạo một custom directive sẽ đề cập tiếp đến vấn đề này.&lt;/p&gt;
 
 &lt;h3 id=&quot;to-custom-directive&quot;&gt;Tạo custom directive&lt;/h3&gt;
-&lt;p&gt;Tên của Angular Directives được khai báo theo kiểu &lt;a href=&quot;http://en.wikipedia.org/wiki/CamelCase&quot;&gt;camelCase&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Tên của Angular Directives được khai báo theo kiểu &lt;a href=&quot;http://en.wikipedia.org/wiki/CamelCase&quot;&gt;camelCase&lt;/a&gt;.&lt;br /&gt;
+ Khi khai báo tên một directive thì tốt nhất bạn nên đặt thêm tiền tố, mục đích là trách bị trùng tên với các từ khoá của Angular hoặc của framework Javascript nào khác có sử dụng trong dự án. Thêm nữa, trong tương lai khi AngularJS nâng cấp version thì sẽ có bổ sung thêm các từ khóa có thể trùng với tên directive mà bạn đã đặt, bạn sẽ mất thời gian để chỉnh sửa lại. &lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;myDemoModule&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;myDemoDirective&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-	   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;sr&quot;&gt;//&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;TODO&lt;/span&gt;
-   &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;
+Khai báo directive&lt;/p&gt;
 
-&lt;!-- &lt;iframe src=&quot;http://embed.plnkr.co/0TCzKZfaq17oQCRkgV0K/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;250px&quot; width=&quot;100%px&quot;&gt;&lt;/iframe&gt;
- --&gt;
+&lt;pre&gt;
+angular.module(&#39;demoModule&#39;, [])
+  .directive(&#39;&lt;span class=&quot;red&quot;&gt;demoDirective&lt;/span&gt;&#39;, function(){
+    return {
+       // TODO
+    };
+  });
+&lt;/pre&gt;
 
-&lt;h4 id=&quot;mt-mu-nh-ngha-directive&quot;&gt;Một mẫu định nghĩa directive&lt;/h4&gt;
+&lt;p&gt;Khi sử dụng&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myDemoModule&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;myDemoModule&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;myDemoModule&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;‘&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myDemoDirective&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;’&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;factory&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;injectables&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;ss&quot;&gt;restrict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;AECM”, // kiểu string&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    priority: 3, // kiểu number,&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    template: &amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/p&amp;gt;&amp;quot;, /&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ki&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;ể&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;u&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;string&lt;/span&gt;
-    &lt;span class=&quot;ss&quot;&gt;templateUrl&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&amp;quot;myDirectivesFolder / demoTempDirective.html”, //kiểu string&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    replace: true, // kiểu boolean&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    transclude: false, // kiểu boolean&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    scope: {&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;      title: &amp;#39;@&amp;#39;&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    }, // kiểu bool hoặc object&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    controller: function controllerConstructor($scope, $element, $attrs, $transclude) {…},&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    require: [&amp;#39;^myTabs&amp;#39;, &amp;#39;^myModel&amp;#39;], // kiểu string&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    link: function postLink(scope, iElement, iAttrs) {…},&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    compile: function compile(tElement, tAttrs, transclude) {&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;      return {&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;        pre: function preLink(scope, iElement, iAttrs, controller) {…},&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;        post: function postLink(scope, iElement, iAttrs, controller) {…}&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;      }&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;    }&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;  };&lt;/span&gt;
-&lt;span class=&quot;s2&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;pre&gt;
+&amp;lt;p &lt;span class=&quot;red&quot;&gt;demo-directive&lt;/span&gt; &amp;gt;&amp;lt;/p&amp;gt;
+&lt;/pre&gt;
+
+&lt;!-- &lt;iframe src=&quot;http://embed.plnkr.co/0TCzKZfaq17oQCRkgV0K/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;250px&quot; width=&quot;100%px&quot;&gt;&lt;/iframe&gt; --&gt;
 
 &lt;h4 id=&quot;cc-thuc-tnh-khai-bo&quot;&gt;Các thuộc tính khai báo&lt;/h4&gt;
 
@@ -83,87 +66,172 @@ Việc biên dịch HTML được thực thi trong 3 bước:&lt;/p&gt;
 &lt;p&gt;khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive.&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;a&lt;/span&gt;ttribute (A)&lt;br /&gt;
-&lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;my-directive&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;e&lt;/span&gt;lement (E)&lt;br /&gt;
-&lt;span class=&quot;blue&quot;&gt;&amp;lt;my-directive&amp;gt;&amp;lt;/my-directive&amp;gt;&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;c&lt;/span&gt;lass (C)&lt;br /&gt;
-&lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; class=&lt;span class=&quot;red&quot;&gt;”my-directive”&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/div&amp;gt;&lt;/span&gt;&lt;/li&gt;
-  &lt;li&gt;Kiểu co&lt;span class=&quot;green&quot;&gt;m&lt;/span&gt;ment (M)&lt;br /&gt;
-&lt;code&gt;&amp;lt;!-- directive: my-directive --&amp;gt;&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;a&lt;/span&gt;ttribute (A)&lt;br /&gt;&lt;/li&gt;
 &lt;/ol&gt;
+&lt;pre&gt;
+&lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ol&gt;
+  &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;e&lt;/span&gt;lement (E)&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;
+&lt;span class=&quot;blue&quot;&gt;&amp;lt;directive&amp;gt;&amp;lt;/directive&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ol&gt;
+  &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;c&lt;/span&gt;lass (C)&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;
+&lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; class=&lt;span class=&quot;red&quot;&gt;”directive”&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+&lt;ol&gt;
+  &lt;li&gt;Kiểu co&lt;span class=&quot;green&quot;&gt;m&lt;/span&gt;ment (M)&lt;br /&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;
+&amp;lt;!-- directive: directive --&amp;gt;
+&lt;/pre&gt;
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;
 index.html&lt;/p&gt;
+&lt;pre&gt;
+&amp;lt;div ng-app=&quot;demoModule&quot;&amp;gt;
+  &amp;lt;div ng-controller=&quot;demoController&quot;&amp;gt;
+    &lt;span class=&quot;red&quot;&gt;&amp;lt;ANY demo-directive&amp;gt;&lt;any&gt;
+    &amp;lt;demo-directive&amp;gt;
+    &amp;lt;ANY class=&quot;demo-directive&quot;&amp;gt;&lt;/any&gt;
+    &amp;lt;!-- directive: demo-directive --&amp;gt;&lt;/span&gt;
+  &amp;lt;/div&amp;gt;
+&amp;lt;/div&amp;gt;
+&lt;/pre&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;myDemoModule&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;controller&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;demoController&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;  
-	    &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ANY&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;demo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ANY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-  	    &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;demo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/my-demo-directive&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;sr&quot;&gt;	    &amp;lt;ANY class=&amp;quot;my-demo-directive&amp;quot;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;ANY&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;
-	    &lt;span class=&quot;o&quot;&gt;&amp;lt;!--&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;my&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;demo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;--&amp;gt;&lt;/span&gt;
-	&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;sr&quot;&gt;/div&amp;gt;&lt;/span&gt;
-&lt;span class=&quot;sr&quot;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;div&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h5 id=&quot;em-idtemplatetemplateem&quot;&gt;&lt;em id=&quot;template&quot;&gt;template&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Định nghĩa template, phần hỉển thị nội dung cho directive của bạn (không sử dụng nếu dùng &lt;a href=&quot;#templateUrl&quot;&gt;templateURL&lt;/a&gt;).&lt;/p&gt;
 
-&lt;p&gt;script.js&lt;/p&gt;
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;n&quot;&gt;angular&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;module&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;myDemoModule&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;myDemoDirective&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
-    	   &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;ss&quot;&gt;restrict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;A&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-		&lt;span class=&quot;ss&quot;&gt;template&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;&amp;#39;&amp;lt;p&amp;gt;This is my Angular directive demo&amp;lt;/p&amp;gt;&amp;#39;&lt;/span&gt;
-	   &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;});&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;pre&gt;
+var myApp = angular.module(&#39;demoModule&#39;, []);
+myApp.directive(&#39;demoDirective&#39;, function(){
+  return {
+    restrict: &quot;ACEM&quot;,
+    &lt;span class=&quot;red&quot;&gt;template: &quot;&amp;lt;h3&amp;gt;This is demo directive&amp;lt;/h3&amp;gt;&quot;&lt;/span&gt;
+}});
+&lt;/pre&gt;
+
+&lt;h5 id=&quot;em-idtemplateurltemplateurlem&quot;&gt;&lt;em id=&quot;templateUrl&quot;&gt;templateUrl&lt;/em&gt;&lt;/h5&gt;
+
+&lt;p&gt;Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. không sử dụng nếu dùng &lt;a href=&quot;#template&quot;&gt;template&lt;/a&gt;, nếu không directive sẽ ưu tiên sử dụng nội dung trong template.&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+var myApp = angular.module(&#39;demoModule&#39;, []);
+myApp.directive(&#39;demoDirective&#39;, function(){
+  return {
+    restrict: &quot;AE&quot;,
+    &lt;span class=&quot;red&quot;&gt;templateUrl: &quot;../templates/demoDirective.html&quot;&lt;/span&gt;
+}});
+&lt;/pre&gt;
 
 &lt;h5 id=&quot;empriorityem&quot;&gt;&lt;em&gt;priority&lt;/em&gt;&lt;/h5&gt;
 &lt;p&gt;Thứ tự thực thi directive.&lt;/p&gt;
 
-&lt;p&gt;Khi một DOM element khai báo nhiều directive thì cần phân định rõ thứ tự thực thi directive, vì vậy priority được dùng để sắp xếp các directive trước khi compile function  được gọi. Priority được khai báo kiểu number, theo thứ tự thực thi 0 → 1 → 2 → … → n (Giá trị mặc định của priority là “0”). &lt;/p&gt;
+&lt;p&gt;Khi một DOM element khai báo nhiều directive thì cần phân định rõ thứ tự thực thi directive, vì vậy priority được dùng để sắp xếp các directive trước khi &lt;a href=&quot;#compile&quot;&gt;compile function&lt;/a&gt; được gọi. Priority được khai báo kiểu number, theo thứ tự thực thi 0 → 1 → 2 → … → n (Giá trị mặc định của priority là “0”). &lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;
+Có 3 directive&lt;/p&gt;
+
+&lt;pre&gt;
+var myApp = angular.module(&#39;demoModule&#39;, []);
+myApp.directive(&#39;&lt;span class=&quot;red&quot;&gt;directive1&lt;/span&gt;&#39;, function(){
+  return {
+    restrict: &quot;A&quot;,
+    template: &quot;&amp;lt;h3&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&quot;,
+    &lt;span class=&quot;red&quot;&gt;priority: 1&lt;/span&gt;
+}});
+myApp.directive(&#39;&lt;span class=&quot;red&quot;&gt;directive2&lt;/span&gt;&#39;, function(){
+  return {
+    restrict: &quot;A&quot;,
+    template: &quot;&amp;lt;h3&amp;gt;This is directive2&amp;lt;/h3&amp;gt;&quot;,
+    &lt;span class=&quot;red&quot;&gt;priority: 2&lt;/span&gt;
+}});
+myApp.directive(&#39;&lt;span class=&quot;red&quot;&gt;directive3&lt;/span&gt;&#39;, function(){
+  return {
+    restrict: &quot;A&quot;,
+    template: &quot;&amp;lt;h3&amp;gt;This is directive3&amp;lt;/h3&amp;gt;&quot;,
+    &lt;span class=&quot;red&quot;&gt;priority: 3&lt;/span&gt;
+}});
+&lt;/pre&gt;
+
+&lt;p&gt;Khai báo sử dụng&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive2 directive1 directive3&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Thứ tự thực thi&lt;/p&gt;
+
+&lt;pre&gt;
+directive1 -&amp;gt; directive2 -&amp;gt; directive3
+&lt;/pre&gt;
 
 &lt;p&gt;Trường hợp các directive có giá trị priority bị trùng nhau thì trình biên dịch sẽ thực thi directive được khai báo trước.&lt;/p&gt;
 
-&lt;p&gt;Các “pre-link” function cũng được thực thi theo thứ tự của priority, còn “post-link” thì được thực thi theo thứ tự ngược lại. &lt;/p&gt;
-
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;
-Các directive02, directive01, directive03 đều khai báo &lt;span class=&quot;red&quot;&gt;“priority: 1”&lt;/span&gt;&lt;/p&gt;
+Sử dụng 3 directive ở ví dụ trên, nhưng khai báo &lt;span class=&quot;red&quot;&gt;“priority: 1”&lt;/span&gt; cho cả 3.&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;&lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive02 directive01 directive03&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;br /&gt;
-Thứ tự thực thi sẽ là: directive02 →  directive01 →  directive03.&lt;/li&gt;
-  &lt;li&gt;&lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive03 directive01 directive02&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;&lt;br /&gt;
-Thứ tự thực thi sẽ là: directive03 →  directive01 →  directive02.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;pre&gt;
+&lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive2 directive1 directive3&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Thứ tự thực thi&lt;/p&gt;
+
+&lt;pre&gt;
+directive2 -&amp;gt; directive1 -&amp;gt; directive3
+&lt;/pre&gt;
+
+&lt;p&gt;Các “pre-link” function cũng được thực thi theo thứ tự của priority, còn với “post-link” thì được thực thi theo thứ tự ngược lại. &lt;/p&gt;
 
 &lt;p&gt;Nếu các directive đó đều có tác động đến việc hiển thị của DOM element, thì trình biên dịch sẽ ưu tiên xử lý của directive có giá trị priority nhỏ nhất.&lt;/p&gt;
-
-&lt;h5 id=&quot;emtemplateem&quot;&gt;&lt;em&gt;template&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;Định nghĩa template cho directive của bạn (không sử dụng nếu dùng &lt;a href=&quot;#templateUrl&quot;&gt;templateURL&lt;/a&gt;).&lt;/p&gt;
-
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt; template: “&amp;lt;p&amp;gt;This is my demoTemplate&amp;lt;/p&amp;gt;”&lt;/p&gt;
-
-&lt;h5 id=&quot;emtemplateurlem&quot;&gt;&lt;em&gt;templateUrl&lt;/em&gt;&lt;/h5&gt;
-
-&lt;p&gt;Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. không sử dụng nếu dùng template, nếu không directive sẽ ưu tiên sử dụng nội dung trong template.&lt;/p&gt;
-
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;emreplaceem&quot;&gt;&lt;em&gt;replace&lt;/em&gt;&lt;/h5&gt;
 
 &lt;p&gt;Replace nhận giá trị kỉểu boolean, mặc định là false.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;True: Thay thế DOM element có khai báo directive bằng nội dung của directive tương ứng.&lt;/li&gt;
-  &lt;li&gt;False: Đưa nội dung của directive vào bên trong DOM element khai báo directive đó.&lt;/li&gt;
+  &lt;li&gt;True: &lt;span class=&quot;red&quot;&gt;Thay thế&lt;/span&gt; DOM element khai báo directive bằng nội dung của directive tương ứng, bao gồm nội dung bên trong template và dữ liệu.&lt;/li&gt;
+  &lt;li&gt;False: &lt;span class=&quot;red&quot;&gt;Đưa nội dung&lt;/span&gt; của directive (bao gồm nội dung bên trong template và dữ liệu) &lt;span class=&quot;red&quot;&gt;vào bên trong&lt;/span&gt; DOM element khai báo directive đó.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
 
+&lt;pre&gt;
+var myApp = angular.module(&#39;demoModule&#39;, []);
+myApp.directive(&#39;demoReplace&#39;, function(){
+  return {
+    restrict: &quot;A&quot;,
+    template: &quot;&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;This is directive1&lt;span class=&quot;red&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;&quot;,
+    &lt;span class=&quot;red&quot;&gt;replace: true&lt;/span&gt;
+}});
+&lt;/pre&gt;
+
+&lt;p&gt;Khai báo sử dụng&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;span class=&quot;red&quot;&gt;&amp;lt;p&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Kết quả&lt;/p&gt;
+
+&lt;pre&gt;
+&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
 &lt;h5 id=&quot;emtranscludeem&quot;&gt;&lt;em&gt;transclude&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;Transclude nhận giá trị kỉểu boolean, mặc định là false.&lt;/p&gt;
+&lt;p&gt;Transclude nhận giá trị kiểu boolean, mặc định là false.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;True: Tách hết nội dung bên trong DOM element, sau đó thực thi directive, và cuối cùng là append hết phần nội dung đã tách vào DOM element.&lt;/li&gt;
-  &lt;li&gt;False: Thay thế hết tất cả nội dung bên trong DOM element bằng nội dung của directive được khai báo.&lt;/li&gt;
+  &lt;li&gt;True: Tách hết nội dung bên trong DOM element khai báo directive, sau đó thực thi directive, và cuối cùng là append hết phần nội dung đã tách vào DOM element khai báo directive.&lt;/li&gt;
+  &lt;li&gt;False: Thay thế hết tất cả nội dung bên trong DOM element khai báo directive, bằng nội dung của directive.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
@@ -176,20 +244,32 @@ Thứ tự thực thi sẽ là: directive03 →  directive01 →  directive02.&l
 
 &lt;h5 id=&quot;emlinkem&quot;&gt;&lt;em&gt;link&lt;/em&gt;&lt;/h5&gt;
 
-&lt;h5 id=&quot;emcompileem&quot;&gt;&lt;em&gt;compile&lt;/em&gt;&lt;/h5&gt;
+&lt;h5 id=&quot;em-idcompilecompileem&quot;&gt;&lt;em id=&quot;compile&quot;&gt;compile&lt;/em&gt;&lt;/h5&gt;
 
-&lt;p&gt;&lt;del&gt;
-Để dễ hiểu về AngularJS Directive, hãy xem qua tình huống sau:
-Giả sử trong tình huống bạn muốn hiển thị nhiều vùng dữ liệu có cùng format về giao diện, nhưng khác nhau về nội dung dữ liệu thì có nhiều cách để thực hiện.&lt;/del&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;del&gt;Cách 1: Bạn có thể viết code ở những vị trí cần hiển thị. Cách này chắc chắn code sẽ rất thừa thải và không có khả năng tái sử dụng, rất khó khăn khi bạn muốn thay đổi format giao diện cho phần hiển thị đó vì phải tìm đến từng nơi.&lt;/del&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;del&gt;Cách 2: Bạn có thể tạo một template chung và sử dụng javascript hay jQuery để đưa dữ liệu vào template mỗi khi gọi, nhưng cách này tương đối phức tạp, và xử lý tình huống này code sẽ không ít.&lt;/del&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;del&gt;Cách 3: Bạn có thể sử dụng AngularJS và tạo một directive cho phần hiển thị đó. Cách này rất gọn gàng và tường minh, có thể tái sử dụng ở nhiều nơi, việc chỉnh sửa cũng dễ dàng hơn.&lt;/del&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;del&gt;Tình huống trên đưa ra chỉ để dễ hình dung về directive, nhưng chưa nói lên đầy đủ ý nghĩa của directive. Bài viết này sẽ đưa ra những demo và giải thích để bạn hiểu rõ hơn.
-&lt;/del&gt;&lt;/p&gt;
+&lt;h4 id=&quot;mt-mu-nh-ngha-directive&quot;&gt;Một mẫu định nghĩa directive&lt;/h4&gt;
+&lt;pre&gt;
+var demoModule = angular.module(&#39;demoModule&#39;, []);
+demoModule.directive(‘demoDirective’, function factory(injectables) {
+  return {
+    restrict: &quot;AECM”,                // kiểu string
+    priority: 3,                     // kiểu number
+    template: &quot;&amp;lt;p&amp;gt;&amp;#123;{variable}}&amp;lt;/p&amp;gt;&quot;, // kiểu string
+    templateUrl: &quot;templates/demoTempDirective.html”, //kiểu string
+    replace: true,                   // kiểu boolean
+    transclude: false,               // kiểu boolean
+    scope: { title: &#39;@&#39; },           // kiểu boolean hoặc object
+    controller: function funcCtrl($scope, $element, $attrs) {…},
+    require: [&#39;^myTabs&#39;, &#39;^myModel&#39;],// kiểu string
+    link: function postLink(scope, iElement, iAttrs) {…},
+    compile: function compile(tElement, tAttrs, transclude) {
+      return {
+        pre: function preLink(scope, iElement, iAttrs, controller) {…},
+        post: function poLink(scope, iElement, iAttrs, controller) {…}
+      }
+    }
+  };
+});
+&lt;/pre&gt;
 </description>
         <pubDate>Fri, 24 Oct 2014 00:00:00 +0700</pubDate>
         <link>http://xuantain.github.io/javascript/angularjs/tim-hieu-ve-angularjs-directives.html</link>
