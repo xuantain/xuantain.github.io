@@ -26,16 +26,6 @@ Việc biên dịch HTML được thực thi trong 3 bước:&lt;/p&gt;
 
 &lt;p&gt;Sau khi thực thi biên dịch HTML thì giữa scope và DOM sẽ có sự ràng buộc (a live binding), mỗi một thay đổi ở model trên compiled scope sẽ được ánh xạ vào DOM.&lt;/p&gt;
 
-&lt;h3 id=&quot;directives-scope&quot;&gt;Directive’s scope&lt;/h3&gt;
-&lt;p&gt;Mặc định thì directive sẽ lấy scope cha bên ngoài, nhưng trong một số truờng hợp chúng ta muốn directive khai báo thêm các thuộc tính và function khác chỉ sử dụng bên trong nội bộ directive, mà lại không làm ảnh huởng đến scope cha bên ngoài thì có 2 lựa chọn:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A child scope: scope này thừa kế từ scope cha bên ngoài, và có thể được khai báo thêm các property, function khác.&lt;/li&gt;
-  &lt;li&gt;An isolated scope: là một scope riêng mới, không thừa kế gì từ scope bên ngoài, chỉ tồn tại mỗi mình nó.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Sử dụng isolate scope cho truờng hợp khi chúng ta tạo một custom directive, và muốn tái sử dụng directive đó. Nhưng sử dụng isolate scope không có nghĩa là không truy cập đuợc vào scope cha bên ngoài. Phần hướng dẫn tạo một custom directive sẽ đề cập tiếp đến vấn đề này.&lt;/p&gt;
-
 &lt;h3 id=&quot;to-custom-directive&quot;&gt;Tạo custom directive&lt;/h3&gt;
 &lt;p&gt;Tên của Angular Directives được khai báo theo kiểu &lt;a href=&quot;http://en.wikipedia.org/wiki/CamelCase&quot;&gt;camelCase&lt;/a&gt;.&lt;br /&gt;
  Khi khai báo tên một directive thì tốt nhất bạn nên đặt thêm tiền tố, mục đích là trách bị trùng tên với các từ khoá của Angular hoặc của framework Javascript nào khác có sử dụng trong dự án. Thêm nữa, trong tương lai khi AngularJS nâng cấp version thì sẽ có bổ sung thêm các từ khóa có thể trùng với tên directive mà bạn đã đặt, bạn sẽ mất thời gian để chỉnh sửa lại. &lt;/p&gt;
@@ -236,7 +226,34 @@ myApp.directive(&#39;demoReplace&#39;, function(){
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;emscopeem&quot;&gt;&lt;em&gt;scope&lt;/em&gt;&lt;/h5&gt;
+&lt;h5 id=&quot;em-idscopescopeem&quot;&gt;&lt;em id=&quot;scope&quot;&gt;scope&lt;/em&gt;&lt;/h5&gt;
+
+&lt;p&gt;Trước hết các bạn cần hiểu về khái niệm &lt;a href=&quot;http://acegik.net/blog/javascript/angularjs/tim-hieu-ve-scope-trong-angularjs.html&quot;&gt;scope&lt;/a&gt; trong AngularJS.&lt;/p&gt;
+
+&lt;p&gt;Mặc định thì directive sẽ lấy scope cha bên ngoài, nhưng trong một số truờng hợp chúng ta muốn directive khai báo thêm các thuộc tính và function khác chỉ sử dụng bên trong nội bộ directive, mà lại không làm ảnh huởng đến scope cha bên ngoài thì có 2 lựa chọn:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A child scope: scope này thừa kế từ scope cha bên ngoài, và có thể khai báo thêm các property, function khác chỉ sử dụng đuợc bên trong directive đó.&lt;/li&gt;
+  &lt;li&gt;An isolated scope: là một scope riêng mới, không thừa kế gì từ scope bên ngoài, chỉ tồn tại mỗi mình nó.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Để giải thích về sự khác nhau giữa child scope và isolate scope trong Directives, các bạn xem qua các ví dụ.&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt; Child scope&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Khai báo sử dụng child scope: &lt;span class=&quot;red&quot;&gt;scope: true&lt;/span&gt;&lt;/p&gt;
+
+&lt;iframe src=&quot;http://embed.plnkr.co/QM2emkyWQVhM2qceJHR1/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;370px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Khi bạn thay đổi giá trị ở textBox Parent scope thì giá trị ở textBox Child scope cũng thay đổi theo, đó là do directive đã khai báo sử dụng child scope (scope: true) nên scope này thừa kế từ scope cha. Mỗi một thay đổi trên thuộc tính thừa kế từ scope cha, thì thuộc tính đó cũng được ánh xạ trên child scope thừa kế và ngược lại. Riêng thuộc tính được khai báo thêm bên trong child scope thì scope cha không thể truy cập được. &lt;/p&gt;
+
+&lt;p&gt;Như ở ví dụ trên thì dòng chữ “This text is the specific property of the child scope” là giá trị của thuộc tính được khai báo thêm bên trong child scope thừa kế từ scope cha, nên scope cha không thể truy cập đuợc.&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt; Isolate scope&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Khai báo sử dụng isolate scope: &lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Sử dụng isolate scope cho truờng hợp khi chúng ta tạo một custom directive, và muốn tái sử dụng directive đó. Nhưng sử dụng isolate scope không có nghĩa là không truy cập đuợc vào scope cha bên ngoài. Phần hướng dẫn tạo một custom directive sẽ đề cập tiếp đến vấn đề này.&lt;/p&gt;
 
 &lt;h5 id=&quot;emcontrollerem&quot;&gt;&lt;em&gt;controller&lt;/em&gt;&lt;/h5&gt;
 
