@@ -216,16 +216,6 @@ myApp.directive(&#39;demoReplace&#39;, function(){
 &lt;span class=&quot;red&quot;&gt;&amp;lt;h3&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 
-&lt;h5 id=&quot;emtranscludeem&quot;&gt;&lt;em&gt;transclude&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;Transclude nhận giá trị kiểu boolean, mặc định là false.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;True: Tách hết nội dung bên trong DOM element khai báo directive, sau đó thực thi directive, và cuối cùng là append hết phần nội dung đã tách vào DOM element khai báo directive.&lt;/li&gt;
-  &lt;li&gt;False: Thay thế hết tất cả nội dung bên trong DOM element khai báo directive, bằng nội dung của directive.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
-
 &lt;h5 id=&quot;em-idscopescopeem&quot;&gt;&lt;em id=&quot;scope&quot;&gt;scope&lt;/em&gt;&lt;/h5&gt;
 
 &lt;p&gt;Trước hết các bạn cần hiểu về khái niệm &lt;a href=&quot;http://acegik.net/blog/javascript/angularjs/tim-hieu-ve-scope-trong-angularjs.html&quot;&gt;scope&lt;/a&gt; trong AngularJS.&lt;/p&gt;
@@ -237,23 +227,69 @@ myApp.directive(&#39;demoReplace&#39;, function(){
   &lt;li&gt;An isolated scope: là một scope riêng mới, không thừa kế gì từ scope bên ngoài, chỉ tồn tại mỗi mình nó.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Để giải thích về sự khác nhau giữa child scope và isolate scope trong Directives, các bạn xem qua các ví dụ.&lt;/p&gt;
+&lt;p&gt;Phần bên dưới sẽ giải thích về sự khác nhau giữa child scope và isolate scope trong Directives.&lt;/p&gt;
 
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt; Child scope&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span id=&quot;childScope&quot;&gt;&lt;ins&gt;Child scope&lt;/ins&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;p&gt;Khai báo sử dụng child scope: &lt;span class=&quot;red&quot;&gt;scope: true&lt;/span&gt;&lt;/p&gt;
 
-&lt;iframe src=&quot;http://embed.plnkr.co/QM2emkyWQVhM2qceJHR1/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;370px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+&lt;iframe src=&quot;http://embed.plnkr.co/QM2emkyWQVhM2qceJHR1/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;270px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
 
-&lt;p&gt;Khi bạn thay đổi giá trị ở textBox Parent scope thì giá trị ở textBox Child scope cũng thay đổi theo, đó là do directive đã khai báo sử dụng child scope (scope: true) nên scope này thừa kế từ scope cha. Mỗi một thay đổi trên thuộc tính thừa kế từ scope cha, thì thuộc tính đó cũng được ánh xạ trên child scope thừa kế và ngược lại. Riêng thuộc tính được khai báo thêm bên trong child scope thì scope cha không thể truy cập được. &lt;/p&gt;
+&lt;p&gt;Ở phần demo trên, khi bạn thay đổi giá trị ở textBox Parent scope thì giá trị ở textBox Child scope cũng thay đổi theo, đó là do directive đã khai báo sử dụng child scope (&lt;span class=&quot;red&quot;&gt;scope: true&lt;/span&gt;) nên scope này thừa kế từ scope cha. Mỗi một thay đổi trên thuộc tính thừa kế từ scope cha, thì thuộc tính đó cũng được ánh xạ trên child scope thừa kế và ngược lại. Riêng thuộc tính được khai báo thêm bên trong child scope thì scope cha không thể truy cập được. &lt;/p&gt;
 
-&lt;p&gt;Như ở ví dụ trên thì dòng chữ “This text is the specific property of the child scope” là giá trị của thuộc tính được khai báo thêm bên trong child scope thừa kế từ scope cha, nên scope cha không thể truy cập đuợc.&lt;/p&gt;
+&lt;p&gt;Như ở ví dụ trên thì dòng chữ “This text is the specific property of the child scope” là giá trị của thuộc tính được khai báo thêm bên trong child scope thừa kế từ scope cha, nên scope cha không thể truy cập được.&lt;/p&gt;
 
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt; Isolate scope&lt;br /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;ins&gt;Isolate scope&lt;/ins&gt;&lt;/p&gt;
 
 &lt;p&gt;Khai báo sử dụng isolate scope: &lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Sử dụng isolate scope cho truờng hợp khi chúng ta tạo một custom directive, và muốn tái sử dụng directive đó. Nhưng sử dụng isolate scope không có nghĩa là không truy cập đuợc vào scope cha bên ngoài. Phần hướng dẫn tạo một custom directive sẽ đề cập tiếp đến vấn đề này.&lt;/p&gt;
+&lt;p&gt;Khi khai báo &lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt; thì directive đó sẽ có scope riêng biệt bên trong nó để sử dụng. Mọi sự thay đổi của scope cha bên ngoài sẽ không ảnh hưởng gì đến isolate scope bên trong và ngược lại.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://embed.plnkr.co/XCUcCeqHPwVivKeq14mG/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;270px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Tương tự như phần demo của &lt;a href=&quot;#childScope&quot;&gt;child scope&lt;/a&gt;, nhưng bây giờ khi bạn thay đổi giá trị ở textBox Parent scope thì giá trị ở textBox Isolate scope không hề thay đổi theo, và ngược lại cũng vậy. Đó là do directive đã khai báo sử dụng isolute scope (&lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt;) nên scope này không thừa kế gì từ scope cha. Mỗi một thay đổi trên scope cha đều không hề ảnh hưởng đến isolute scope và ngược lại cũng vậy. Scope cha không thể truy cập vào isolate scope.&lt;/p&gt;
+
+&lt;p&gt;Sử dụng isolate scope cho truờng hợp khi chúng ta tạo một custom directive, và muốn tái sử dụng directive đó. Nhưng sử dụng isolate scope không có nghĩa là không truy cập được vào scope cha bên ngoài. AngularJS cung cấp 3 kiểu khai báo cho thuộc tính scope bên trong để có thể nhận các giá trị của scope cha bên ngoài.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;@_@attr&quot;&gt;1. Khai báo ‘@’ hay ‘@attr’&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Nếu chỉ khai báo ‘@’ cho tên &lt;span class=&quot;red&quot;&gt;thuộc tính đại diện&lt;/span&gt; trong isolate scope, thì Angular sẽ tự hiểu tên &lt;span class=&quot;red&quot;&gt;thuộc tính đại diện&lt;/span&gt; cùng tên với &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo&lt;/span&gt; ở DOM element, nhận giá trị từ thuộc tính của scope cha. Như hình mô tả bên dưới, các bạn có thể thấy tên &lt;span class=&quot;red&quot;&gt;thuộc tính đại diện “theName”&lt;/span&gt; trong isolate scope khai báo ‘@’ cùng tên với &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo “the-name”&lt;/span&gt; ở DOM element &lt;my-directive&gt; (khai báo tên theo kiểu camelCase), và &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo &quot;the-name&quot;&lt;/span&gt; nhận vào giá trị của thuộc tính &quot;name&quot; của parent scope.&lt;/my-directive&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/isolateScope_@.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nếu khai báo ‘@&lt;span class=&quot;red&quot;&gt;theAttr&lt;/span&gt;’ cho thuộc tính đại diện trong isolate scope, thì Angular sẽ hiểu thuộc tính đại diện &lt;b&gt;chỉ nhận vào&lt;/b&gt; giá trị của &lt;b&gt;một&lt;/b&gt; &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo&lt;/span&gt; cụ thể ở DOM element, nhận giá trị từ thuộc tính của scope cha. Như hình mô tả bên dưới, các bạn có thể thấy thuộc tính đại diện “theName” trong isolate scope khai báo ‘@&lt;span class=&quot;red&quot;&gt;theAttr&lt;/span&gt;’ cùng tên với &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo “the-attr”&lt;/span&gt; ở DOM element &lt;my-directive&gt;, và &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo &quot;the-attr&quot;&lt;/span&gt; nhận vào giá trị của thuộc tính &quot;name&quot; của parent scope. &lt;/my-directive&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/isolateScope_@attr.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Như vậy, điểm khác của khai báo ‘@attr’ với ‘@’ là muốn tách bạch tên thuộc tính đại diện với tên thuộc tính khai báo ở DOM element, việc sử dụng các thuộc tính của parent scope sẽ không bị phụ thuộc vào tên khai báo, mà chỉ thông qua các tên đại diện.&lt;/p&gt;
+
+&lt;p&gt;Các bạn hãy nhìn vào những mũi tên trong hình mô tả khai báo ‘@’ và ‘@attr’ bên trên, chúng đều chỉ có một chiều từ parent scope đi xuống isolate scope. Như vậy, điều quan trọng nhất khi sử dụng kiểu thuộc tính khai báo ‘@’ và ‘@attr’ đó là, mỗi một thay đổi ở parent scope thì sẽ làm ảnh hưởng đến giá trị nhận vào ở isolate scope, nhưng sự thay đổi ở isolate scope thì không hề ảnh hưởng đến parent scope (&lt;b&gt;one way binding&lt;/b&gt;).&lt;/p&gt;
+
+&lt;p&gt;Khai báo ‘@’ và ‘@attr’ chỉ nhận vào giá trị kiểu string.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;=_=attr&quot;&gt;2. Khai báo ‘=’ hay ‘=attr’&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Sử dụng tương tự như khai báo &lt;a href=&quot;#@_@attr&quot;&gt;’@’ và ‘@attr’&lt;/a&gt; đã được gỉải thích ở trên, điều khác biệt là mỗi một thay đổi ở parent scope thì sẽ làm ảnh hưởng đến giá trị nhận vào ở isolate scope, và ngược lại cũng vậy, mọi thay đổi trên giá trị nhận vào ở isolate scope cũng ảnh hưởng đến parent scope (&lt;b&gt;two way binding&lt;/b&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/isolateScope_=attr.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Khai báo ‘=’ và ‘=attr’ nhận vào giá trị kiểu object. Vì khai báo ‘=’ có tính đồng bộ nên không thể truyền vào một thuộc tính của một object, mà phải truyền vào cả object.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;isolateScope_func&quot;&gt;3. Khai báo ‘&amp;amp;’ và ‘&amp;amp;attr’:&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Sử dụng tương tự như khai báo &lt;a href=&quot;#@_@attr&quot;&gt;’@’ và ‘@attr’&lt;/a&gt; đã được gỉải thích ở trên, nhưng khai báo ‘&amp;amp;’ này dùng để sử dụng một function được khai báo ở parent scope.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://embed.plnkr.co/mTWEXBLVWf8oaUguVqCv/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;420px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;h5 id=&quot;emtranscludeem&quot;&gt;&lt;em&gt;transclude&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Transclude nhận giá trị kiểu boolean, mặc định là false.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;True: Tách hết nội dung bên trong DOM element khai báo directive, sau đó thực thi directive, và cuối cùng là append hết phần nội dung đã tách vào DOM element khai báo directive.&lt;/li&gt;
+  &lt;li&gt;False: Thay thế hết tất cả nội dung bên trong DOM element khai báo directive, bằng nội dung của directive.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
 
 &lt;h5 id=&quot;emcontrollerem&quot;&gt;&lt;em&gt;controller&lt;/em&gt;&lt;/h5&gt;
 
