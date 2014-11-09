@@ -277,17 +277,29 @@ myApp.directive(&#39;demoReplace&#39;, function(){
 
 &lt;p&gt;&lt;span id=&quot;isolateScope_func&quot;&gt;3. Khai báo ‘&amp;amp;’ và ‘&amp;amp;attr’:&lt;/span&gt;&lt;/p&gt;
 
-&lt;p&gt;Sử dụng tương tự như khai báo &lt;a href=&quot;#@_@attr&quot;&gt;’@’ và ‘@attr’&lt;/a&gt; đã được gỉải thích ở trên, nhưng khai báo ‘&amp;amp;’ này dùng để sử dụng một function được khai báo ở parent scope.&lt;/p&gt;
+&lt;p&gt;Sử dụng tương tự như khai báo &lt;a href=&quot;#@_@attr&quot;&gt;’@’ và ‘@attr’&lt;/a&gt; đã được gỉải thích ở trên, nhưng khai báo ‘&amp;amp;’ này dùng để gọi một function được khai báo ở parent scope vào sử dụng bên trong directive.&lt;/p&gt;
 
-&lt;iframe src=&quot;http://embed.plnkr.co/mTWEXBLVWf8oaUguVqCv/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;420px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+&lt;iframe src=&quot;http://embed.plnkr.co/mTWEXBLVWf8oaUguVqCv/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;430px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
 
 &lt;h5 id=&quot;emtranscludeem&quot;&gt;&lt;em&gt;transclude&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;Transclude nhận giá trị kiểu boolean, mặc định là false.&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;True: Tách hết nội dung bên trong DOM element khai báo directive, sau đó thực thi directive, và cuối cùng là append hết phần nội dung đã tách vào DOM element khai báo directive.&lt;/li&gt;
-  &lt;li&gt;False: Thay thế hết tất cả nội dung bên trong DOM element khai báo directive, bằng nội dung của directive.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Transclusion trong Directives &lt;/p&gt;
+
+&lt;p&gt;Từ “transclusion” là một từ không có nghĩa trong từ điển nhưng định nghĩa về nó có thể tìm thấy trên trang Wikipedia hoặc một số trang khác. Hầu hết các trang định nghĩa “transclusion” như sau:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Nhúng một tài liệu hoặc một phần tài liệu vào trong một tài liệu khác bằng tham chiếu” (&lt;a href=&quot;http://en.wikipedia.org/wiki/Transclusion&quot;&gt;wiki/transclusion&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Giống như việc bạn khai báo gọi một file CSS, file Javascript vào trang HTML. Hay cũng giống như việc bạn chia template ra từng phần header, footer, sidebar, … và khi viết nội dung một template bạn sẽ nhúng từng thành phần đó vào trong để taọ thành một file hoàn chỉnh.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/transclusion.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Thuộc tính khai báo transclude nhận giá trị kiểu boolean, mặc định là false, khi đó nội dung của directive sẽ thay thế hoàn toàn cho DOM element khai báo directive đó. Khi bạn khai báo &lt;span class=&quot;red&quot;&gt;“transclude: true”&lt;/span&gt; thì trong template của directive cần chỉ rõ nơi sẽ chứa nội dung được đưa vào bằng “ng-transclude”. Hình minh họa bên dưới sẽ giúp bạn hình dung dễ hơn về cách hoạt động của “transclusion” trong Angular Directives.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/Directive_transclude.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Như hình minh họa ở trên thì nội dung bên trong DOM element khai báo directive “output-text” sẽ được tách ra và đưa vào trong cặp thẻ &amp;lt;div &lt;span class=&quot;red&quot;&gt;ng-transclude&lt;/span&gt;&amp;gt;&amp;lt;/div&amp;gt;. &lt;/p&gt;
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
 

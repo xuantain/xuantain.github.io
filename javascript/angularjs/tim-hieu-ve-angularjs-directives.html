@@ -55,7 +55,7 @@
   <h1 class="py2">Tìm hiểu về AngularJS Directives</h1>
   <span class="post-meta">Oct 24, 2014</span><br>
   
-  <span class="post-meta small">12 minute read</span>
+  <span class="post-meta small">13 minute read</span>
 </div>
 
 <article class="post-content">
@@ -328,17 +328,29 @@ myApp.directive('demoReplace', function(){
 
 <p><span id="isolateScope_func">3. Khai báo ‘&amp;’ và ‘&amp;attr’:</span></p>
 
-<p>Sử dụng tương tự như khai báo <a href="#@_@attr">’@’ và ‘@attr’</a> đã được gỉải thích ở trên, nhưng khai báo ‘&amp;’ này dùng để sử dụng một function được khai báo ở parent scope.</p>
+<p>Sử dụng tương tự như khai báo <a href="#@_@attr">’@’ và ‘@attr’</a> đã được gỉải thích ở trên, nhưng khai báo ‘&amp;’ này dùng để gọi một function được khai báo ở parent scope vào sử dụng bên trong directive.</p>
 
-<iframe src="http://embed.plnkr.co/mTWEXBLVWf8oaUguVqCv/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="420px" width="100%"></iframe>
+<iframe src="http://embed.plnkr.co/mTWEXBLVWf8oaUguVqCv/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="430px" width="100%"></iframe>
 
 <h5 id="emtranscludeem"><em>transclude</em></h5>
-<p>Transclude nhận giá trị kiểu boolean, mặc định là false.</p>
 
-<ul>
-  <li>True: Tách hết nội dung bên trong DOM element khai báo directive, sau đó thực thi directive, và cuối cùng là append hết phần nội dung đã tách vào DOM element khai báo directive.</li>
-  <li>False: Thay thế hết tất cả nội dung bên trong DOM element khai báo directive, bằng nội dung của directive.</li>
-</ul>
+<p>Transclusion trong Directives </p>
+
+<p>Từ “transclusion” là một từ không có nghĩa trong từ điển nhưng định nghĩa về nó có thể tìm thấy trên trang Wikipedia hoặc một số trang khác. Hầu hết các trang định nghĩa “transclusion” như sau:</p>
+
+<blockquote>
+  <p>“Nhúng một tài liệu hoặc một phần tài liệu vào trong một tài liệu khác bằng tham chiếu” (<a href="http://en.wikipedia.org/wiki/Transclusion">wiki/transclusion</a>)</p>
+</blockquote>
+
+<p>Giống như việc bạn khai báo gọi một file CSS, file Javascript vào trang HTML. Hay cũng giống như việc bạn chia template ra từng phần header, footer, sidebar, … và khi viết nội dung một template bạn sẽ nhúng từng thành phần đó vào trong để taọ thành một file hoàn chỉnh.</p>
+
+<p><img src="../../images/transclusion.png" alt="desk" /></p>
+
+<p>Thuộc tính khai báo transclude nhận giá trị kiểu boolean, mặc định là false, khi đó nội dung của directive sẽ thay thế hoàn toàn cho DOM element khai báo directive đó. Khi bạn khai báo <span class="red">“transclude: true”</span> thì trong template của directive cần chỉ rõ nơi sẽ chứa nội dung được đưa vào bằng “ng-transclude”. Hình minh họa bên dưới sẽ giúp bạn hình dung dễ hơn về cách hoạt động của “transclusion” trong Angular Directives.</p>
+
+<p><img src="../../images/Directive_transclude.png" alt="desk" /></p>
+
+<p>Như hình minh họa ở trên thì nội dung bên trong DOM element khai báo directive “output-text” sẽ được tách ra và đưa vào trong cặp thẻ &lt;div <span class="red">ng-transclude</span>&gt;&lt;/div&gt;. </p>
 
 <p><ins>VD:</ins></p>
 
