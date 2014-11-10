@@ -299,42 +299,21 @@ myApp.directive(&#39;demoReplace&#39;, function(){
 
 &lt;p&gt;&lt;img src=&quot;../../images/Directive_transclude.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Như hình minh họa ở trên thì nội dung bên trong DOM element khai báo directive “output-text” sẽ được tách ra và đưa vào trong cặp thẻ &amp;lt;div &lt;span class=&quot;red&quot;&gt;ng-transclude&lt;/span&gt;&amp;gt;&amp;lt;/div&amp;gt;. &lt;/p&gt;
+&lt;p&gt;Như hình minh họa ở trên thì nội dung bên trong cặp thẻ &amp;lt;div output-text&amp;gt;&amp;lt;/div&amp;gt; sẽ được lấy ra và đưa vào trong cặp thẻ &amp;lt;div &lt;span class=&quot;red&quot;&gt;ng-transclude&lt;/span&gt;&amp;gt;&amp;lt;/div&amp;gt;. &lt;/p&gt;
 
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
+&lt;iframe src=&quot;http://embed.plnkr.co/3Aixxx7i4fDDdsaJcx5q/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;230px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
 
 &lt;h5 id=&quot;emcontrollerem&quot;&gt;&lt;em&gt;controller&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;(comming soon)&lt;/p&gt;
 
 &lt;h5 id=&quot;emrequireem&quot;&gt;&lt;em&gt;require&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;(comming soon)&lt;/p&gt;
 
 &lt;h5 id=&quot;emlinkem&quot;&gt;&lt;em&gt;link&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;(comming soon)&lt;/p&gt;
 
 &lt;h5 id=&quot;em-idcompilecompileem&quot;&gt;&lt;em id=&quot;compile&quot;&gt;compile&lt;/em&gt;&lt;/h5&gt;
-
-&lt;h4 id=&quot;mt-mu-nh-ngha-directive&quot;&gt;Một mẫu định nghĩa directive&lt;/h4&gt;
-&lt;pre&gt;
-var demoModule = angular.module(&#39;demoModule&#39;, []);
-demoModule.directive(‘demoDirective’, function factory(injectables) {
-  return {
-    restrict: &quot;AECM”,                // kiểu string
-    priority: 3,                     // kiểu number
-    template: &quot;&amp;lt;p&amp;gt;&amp;#123;{variable}}&amp;lt;/p&amp;gt;&quot;, // kiểu string
-    templateUrl: &quot;templates/demoTempDirective.html”, //kiểu string
-    replace: true,                   // kiểu boolean
-    transclude: false,               // kiểu boolean
-    scope: { title: &#39;@&#39; },           // kiểu boolean hoặc object
-    controller: function funcCtrl($scope, $element, $attrs) {…},
-    require: [&#39;^myTabs&#39;, &#39;^myModel&#39;],// kiểu string
-    link: function postLink(scope, iElement, iAttrs) {…},
-    compile: function compile(tElement, tAttrs, transclude) {
-      return {
-        pre: function preLink(scope, iElement, iAttrs, controller) {…},
-        post: function poLink(scope, iElement, iAttrs, controller) {…}
-      }
-    }
-  };
-});
-&lt;/pre&gt;
+&lt;p&gt;(comming soon)&lt;/p&gt;
 </description>
         <pubDate>Fri, 24 Oct 2014 00:00:00 +0700</pubDate>
         <link>http://xuantain.github.io/javascript/angularjs/tim-hieu-ve-angularjs-directives.html</link>

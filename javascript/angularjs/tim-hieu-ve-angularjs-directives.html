@@ -350,42 +350,21 @@ myApp.directive('demoReplace', function(){
 
 <p><img src="../../images/Directive_transclude.png" alt="desk" /></p>
 
-<p>Như hình minh họa ở trên thì nội dung bên trong DOM element khai báo directive “output-text” sẽ được tách ra và đưa vào trong cặp thẻ &lt;div <span class="red">ng-transclude</span>&gt;&lt;/div&gt;. </p>
+<p>Như hình minh họa ở trên thì nội dung bên trong cặp thẻ &lt;div output-text&gt;&lt;/div&gt; sẽ được lấy ra và đưa vào trong cặp thẻ &lt;div <span class="red">ng-transclude</span>&gt;&lt;/div&gt;. </p>
 
-<p><ins>VD:</ins></p>
+<iframe src="http://embed.plnkr.co/3Aixxx7i4fDDdsaJcx5q/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="230px" width="100%"></iframe>
 
 <h5 id="emcontrollerem"><em>controller</em></h5>
+<p>(comming soon)</p>
 
 <h5 id="emrequireem"><em>require</em></h5>
+<p>(comming soon)</p>
 
 <h5 id="emlinkem"><em>link</em></h5>
+<p>(comming soon)</p>
 
 <h5 id="em-idcompilecompileem"><em id="compile">compile</em></h5>
-
-<h4 id="mt-mu-nh-ngha-directive">Một mẫu định nghĩa directive</h4>
-<pre>
-var demoModule = angular.module('demoModule', []);
-demoModule.directive(‘demoDirective’, function factory(injectables) {
-  return {
-    restrict: "AECM”,                // kiểu string
-    priority: 3,                     // kiểu number
-    template: "&lt;p&gt;&#123;{variable}}&lt;/p&gt;", // kiểu string
-    templateUrl: "templates/demoTempDirective.html”, //kiểu string
-    replace: true,                   // kiểu boolean
-    transclude: false,               // kiểu boolean
-    scope: { title: '@' },           // kiểu boolean hoặc object
-    controller: function funcCtrl($scope, $element, $attrs) {…},
-    require: ['^myTabs', '^myModel'],// kiểu string
-    link: function postLink(scope, iElement, iAttrs) {…},
-    compile: function compile(tElement, tAttrs, transclude) {
-      return {
-        pre: function preLink(scope, iElement, iAttrs, controller) {…},
-        post: function poLink(scope, iElement, iAttrs, controller) {…}
-      }
-    }
-  };
-});
-</pre>
+<p>(comming soon)</p>
 
 </article>
 
