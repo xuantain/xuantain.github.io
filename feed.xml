@@ -117,24 +117,24 @@ Việc biên dịch HTML được thực thi trong 3 bước:&lt;/p&gt;
 
 &lt;h3 id=&quot;to-custom-directive&quot;&gt;Tạo custom directive&lt;/h3&gt;
 &lt;p&gt;Tên của Angular Directives được khai báo theo kiểu &lt;a href=&quot;http://en.wikipedia.org/wiki/CamelCase&quot;&gt;camelCase&lt;/a&gt;.&lt;br /&gt;
- Khi khai báo tên một directive thì tốt nhất bạn nên đặt thêm tiền tố, mục đích là trách bị trùng tên với các từ khoá của Angular hoặc của framework Javascript nào khác có sử dụng trong dự án. Thêm nữa, trong tương lai khi AngularJS nâng cấp version thì sẽ có bổ sung thêm các từ khóa có thể trùng với tên directive mà bạn đã đặt, bạn sẽ mất thời gian để chỉnh sửa lại. &lt;/p&gt;
+Khi khai báo tên một directive thì tốt nhất bạn nên đặt thêm tiền tố, mục đích là trách bị trùng tên với các từ khoá của Angular hoặc của framework Javascript nào khác có sử dụng trong dự án. Thêm nữa, trong tương lai khi AngularJS nâng cấp version thì sẽ có bổ sung thêm các từ khóa có thể trùng với tên directive mà bạn đã đặt, bạn sẽ mất thời gian để chỉnh sửa lại. &lt;/p&gt;
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;
 Khai báo directive&lt;/p&gt;
 
 &lt;pre&gt;
-angular.module(&#39;demoModule&#39;, [])
+  angular.module(&#39;demoModule&#39;, [])
   .directive(&#39;&lt;span class=&quot;red&quot;&gt;demoDirective&lt;/span&gt;&#39;, function(){
-    return {
-       // TODO
-    };
-  });
+  return {
+    // TODO
+  };
+});
 &lt;/pre&gt;
 
 &lt;p&gt;Khi sử dụng&lt;/p&gt;
 
 &lt;pre&gt;
-&amp;lt;p &lt;span class=&quot;red&quot;&gt;demo-directive&lt;/span&gt; &amp;gt;&amp;lt;/p&amp;gt;
+  &amp;lt;p &lt;span class=&quot;red&quot;&gt;demo-directive&lt;/span&gt; &amp;gt;
 &lt;/pre&gt;
 
 &lt;!-- &lt;iframe src=&quot;http://embed.plnkr.co/0TCzKZfaq17oQCRkgV0K/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;250px&quot; width=&quot;100%px&quot;&gt;&lt;/iframe&gt; --&gt;
@@ -148,68 +148,69 @@ angular.module(&#39;demoModule&#39;, [])
   &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;a&lt;/span&gt;ttribute (A)&lt;br /&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre&gt;
-&lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 &lt;ol&gt;
   &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;e&lt;/span&gt;lement (E)&lt;br /&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre&gt;
-&lt;span class=&quot;blue&quot;&gt;&amp;lt;directive&amp;gt;&amp;lt;/directive&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;blue&quot;&gt;&amp;lt;directive&amp;gt;&amp;lt;/directive&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 &lt;ol&gt;
   &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;c&lt;/span&gt;lass (C)&lt;br /&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre&gt;
-&lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; class=&lt;span class=&quot;red&quot;&gt;”directive”&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; class=&lt;span class=&quot;red&quot;&gt;”directive”&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 &lt;ol&gt;
   &lt;li&gt;Kiểu co&lt;span class=&quot;green&quot;&gt;m&lt;/span&gt;ment (M)&lt;br /&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;pre&gt;
-&amp;lt;!-- directive: directive --&amp;gt;
+  &amp;lt;!-- directive: directive --&amp;gt;
 &lt;/pre&gt;
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;
 index.html&lt;/p&gt;
 
 &lt;pre&gt;
-&amp;lt;div ng-app=&quot;demoModule&quot;&amp;gt;
+  &amp;lt;div ng-app=&quot;demoModule&quot;&amp;gt;
   &amp;lt;div ng-controller=&quot;demoController&quot;&amp;gt;
-    &lt;span class=&quot;red&quot;&gt;&amp;lt;ANY demo-directive&amp;gt;&lt;any&gt;
+  &lt;span class=&quot;red&quot;&gt;
+    &amp;lt;ANY demo-directive&amp;gt;&lt;any&gt;
     &amp;lt;demo-directive&amp;gt;&amp;lt;/demo-directive&amp;gt;
     &amp;lt;ANY class=&quot;demo-directive&quot;&amp;gt;&lt;/any&gt;
-    &amp;lt;!-- directive: demo-directive --&amp;gt;&lt;/span&gt;
+    &amp;lt;!-- directive: demo-directive --&amp;gt;
+  &lt;/span&gt;
   &amp;lt;/div&amp;gt;
-&amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
 &lt;/pre&gt;
 
 &lt;h5 id=&quot;em-idtemplatetemplateem&quot;&gt;&lt;em id=&quot;template&quot;&gt;template&lt;/em&gt;&lt;/h5&gt;
 &lt;p&gt;Định nghĩa template, phần hỉển thị nội dung cho directive của bạn (không sử dụng nếu dùng &lt;a href=&quot;#templateUrl&quot;&gt;templateURL&lt;/a&gt;).&lt;/p&gt;
 
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;&lt;/p&gt;
-
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;
+&lt;br /&gt;&lt;/p&gt;
 &lt;pre&gt;
-var myApp = angular.module(&#39;demoModule&#39;, []);
-myApp.directive(&#39;demoDirective&#39;, function(){
-  return {
+  var myApp = angular.module(&#39;demoModule&#39;, []);
+    myApp.directive(&#39;demoDirective&#39;, function(){
+    return {
     restrict: &quot;ACEM&quot;,
     &lt;span class=&quot;red&quot;&gt;template: &quot;&amp;lt;h3&amp;gt;This is demo directive&amp;lt;/h3&amp;gt;&quot;&lt;/span&gt;
-}});
+  }});
 &lt;/pre&gt;
 
 &lt;h5 id=&quot;em-idtemplateurltemplateurlem&quot;&gt;&lt;em id=&quot;templateUrl&quot;&gt;templateUrl&lt;/em&gt;&lt;/h5&gt;
-
 &lt;p&gt;Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. không sử dụng nếu dùng &lt;a href=&quot;#template&quot;&gt;template&lt;/a&gt;, nếu không directive sẽ ưu tiên sử dụng nội dung trong template.&lt;/p&gt;
 
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;&lt;/p&gt;
-
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;
+&lt;br /&gt;&lt;/p&gt;
 &lt;pre&gt;
-var myApp = angular.module(&#39;demoModule&#39;, []);
-myApp.directive(&#39;demoDirective&#39;, function(){
-  return {
-    restrict: &quot;AE&quot;,
-    &lt;span class=&quot;red&quot;&gt;templateUrl: &quot;../templates/demoDirective.html&quot;&lt;/span&gt;
-}});
+  var myApp = angular.module(&#39;demoModule&#39;, []);
+  myApp.directive(&#39;demoDirective&#39;, function(){
+    return {
+      restrict: &quot;AE&quot;,
+      &lt;span class=&quot;red&quot;&gt;templateUrl: &quot;../templates/demoDirective.html&quot;&lt;/span&gt;
+  }});
 &lt;/pre&gt;
 
 &lt;h5 id=&quot;empriorityem&quot;&gt;&lt;em&gt;priority&lt;/em&gt;&lt;/h5&gt;
@@ -221,37 +222,37 @@ myApp.directive(&#39;demoDirective&#39;, function(){
 Có 3 directive&lt;/p&gt;
 
 &lt;pre&gt;
-var myApp = angular.module(&#39;demoModule&#39;, []);
-myApp.directive(&#39;&lt;span class=&quot;red&quot;&gt;directive1&lt;/span&gt;&#39;, function(){
-  return {
-    restrict: &quot;A&quot;,
-    template: &quot;&amp;lt;h3&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&quot;,
-    &lt;span class=&quot;red&quot;&gt;priority: 1&lt;/span&gt;
-}});
-myApp.directive(&#39;&lt;span class=&quot;red&quot;&gt;directive2&lt;/span&gt;&#39;, function(){
-  return {
-    restrict: &quot;A&quot;,
-    template: &quot;&amp;lt;h3&amp;gt;This is directive2&amp;lt;/h3&amp;gt;&quot;,
-    &lt;span class=&quot;red&quot;&gt;priority: 2&lt;/span&gt;
-}});
-myApp.directive(&#39;&lt;span class=&quot;red&quot;&gt;directive3&lt;/span&gt;&#39;, function(){
-  return {
-    restrict: &quot;A&quot;,
-    template: &quot;&amp;lt;h3&amp;gt;This is directive3&amp;lt;/h3&amp;gt;&quot;,
-    &lt;span class=&quot;red&quot;&gt;priority: 3&lt;/span&gt;
-}});
+  var myApp = angular.module(&#39;demoModule&#39;, []);
+  myApp.directive(&#39;&lt;span class=&quot;red&quot;&gt;directive1&lt;/span&gt;&#39;, function(){
+    return {
+      restrict: &quot;A&quot;,
+      template: &quot;&amp;lt;h3&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&quot;,
+      &lt;span class=&quot;red&quot;&gt;priority: 1&lt;/span&gt;
+  }});
+  myApp.directive(&#39;&lt;span class=&quot;red&quot;&gt;directive2&lt;/span&gt;&#39;, function(){
+    return {
+      restrict: &quot;A&quot;,
+      template: &quot;&amp;lt;h3&amp;gt;This is directive2&amp;lt;/h3&amp;gt;&quot;,
+      &lt;span class=&quot;red&quot;&gt;priority: 2&lt;/span&gt;
+  }});
+  myApp.directive(&#39;&lt;span class=&quot;red&quot;&gt;directive3&lt;/span&gt;&#39;, function(){
+    return {
+      restrict: &quot;A&quot;,
+      template: &quot;&amp;lt;h3&amp;gt;This is directive3&amp;lt;/h3&amp;gt;&quot;,
+      &lt;span class=&quot;red&quot;&gt;priority: 3&lt;/span&gt;
+  }});
 &lt;/pre&gt;
 
 &lt;p&gt;Khai báo sử dụng&lt;/p&gt;
 
 &lt;pre&gt;
-&lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive2 directive1 directive3&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive2 directive1 directive3&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 
 &lt;p&gt;Thứ tự thực thi&lt;/p&gt;
 
 &lt;pre&gt;
-directive1 -&amp;gt; directive2 -&amp;gt; directive3
+  directive1 -&amp;gt; directive2 -&amp;gt; directive3
 &lt;/pre&gt;
 
 &lt;p&gt;Trường hợp các directive có giá trị priority bị trùng nhau thì trình biên dịch sẽ thực thi directive được khai báo trước trong thẻ HTML.&lt;/p&gt;
@@ -260,13 +261,13 @@ directive1 -&amp;gt; directive2 -&amp;gt; directive3
 Sử dụng 3 directive ở ví dụ trên, nhưng khai báo &lt;span class=&quot;red&quot;&gt;“priority: 1”&lt;/span&gt; cho cả 3.&lt;/p&gt;
 
 &lt;pre&gt;
-&lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive2 directive1 directive3&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;blue&quot;&gt;&amp;lt;p&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive2 directive1 directive3&lt;/span&gt; &lt;span class=&quot;blue&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 
 &lt;p&gt;Thứ tự thực thi&lt;/p&gt;
 
 &lt;pre&gt;
-directive2 -&amp;gt; directive1 -&amp;gt; directive3
+  directive2 -&amp;gt; directive1 -&amp;gt; directive3
 &lt;/pre&gt;
 
 &lt;p&gt;Các “pre-link” function cũng được thực thi theo thứ tự của priority, còn với “post-link” thì được thực thi theo thứ tự ngược lại. &lt;/p&gt;
@@ -285,25 +286,25 @@ directive2 -&amp;gt; directive1 -&amp;gt; directive3
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
 
 &lt;pre&gt;
-var myApp = angular.module(&#39;demoModule&#39;, []);
-myApp.directive(&#39;demoReplace&#39;, function(){
-  return {
-    restrict: &quot;A&quot;,
-    template: &quot;&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;This is directive1&lt;span class=&quot;red&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;&quot;,
-    &lt;span class=&quot;red&quot;&gt;replace: true&lt;/span&gt;
-}});
+  var myApp = angular.module(&#39;demoModule&#39;, []);
+    myApp.directive(&#39;demoReplace&#39;, function(){
+      return {
+        restrict: &quot;A&quot;,
+        template: &quot;&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;This is directive1&lt;span class=&quot;red&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;&quot;,
+        &lt;span class=&quot;red&quot;&gt;replace: true&lt;/span&gt;
+  }});
 &lt;/pre&gt;
 
 &lt;p&gt;Khai báo sử dụng&lt;/p&gt;
 
 &lt;pre&gt;
-&lt;span class=&quot;red&quot;&gt;&amp;lt;p&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;red&quot;&gt;&amp;lt;p&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 
 &lt;p&gt;Kết quả&lt;/p&gt;
 
 &lt;pre&gt;
-&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;red&quot;&gt;&amp;lt;h3&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 
 &lt;h5 id=&quot;em-idscopescopeem&quot;&gt;&lt;em id=&quot;scope&quot;&gt;scope&lt;/em&gt;&lt;/h5&gt;
@@ -401,19 +402,18 @@ myApp.directive(&#39;demoReplace&#39;, function(){
 &lt;pre&gt;
 var myApp = angular.module(&quot;demoModule&quot;, []);
 myApp.directive(&#39;myDirective&#39;, function() {
-    return {
-      restrict: &#39;AE&#39;,
-      &lt;span class=&quot;red&quot;&gt;
-      compile: function(element, attributes) {
-        // do one-time configuration of element.
+  return {
+    restrict: &#39;AE&#39;,
+    &lt;span class=&quot;red&quot;&gt;compile: function(element, attributes) {
+      // do one-time configuration of element.
 
-        var linkFunction = function($scope, element, atttributes) {
-            // bind element to data in $scope
-        }
-        return linkFunction;
+      var linkFunction = function($scope, element, atttributes) {
+        // bind element to data in $scope
       }
-      &lt;/span&gt;
+      return linkFunction;
     }
+    &lt;/span&gt;
+  }
 });
 &lt;/pre&gt;
 
@@ -460,14 +460,84 @@ myApp.directive(&#39;myDirective&#39;, function() {
 
 &lt;iframe src=&quot;http://embed.plnkr.co/LfxVTPT33rnQ8yvGHavk/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;230px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
 
+&lt;h5 id=&quot;emrequireem&quot;&gt;&lt;em&gt;require&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Khi bạn muốn sử dụng controller của một Directive khác, thì khai báo thuộc tính “require” để yêu cầu sử dụng controller của Directive cần sử dụng. Controller của những Directive được yêu cầu sẽ được nhúng (inject) vào trong link function của Sirective yêu cầu tại vị trí tham số thứ tư. Khai báo “require” nhận vào giá trị là một string, hoặc một mảng strings tên của các Directive. Mặc định tên của Directive sẽ đại diện cho phần thể hiện của controller của Directive đó. Nếu truyền vào là một mảng strings thì sẽ gọi các Directive theo thứ tự tương ứng trong mảng. Nếu không có Directive nào được tìm thấy hay Directive được yêu cầu không có controller thì sẽ bị báo lỗi. &lt;/p&gt;
+
+&lt;p&gt;Khai báo tên (phần hiển thị của controller) các Directive được yêu cầu với tiền tố như sau:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;red&quot;&gt;&lt;i&gt;“element hiện tại”: Là element khai báo/sử dụng Directive đang đề cập.&lt;/i&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Không có tiền tố: Xác định controller được gọi trên element hiện tại. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;?&lt;/span&gt; : Xác định controller được gọi trên element hiện tại. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;^&lt;/span&gt; : Xác định controller được gọi trên element hiện tại và trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;^^&lt;/span&gt; : Xác định controller được gọi &lt;span class=&quot;red&quot;&gt;chỉ&lt;/span&gt; trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;?^&lt;/span&gt; : Xác định controller được gọi trên element hiện tại và trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;?^^&lt;/span&gt; : Xác định controller được gọi &lt;span class=&quot;red&quot;&gt;chỉ&lt;/span&gt; trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h5 id=&quot;emcontrollerem&quot;&gt;&lt;em&gt;controller&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;(comming soon)&lt;/p&gt;
+&lt;p&gt;Khai báo function controller cho Directive nếu muốn cho phép Directive khác giao tiếp với nó.&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;Ví dụ:&lt;/ins&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+app.directive(&#39;outerDirective&#39;, function() {
+  return {
+    scope: {},
+    restrict: &#39;AE&#39;,
+    controller: function($scope, $compile, $http) {
+      this.addChild = function(params) {
+        console.log(&#39;Got the message from nested directive:&#39; + params.message);
+      };
+    }
+  };
+});
+&lt;/pre&gt;
+
+&lt;p&gt;Đây là code yêu cầu đính kèm một controller được đặt tên “outerDirective” cho directive. Khi một Directive khác muốn giao tiếp với “outerDirective”, thì Directive đó cần được khai báo “require” để sử dụng phần thể hiện controller của “outerDirective”.&lt;/p&gt;
+
+&lt;pre&gt;
+app.directive(&#39;innerDirective&#39;, function() {
+    return {
+      scope: {},
+      restrict: &#39;AE&#39;,
+      require: &#39;^outerDirective&#39;,
+      link: function(scope, elem, attrs, controllerInstance) {
+        //Tham số thứ tư là đối tượng thể hiện controller của Directive &quot;outerDirective&quot; mà bạn yêu cầu
+        scope.message = &quot;Hi, Parent directive&quot;;
+        controllerInstance.addChild(scope);
+      }
+    };
+});
+&lt;/pre&gt;
+
+&lt;p&gt;Sử dụng trong file HTML như sau:&lt;/p&gt;
+
+&lt;pre&gt;
+  &amp;lt;outer-directive&amp;gt;
+    &amp;lt;inner-directive&amp;gt;&amp;lt;/inner-directive&amp;gt;
+  &amp;lt;/outer-directive&amp;gt;
+&lt;/pre&gt;
+
+&lt;p&gt;require: ‘^outerDirective’ nói cho Angular tìm kiếm controller của Directive “outerDirective” trên element hiện tại và trên thành phần cha của nó. Trong truờng hợp này là tìm thấy thể hiện của controller của directive “outerDirective” tại thành phần cha.&lt;/p&gt;
 
 &lt;h5 id=&quot;emcontrollerasem&quot;&gt;&lt;em&gt;ControllerAs&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;(comming soon)&lt;/p&gt;
 
-&lt;h5 id=&quot;emrequireem&quot;&gt;&lt;em&gt;require&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;(comming soon)&lt;/p&gt;
+&lt;p&gt;ControllerAs dùng để định danh cho function controller của Directive. Mặc định thì Angular sẽ lấy tên của Directive làm tên định danh cho controller của directive đó.&lt;/p&gt;
+
 </description>
         <pubDate>Fri, 24 Oct 2014 00:00:00 +0700</pubDate>
         <link>http://xuantain.github.io/javascript/angularjs/tim-hieu-ve-angularjs-directives.html</link>
