@@ -465,7 +465,7 @@ myApp.directive(&#39;myDirective&#39;, function() {
 
 &lt;p&gt;Khai báo tên (phần hiển thị của controller) các Directive được yêu cầu với tiền tố như sau:&lt;/p&gt;
 
-&lt;p&gt;&lt;span class=&quot;red&quot;&gt;&lt;i&gt;“element hiện tại”: Là element khai báo/sử dụng Directive đang đề cập.&lt;/i&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span class=&quot;red&quot;&gt;&lt;i&gt;“element hiện tại”: Là element khai báo/sử dụng Directive đang được phát triển.&lt;/i&gt;&lt;/span&gt;&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
