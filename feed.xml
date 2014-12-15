@@ -91,13 +91,294 @@ myApp.directive(&#39;demoDirective&#39;, function(){
 &lt;/div&gt;&lt;/pre&gt;
 </description>
         <pubDate>Thu, 27 Nov 2014 00:00:00 +0700</pubDate>
-        <link>http://xuantain.github.io/javascript/angularjs/khai-niem-services-trong-angularjs.html</link>
-        <guid isPermaLink="true">http://xuantain.github.io/javascript/angularjs/khai-niem-services-trong-angularjs.html</guid>
+        <link>http://xuantain.github.io/javascript/angularjs/2014/11/27/khai-niem-services-trong-angularjs/</link>
+        <guid isPermaLink="true">http://xuantain.github.io/javascript/angularjs/2014/11/27/khai-niem-services-trong-angularjs/</guid>
       </item>
     
       <item>
-        <title>Tìm hiểu về AngularJS Directives</title>
-        <description>&lt;h3 id=&quot;directives-l-g&quot;&gt;Directives là gì?&lt;/h3&gt;
+        <title>Tìm hiểu về AngularJS Directives (Phần 3)</title>
+        <description>&lt;h5 id=&quot;emtranscludeem&quot;&gt;&lt;em&gt;transclude&lt;/em&gt;&lt;/h5&gt;
+
+&lt;p&gt;Transclusion trong Directives &lt;/p&gt;
+
+&lt;p&gt;Từ “transclusion” là một từ không có nghĩa trong từ điển nhưng định nghĩa về nó có thể tìm thấy trên trang Wikipedia hoặc một số trang khác. Hầu hết các trang định nghĩa “transclusion” như sau:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“Nhúng một tài liệu hoặc một phần tài liệu vào trong một tài liệu khác bằng tham chiếu” (&lt;a href=&quot;http://en.wikipedia.org/wiki/Transclusion&quot;&gt;wiki/transclusion&lt;/a&gt;)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Giống như việc bạn khai báo gọi một file CSS, file Javascript vào trang HTML. Hay cũng giống như việc bạn chia template ra từng phần header, footer, sidebar, … và khi viết nội dung một template bạn sẽ nhúng từng thành phần đó vào trong để tạo thành một file hoàn chỉnh.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/transclusion.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Thuộc tính khai báo transclude nhận giá trị kiểu boolean, mặc định là false, khi đó nội dung của directive sẽ thay thế hoàn toàn cho nội dung bên trong DOM element khai báo directive đó. Khi bạn khai báo &lt;span class=&quot;red&quot;&gt;“transclude: true”&lt;/span&gt; thì trong template của directive cần chỉ rõ nơi sẽ chứa nội dung được đưa vào bằng “ng-transclude”. Hình minh họa bên dưới sẽ giúp bạn hình dung dễ hơn về cách hoạt động của “transclusion” trong Angular Directives.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/Directive_transclude.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Như hình minh họa ở trên thì nội dung bên trong cặp thẻ &amp;lt;div output-text&amp;gt;&amp;lt;/div&amp;gt; sẽ được lấy ra và đưa vào trong cặp thẻ &amp;lt;div &lt;span class=&quot;red&quot;&gt;ng-transclude&lt;/span&gt;&amp;gt;&amp;lt;/div&amp;gt; của directive. &lt;/p&gt;
+
+&lt;iframe src=&quot;http://embed.plnkr.co/3Aixxx7i4fDDdsaJcx5q/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;230px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;h5 id=&quot;em-idcompilecompileem&quot;&gt;&lt;em id=&quot;compile&quot;&gt;compile&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Như đã giới thiệu ở phần &lt;a href=&quot;#compileHTML&quot;&gt;Cách directives được biên dịch&lt;/a&gt; thì compiler sẽ thực hiện việc biên dịch các directive. Trong một số trường hợp bạn muốn thay đổi cấu trúc HTML của directive tùy theo điều kiện, mà việc này không thể đặt template cứng thì bạn có thể sử dụng khai báo function compile() hay &lt;a href=&quot;#link&quot;&gt;link()&lt;/a&gt; trong directive để tái cấu trúc template cho directive khi được compiler biên dịch ra giao diện. Function compile() sẽ chỉ chạy một lần duy nhất. Function compile() khi kết thúc sẽ trả về function link(), và link() sẽ được gọi ngay sau khi directive được biên dịch xong. Nếu khai báo compile() chỉ trả về một function link(), thì mặc định Angular sẽ hiểu đó là &lt;a href=&quot;&quot;&gt;postLink&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;Ví dụ:&lt;/ins&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+var myApp = angular.module(&quot;demoModule&quot;, []);
+myApp.directive(&#39;myDirective&#39;, function() {
+  return {
+    restrict: &#39;AE&#39;,
+    &lt;span class=&quot;red&quot;&gt;compile: function(element, attributes) {
+      // do one-time configuration of element.
+
+      var linkFunction = function($scope, element, atttributes) {
+        // bind element to data in $scope
+      }
+      return linkFunction;
+    }
+    &lt;/span&gt;
+  }
+});
+&lt;/pre&gt;
+
+&lt;p&gt;Như ví dụ trên thì compile nhận vào 2 tham số: element và attributes.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;element là đối tượng tham chiếu đến DOM element ngoài cùng, chứa tất cả các DOM element khác bên trong directive đó.&lt;/li&gt;
+  &lt;li&gt;attributes là đối tượng chứa tất cả các thuộc tính của DOM element. Để truy cập đến các thuộc tính thì bạn phải viết attributes.type.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Còn linkFunction nhận vào 3 tham số: $scope, element và attributes.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;$scope là đối tượng scope bình thường, hoặc &lt;a href=&quot;#childScope&quot;&gt;childScope&lt;/a&gt; hoặc &lt;a href=&quot;#isolateScope&quot;&gt;isolateScope&lt;/a&gt; tùy theo khai báo scope của directive đó.&lt;/li&gt;
+  &lt;li&gt;Còn element và attributes tương tự như ở khai báo compile.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&quot;em-idlinklinkem&quot;&gt;&lt;em id=&quot;link&quot;&gt;link&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Function link được khai báo khi chúng ta muốn đính kèm xử lý tác động, làm thay đổi nội dung phần hiển thị của directive. Chúng ta có thể dùng Javascript hoặc JQuery, nhưng trường hợp trên một giao diện có sử dụng nhiều directive có cùng một khai báo thì sẽ rất khó xác định chính xác vị trí của DOM element cần xử lý.&lt;/p&gt;
+
+&lt;p&gt;Khai báo link function cho directive có thể xử lý được việc hiển thị DOM elements trong phạm vi directive đó, mà không cần phải dùng Javascript selector đến chính xác DOM element cần xử lý. Như vậy, có thể hiểu khi một directive được $compile biên dịch, nó cũng sẽ được đính kèm các xử lý DOM elements bên trong đã được định nghĩa sẵn bởi link function. &lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
+
+&lt;iframe src=&quot;http://embed.plnkr.co/nIFNV5jrqqaBZDF4Ea30/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;150px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Link function được chia làm 2: preLink và postLink.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;preLink: là xử lý được tự động thực thi sau khi directive được compiler biên dịch xong.&lt;/li&gt;
+  &lt;li&gt;postLink: là xử lý được đính kèm vào directive sau khi directive được compiler biên dịch xong, và preLink thực thi xong.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h5 id=&quot;ems-khc-nhau-gia-compile-v-linkem&quot;&gt;&lt;em&gt;Sự khác nhau giữa compile và link&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Mục đích của việc khai báo compile và link đều là tác động, làm thay đổi nội dung hiển thị. Vậy khi nào chúng ta dùng compile, khi nào dùng link?&lt;/p&gt;
+
+&lt;p&gt;Khai báo function compile() được sử dụng khi chúng ta muốn thực thi việc xử lý nội dung hiển thị của directive &lt;span class=&quot;red&quot;&gt;trước khi được compiler biên dịch&lt;/span&gt; ra giao diện. Và compile trả về một function link() cụ thể, function link() này sẽ được đính kèm vào directive.&lt;/p&gt;
+
+&lt;p&gt;Khai báo function link() được sử dụng khi chúng ta muốn đính kèm xử lý hiển thị cho directive, và function link() chỉ được thực thi &lt;span class=&quot;red&quot;&gt;sau khi directive được compiler biên dịch&lt;/span&gt; xong. Khác với compile, việc khai báo xử lý cho function link() có thể là interface, và implement xử lý đó ở ngoài.&lt;/p&gt;
+
+&lt;p&gt;Thường chỉ khai báo một trong hai function, hoặc là compile, hoặc là link. Nếu vô tình khai báo cả 2 function compile và link, thì chỉ các function link() được khai báo trong compile được thực thi.&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;Ví dụ:&lt;/ins&gt;&lt;/p&gt;
+
+&lt;iframe src=&quot;http://embed.plnkr.co/LfxVTPT33rnQ8yvGHavk/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;230px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;h5 id=&quot;emrequireem&quot;&gt;&lt;em&gt;require&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Khi bạn muốn sử dụng controller của một Directive khác, thì khai báo thuộc tính “require” để yêu cầu sử dụng controller của Directive cần sử dụng. Controller của những Directive được yêu cầu sẽ được nhúng (inject) vào trong link function của Sirective yêu cầu tại vị trí tham số thứ tư. Khai báo “require” nhận vào giá trị là một string, hoặc một mảng strings tên của các Directive. Mặc định tên của Directive sẽ đại diện cho phần thể hiện của controller của Directive đó. Nếu truyền vào là một mảng strings thì sẽ gọi các Directive theo thứ tự tương ứng trong mảng. Nếu không có Directive nào được tìm thấy hay Directive được yêu cầu không có controller thì sẽ bị báo lỗi. &lt;/p&gt;
+
+&lt;p&gt;Khai báo tên (phần hiển thị của controller) các Directive được yêu cầu với tiền tố như sau:&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&quot;red&quot;&gt;&lt;i&gt;“element hiện tại”: Là element khai báo/sử dụng Directive đang được phát triển.&lt;/i&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Không có tiền tố: Xác định controller được gọi trên element hiện tại. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;?&lt;/span&gt; : Xác định controller được gọi trên element hiện tại. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;^&lt;/span&gt; : Xác định controller được gọi trên element hiện tại và trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;^^&lt;/span&gt; : Xác định controller được gọi &lt;span class=&quot;red&quot;&gt;chỉ&lt;/span&gt; trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;?^&lt;/span&gt; : Xác định controller được gọi trên element hiện tại và trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;?^^&lt;/span&gt; : Xác định controller được gọi &lt;span class=&quot;red&quot;&gt;chỉ&lt;/span&gt; trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h5 id=&quot;emcontrollerem&quot;&gt;&lt;em&gt;controller&lt;/em&gt;&lt;/h5&gt;
+&lt;p&gt;Khai báo function controller cho Directive nếu muốn cho phép Directive khác giao tiếp với nó.&lt;/p&gt;
+
+&lt;p&gt;&lt;ins&gt;Ví dụ:&lt;/ins&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+app.directive(&#39;outerDirective&#39;, function() {
+  return {
+    scope: {},
+    restrict: &#39;AE&#39;,
+    controller: function($scope, $compile, $http) {
+      this.addChild = function(params) {
+        console.log(&#39;Got the message from nested directive:&#39; + params.message);
+      };
+    }
+  };
+});
+&lt;/pre&gt;
+
+&lt;p&gt;Đây là code yêu cầu đính kèm một controller được đặt tên “outerDirective” cho directive. Khi một Directive khác muốn giao tiếp với “outerDirective”, thì Directive đó cần được khai báo “require” để sử dụng phần thể hiện controller của “outerDirective”.&lt;/p&gt;
+
+&lt;pre&gt;
+app.directive(&#39;innerDirective&#39;, function() {
+    return {
+      scope: {},
+      restrict: &#39;AE&#39;,
+      require: &#39;^outerDirective&#39;,
+      link: function(scope, elem, attrs, controllerInstance) {
+        //Tham số thứ tư là đối tượng thể hiện controller của Directive &quot;outerDirective&quot; mà bạn yêu cầu
+        scope.message = &quot;Hi, Parent directive&quot;;
+        controllerInstance.addChild(scope);
+      }
+    };
+});
+&lt;/pre&gt;
+
+&lt;p&gt;Sử dụng trong file HTML như sau:&lt;/p&gt;
+
+&lt;pre&gt;
+  &amp;lt;outer-directive&amp;gt;
+    &amp;lt;inner-directive&amp;gt;&amp;lt;/inner-directive&amp;gt;
+  &amp;lt;/outer-directive&amp;gt;
+&lt;/pre&gt;
+
+&lt;p&gt;require: ‘^outerDirective’ nói cho Angular tìm kiếm controller của Directive “outerDirective” trên element hiện tại và trên thành phần cha của nó. Trong truờng hợp này là tìm thấy thể hiện của controller của directive “outerDirective” tại thành phần cha.&lt;/p&gt;
+
+&lt;h5 id=&quot;emcontrollerasem&quot;&gt;&lt;em&gt;controllerAs&lt;/em&gt;&lt;/h5&gt;
+
+&lt;p&gt;ControllerAs dùng để định danh cho function controller của Directive. Mặc định thì Angular sẽ lấy tên của Directive làm tên định danh cho controller của directive đó.&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 26 Oct 2014 00:00:00 +0700</pubDate>
+        <link>http://xuantain.github.io/javascript/angularjs/2014/10/26/tim-hieu-ve-angularjs-directives-phan3/</link>
+        <guid isPermaLink="true">http://xuantain.github.io/javascript/angularjs/2014/10/26/tim-hieu-ve-angularjs-directives-phan3/</guid>
+      </item>
+    
+      <item>
+        <title>Tìm hiểu về AngularJS Directives (Phần 2)</title>
+        <description>&lt;h5 id=&quot;emreplaceem&quot;&gt;&lt;em&gt;replace&lt;/em&gt;&lt;/h5&gt;
+
+&lt;p&gt;Replace nhận giá trị kỉểu boolean, mặc định là false.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;True: &lt;span class=&quot;red&quot;&gt;Thay thế&lt;/span&gt; DOM element khai báo directive bằng nội dung của directive tương ứng, bao gồm nội dung bên trong template và dữ liệu.&lt;/li&gt;
+  &lt;li&gt;False: &lt;span class=&quot;red&quot;&gt;Đưa nội dung&lt;/span&gt; của directive (bao gồm nội dung bên trong template và dữ liệu) &lt;span class=&quot;red&quot;&gt;vào bên trong&lt;/span&gt; DOM element khai báo directive đó.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
+
+&lt;pre&gt;
+  var myApp = angular.module(&#39;demoModule&#39;, []);
+    myApp.directive(&#39;demoReplace&#39;, function(){
+      return {
+        restrict: &quot;A&quot;,
+        template: &quot;&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;This is directive1&lt;span class=&quot;red&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;&quot;,
+        &lt;span class=&quot;red&quot;&gt;replace: true&lt;/span&gt;
+  }});
+&lt;/pre&gt;
+
+&lt;p&gt;Khai báo sử dụng&lt;/p&gt;
+
+&lt;pre&gt;
+  &lt;span class=&quot;red&quot;&gt;&amp;lt;p&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;p&gt;Kết quả&lt;/p&gt;
+
+&lt;pre&gt;
+  &lt;span class=&quot;red&quot;&gt;&amp;lt;h3&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;
+
+&lt;h5 id=&quot;em-idscopescopeem&quot;&gt;&lt;em id=&quot;scope&quot;&gt;scope&lt;/em&gt;&lt;/h5&gt;
+
+&lt;p&gt;Trước hết các bạn cần hiểu về khái niệm &lt;a href=&quot;http://acegik.net/blog/javascript/angularjs/tim-hieu-ve-scope-trong-angularjs.html&quot;&gt;scope&lt;/a&gt; trong AngularJS.&lt;/p&gt;
+
+&lt;p&gt;Mặc định thì directive sẽ lấy scope cha bên ngoài, nhưng trong một số truờng hợp chúng ta muốn directive khai báo thêm các thuộc tính và function khác chỉ sử dụng bên trong nội bộ directive, mà lại không làm ảnh huởng đến scope cha bên ngoài thì có 2 lựa chọn:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A child scope: scope này thừa kế từ scope cha bên ngoài, và có thể khai báo thêm các property, function khác chỉ sử dụng đuợc bên trong directive đó.&lt;/li&gt;
+  &lt;li&gt;An isolated scope: là một scope riêng mới, không thừa kế gì từ scope bên ngoài, chỉ tồn tại mỗi mình nó.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Phần bên dưới sẽ giải thích về sự khác nhau giữa child scope và isolate scope trong Directives.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;childScope&quot;&gt;&lt;ins&gt;Child scope&lt;/ins&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Khai báo sử dụng child scope: &lt;span class=&quot;red&quot;&gt;scope: true&lt;/span&gt;&lt;/p&gt;
+
+&lt;iframe src=&quot;http://embed.plnkr.co/QM2emkyWQVhM2qceJHR1/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;270px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Ở phần demo trên, khi bạn thay đổi giá trị ở textBox Parent scope thì giá trị ở textBox Child scope cũng thay đổi theo, đó là do directive đã khai báo sử dụng child scope (&lt;span class=&quot;red&quot;&gt;scope: true&lt;/span&gt;) nên scope này thừa kế từ scope cha. Mỗi một thay đổi trên thuộc tính thừa kế từ scope cha, thì thuộc tính đó cũng được ánh xạ trên child scope thừa kế và ngược lại cũng vậy.&lt;/p&gt;
+
+&lt;p&gt;Riêng thuộc tính được khai báo thêm bên trong child scope thì scope cha không thể truy cập được. Như ở ví dụ trên thì dòng chữ “This text is the specific property of the child scope” là giá trị của thuộc tính được khai báo thêm bên trong child scope thừa kế từ scope cha, nên scope cha không thể truy cập được.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;isolateScope&quot;&gt;&lt;ins&gt;Isolate scope&lt;/ins&gt;&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Khai báo sử dụng isolate scope: &lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Khi khai báo &lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt; thì directive đó sẽ có scope riêng biệt bên trong nó để sử dụng. Mọi sự thay đổi của scope cha bên ngoài sẽ không ảnh hưởng gì đến isolate scope bên trong và ngược lại.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://embed.plnkr.co/XCUcCeqHPwVivKeq14mG/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;270px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+
+&lt;p&gt;Tương tự như phần demo của &lt;a href=&quot;#childScope&quot;&gt;child scope&lt;/a&gt;, nhưng bây giờ khi bạn thay đổi giá trị ở textBox Parent scope thì giá trị ở textBox Isolate scope không hề thay đổi theo, và ngược lại cũng vậy. Đó là do directive đã khai báo sử dụng isolute scope (&lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt;) nên scope này không thừa kế gì từ scope cha. Mỗi một thay đổi trên scope cha đều không hề ảnh hưởng đến isolute scope và ngược lại cũng vậy. Scope cha không thể truy cập vào isolate scope.&lt;/p&gt;
+
+&lt;p&gt;Sử dụng isolate scope cho truờng hợp khi chúng ta tạo một custom directive, và muốn tái sử dụng directive đó. Nhưng sử dụng isolate scope không có nghĩa là không truy cập được vào scope cha bên ngoài. AngularJS cung cấp 3 kiểu khai báo cho thuộc tính isolate scope bên trong để có thể nhận các giá trị của scope cha bên ngoài.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;@_@attr&quot;&gt;1. Khai báo ‘@’ hay ‘@attr’&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Nếu chỉ khai báo ‘@’ cho tên &lt;span class=&quot;red&quot;&gt;thuộc tính đại diện&lt;/span&gt; trong isolate scope, thì Angular sẽ tự hiểu tên &lt;span class=&quot;red&quot;&gt;thuộc tính đại diện&lt;/span&gt; cùng tên với &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo&lt;/span&gt; ở DOM element, nhận giá trị từ thuộc tính của scope cha. Như hình mô tả bên dưới, các bạn có thể thấy tên &lt;span class=&quot;red&quot;&gt;thuộc tính đại diện “theName”&lt;/span&gt; trong isolate scope khai báo ‘@’ cùng tên với &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo “the-name”&lt;/span&gt; ở DOM element &lt;my-directive&gt; (khai báo tên theo kiểu camelCase), và &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo &quot;the-name&quot;&lt;/span&gt; nhận vào giá trị của thuộc tính &quot;name&quot; của parent scope.&lt;/my-directive&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/isolateScope_@.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Nếu khai báo ‘@&lt;span class=&quot;red&quot;&gt;theAttr&lt;/span&gt;’ cho thuộc tính đại diện trong isolate scope, thì Angular sẽ hiểu thuộc tính đại diện &lt;b&gt;chỉ nhận vào&lt;/b&gt; giá trị của &lt;b&gt;một&lt;/b&gt; &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo&lt;/span&gt; cụ thể ở DOM element, nhận giá trị từ thuộc tính của scope cha. Như hình mô tả bên dưới, các bạn có thể thấy thuộc tính đại diện “theName” trong isolate scope khai báo ‘@&lt;span class=&quot;red&quot;&gt;theAttr&lt;/span&gt;’ cùng tên với &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo “the-attr”&lt;/span&gt; ở DOM element &lt;my-directive&gt;, và &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo &quot;the-attr&quot;&lt;/span&gt; nhận vào giá trị của thuộc tính &quot;name&quot; của parent scope. &lt;/my-directive&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/isolateScope_@attr.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Như vậy, điểm khác của khai báo ‘@attr’ với ‘@’ là muốn tách bạch tên thuộc tính đại diện với tên thuộc tính khai báo ở DOM element, việc sử dụng các thuộc tính của parent scope sẽ không bị phụ thuộc vào tên khai báo, mà chỉ thông qua các tên đại diện.&lt;/p&gt;
+
+&lt;p&gt;Các bạn hãy nhìn vào những mũi tên trong hình mô tả khai báo ‘@’ và ‘@attr’ bên trên, chúng đều chỉ có một chiều từ parent scope đi xuống isolate scope. Như vậy, điều quan trọng nhất khi sử dụng kiểu thuộc tính khai báo ‘@’ và ‘@attr’ đó là, mỗi một thay đổi ở parent scope thì sẽ làm ảnh hưởng đến giá trị nhận vào ở isolate scope, nhưng sự thay đổi ở isolate scope thì không hề ảnh hưởng đến parent scope (&lt;b&gt;one way binding&lt;/b&gt;).&lt;/p&gt;
+
+&lt;p&gt;Khai báo ‘@’ và ‘@attr’ chỉ nhận vào giá trị kiểu string.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;=_=attr&quot;&gt;2. Khai báo ‘=’ hay ‘=attr’&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Sử dụng tương tự như khai báo &lt;a href=&quot;#@_@attr&quot;&gt;’@’ và ‘@attr’&lt;/a&gt; đã được gỉải thích ở trên, điều khác biệt là mỗi một thay đổi ở parent scope thì sẽ làm ảnh hưởng đến giá trị nhận vào ở isolate scope, và ngược lại cũng vậy, mọi thay đổi trên giá trị nhận vào ở isolate scope cũng ảnh hưởng đến parent scope (&lt;b&gt;two way binding&lt;/b&gt;).&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;../../images/isolateScope_=attr.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Khai báo ‘=’ và ‘=attr’ nhận vào giá trị kiểu object. Vì khai báo ‘=’ có tính đồng bộ nên không thể truyền vào một thuộc tính của một object, mà phải truyền vào cả object.&lt;/p&gt;
+
+&lt;p&gt;&lt;span id=&quot;isolateScope_func&quot;&gt;3. Khai báo ‘&amp;amp;’ và ‘&amp;amp;attr’:&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;Sử dụng tương tự như khai báo &lt;a href=&quot;#@_@attr&quot;&gt;’@’ và ‘@attr’&lt;/a&gt; đã được gỉải thích ở trên, nhưng khai báo ‘&amp;amp;’ này dùng để gọi một function được khai báo ở parent scope vào sử dụng bên trong directive.&lt;/p&gt;
+
+&lt;iframe src=&quot;http://embed.plnkr.co/mTWEXBLVWf8oaUguVqCv/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;430px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
+</description>
+        <pubDate>Sat, 25 Oct 2014 00:00:00 +0700</pubDate>
+        <link>http://xuantain.github.io/javascript/angularjs/2014/10/25/tim-hieu-ve-angularjs-directives-phan2/</link>
+        <guid isPermaLink="true">http://xuantain.github.io/javascript/angularjs/2014/10/25/tim-hieu-ve-angularjs-directives-phan2/</guid>
+      </item>
+    
+      <item>
+        <title>Tìm hiểu về AngularJS Directives (Phần 1)</title>
+        <description>&lt;h2 id=&quot;ni-dung&quot;&gt;Nội dung&lt;/h2&gt;
+
+&lt;h3 id=&quot;span-idwiddirectives-l-gspan&quot;&gt;&lt;span id=&quot;WiD&quot;&gt;Directives là gì?&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;Các thuộc tính, id, class, name, onClick, … của một DOM element được gọi chung là directives. AngularJS sẽ dựa vào những directive đó để đính kèm các chỉ thị hoặc các sự kiện tới DOM element cần xử lý, thậm chí là thay đổi cấu trúc của DOM. &lt;/p&gt;
 
@@ -115,7 +396,7 @@ Việc biên dịch HTML được thực thi trong 3 bước:&lt;/p&gt;
 
 &lt;p&gt;Sau khi thực thi biên dịch HTML thì giữa scope và DOM sẽ có sự ràng buộc (a live binding), mỗi một thay đổi ở model trên compiled scope sẽ được ánh xạ vào DOM.&lt;/p&gt;
 
-&lt;h3 id=&quot;to-custom-directive&quot;&gt;Tạo custom directive&lt;/h3&gt;
+&lt;h3 id=&quot;span-idcreatedto-custom-directivespan&quot;&gt;&lt;span id=&quot;createD&quot;&gt;Tạo custom directive&lt;/span&gt;&lt;/h3&gt;
 &lt;p&gt;Tên của Angular Directives được khai báo theo kiểu &lt;a href=&quot;http://en.wikipedia.org/wiki/CamelCase&quot;&gt;camelCase&lt;/a&gt;.&lt;br /&gt;
 Khi khai báo tên một directive thì tốt nhất bạn nên đặt thêm tiền tố, mục đích là trách bị trùng tên với các từ khoá của Angular hoặc của framework Javascript nào khác có sử dụng trong dự án. Thêm nữa, trong tương lai khi AngularJS nâng cấp version thì sẽ có bổ sung thêm các từ khóa có thể trùng với tên directive mà bạn đã đặt, bạn sẽ mất thời gian để chỉnh sửa lại. &lt;/p&gt;
 
@@ -139,7 +420,7 @@ Khai báo directive&lt;/p&gt;
 
 &lt;!-- &lt;iframe src=&quot;http://embed.plnkr.co/0TCzKZfaq17oQCRkgV0K/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;250px&quot; width=&quot;100%px&quot;&gt;&lt;/iframe&gt; --&gt;
 
-&lt;h4 id=&quot;cc-thuc-tnh-khai-bo&quot;&gt;Các thuộc tính khai báo&lt;/h4&gt;
+&lt;h4 id=&quot;span-iddeclaredcc-thuc-tnh-khai-bospan&quot;&gt;&lt;span id=&quot;declareD&quot;&gt;Các thuộc tính khai báo&lt;/span&gt;&lt;/h4&gt;
 
 &lt;h5 id=&quot;emrestrictem&quot;&gt;&lt;em&gt;restrict&lt;/em&gt;&lt;/h5&gt;
 &lt;p&gt;khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive.&lt;/p&gt;
@@ -273,275 +554,154 @@ Sử dụng 3 directive ở ví dụ trên, nhưng khai báo &lt;span class=&quo
 &lt;p&gt;Các “pre-link” function cũng được thực thi theo thứ tự của priority, còn với “post-link” thì được thực thi theo thứ tự ngược lại. &lt;/p&gt;
 
 &lt;p&gt;Nếu các directive đó đều có tác động đến việc hiển thị của DOM element, thì trình biên dịch sẽ ưu tiên xử lý của directive có giá trị priority nhỏ nhất.&lt;/p&gt;
-
-&lt;h5 id=&quot;emreplaceem&quot;&gt;&lt;em&gt;replace&lt;/em&gt;&lt;/h5&gt;
-
-&lt;p&gt;Replace nhận giá trị kỉểu boolean, mặc định là false.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;True: &lt;span class=&quot;red&quot;&gt;Thay thế&lt;/span&gt; DOM element khai báo directive bằng nội dung của directive tương ứng, bao gồm nội dung bên trong template và dữ liệu.&lt;/li&gt;
-  &lt;li&gt;False: &lt;span class=&quot;red&quot;&gt;Đưa nội dung&lt;/span&gt; của directive (bao gồm nội dung bên trong template và dữ liệu) &lt;span class=&quot;red&quot;&gt;vào bên trong&lt;/span&gt; DOM element khai báo directive đó.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
-
-&lt;pre&gt;
-  var myApp = angular.module(&#39;demoModule&#39;, []);
-    myApp.directive(&#39;demoReplace&#39;, function(){
-      return {
-        restrict: &quot;A&quot;,
-        template: &quot;&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;This is directive1&lt;span class=&quot;red&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;&quot;,
-        &lt;span class=&quot;red&quot;&gt;replace: true&lt;/span&gt;
-  }});
-&lt;/pre&gt;
-
-&lt;p&gt;Khai báo sử dụng&lt;/p&gt;
-
-&lt;pre&gt;
-  &lt;span class=&quot;red&quot;&gt;&amp;lt;p&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;
-
-&lt;p&gt;Kết quả&lt;/p&gt;
-
-&lt;pre&gt;
-  &lt;span class=&quot;red&quot;&gt;&amp;lt;h3&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&lt;/span&gt;
-&lt;/pre&gt;
-
-&lt;h5 id=&quot;em-idscopescopeem&quot;&gt;&lt;em id=&quot;scope&quot;&gt;scope&lt;/em&gt;&lt;/h5&gt;
-
-&lt;p&gt;Trước hết các bạn cần hiểu về khái niệm &lt;a href=&quot;http://acegik.net/blog/javascript/angularjs/tim-hieu-ve-scope-trong-angularjs.html&quot;&gt;scope&lt;/a&gt; trong AngularJS.&lt;/p&gt;
-
-&lt;p&gt;Mặc định thì directive sẽ lấy scope cha bên ngoài, nhưng trong một số truờng hợp chúng ta muốn directive khai báo thêm các thuộc tính và function khác chỉ sử dụng bên trong nội bộ directive, mà lại không làm ảnh huởng đến scope cha bên ngoài thì có 2 lựa chọn:&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;A child scope: scope này thừa kế từ scope cha bên ngoài, và có thể khai báo thêm các property, function khác chỉ sử dụng đuợc bên trong directive đó.&lt;/li&gt;
-  &lt;li&gt;An isolated scope: là một scope riêng mới, không thừa kế gì từ scope bên ngoài, chỉ tồn tại mỗi mình nó.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Phần bên dưới sẽ giải thích về sự khác nhau giữa child scope và isolate scope trong Directives.&lt;/p&gt;
-
-&lt;p&gt;&lt;span id=&quot;childScope&quot;&gt;&lt;ins&gt;Child scope&lt;/ins&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Khai báo sử dụng child scope: &lt;span class=&quot;red&quot;&gt;scope: true&lt;/span&gt;&lt;/p&gt;
-
-&lt;iframe src=&quot;http://embed.plnkr.co/QM2emkyWQVhM2qceJHR1/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;270px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;Ở phần demo trên, khi bạn thay đổi giá trị ở textBox Parent scope thì giá trị ở textBox Child scope cũng thay đổi theo, đó là do directive đã khai báo sử dụng child scope (&lt;span class=&quot;red&quot;&gt;scope: true&lt;/span&gt;) nên scope này thừa kế từ scope cha. Mỗi một thay đổi trên thuộc tính thừa kế từ scope cha, thì thuộc tính đó cũng được ánh xạ trên child scope thừa kế và ngược lại cũng vậy.&lt;/p&gt;
-
-&lt;p&gt;Riêng thuộc tính được khai báo thêm bên trong child scope thì scope cha không thể truy cập được. Như ở ví dụ trên thì dòng chữ “This text is the specific property of the child scope” là giá trị của thuộc tính được khai báo thêm bên trong child scope thừa kế từ scope cha, nên scope cha không thể truy cập được.&lt;/p&gt;
-
-&lt;p&gt;&lt;span id=&quot;isolateScope&quot;&gt;&lt;ins&gt;Isolate scope&lt;/ins&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Khai báo sử dụng isolate scope: &lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Khi khai báo &lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt; thì directive đó sẽ có scope riêng biệt bên trong nó để sử dụng. Mọi sự thay đổi của scope cha bên ngoài sẽ không ảnh hưởng gì đến isolate scope bên trong và ngược lại.&lt;/p&gt;
-
-&lt;iframe src=&quot;http://embed.plnkr.co/XCUcCeqHPwVivKeq14mG/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;270px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;Tương tự như phần demo của &lt;a href=&quot;#childScope&quot;&gt;child scope&lt;/a&gt;, nhưng bây giờ khi bạn thay đổi giá trị ở textBox Parent scope thì giá trị ở textBox Isolate scope không hề thay đổi theo, và ngược lại cũng vậy. Đó là do directive đã khai báo sử dụng isolute scope (&lt;span class=&quot;red&quot;&gt;scope: {}&lt;/span&gt;) nên scope này không thừa kế gì từ scope cha. Mỗi một thay đổi trên scope cha đều không hề ảnh hưởng đến isolute scope và ngược lại cũng vậy. Scope cha không thể truy cập vào isolate scope.&lt;/p&gt;
-
-&lt;p&gt;Sử dụng isolate scope cho truờng hợp khi chúng ta tạo một custom directive, và muốn tái sử dụng directive đó. Nhưng sử dụng isolate scope không có nghĩa là không truy cập được vào scope cha bên ngoài. AngularJS cung cấp 3 kiểu khai báo cho thuộc tính isolate scope bên trong để có thể nhận các giá trị của scope cha bên ngoài.&lt;/p&gt;
-
-&lt;p&gt;&lt;span id=&quot;@_@attr&quot;&gt;1. Khai báo ‘@’ hay ‘@attr’&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Nếu chỉ khai báo ‘@’ cho tên &lt;span class=&quot;red&quot;&gt;thuộc tính đại diện&lt;/span&gt; trong isolate scope, thì Angular sẽ tự hiểu tên &lt;span class=&quot;red&quot;&gt;thuộc tính đại diện&lt;/span&gt; cùng tên với &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo&lt;/span&gt; ở DOM element, nhận giá trị từ thuộc tính của scope cha. Như hình mô tả bên dưới, các bạn có thể thấy tên &lt;span class=&quot;red&quot;&gt;thuộc tính đại diện “theName”&lt;/span&gt; trong isolate scope khai báo ‘@’ cùng tên với &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo “the-name”&lt;/span&gt; ở DOM element &lt;my-directive&gt; (khai báo tên theo kiểu camelCase), và &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo &quot;the-name&quot;&lt;/span&gt; nhận vào giá trị của thuộc tính &quot;name&quot; của parent scope.&lt;/my-directive&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/isolateScope_@.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Nếu khai báo ‘@&lt;span class=&quot;red&quot;&gt;theAttr&lt;/span&gt;’ cho thuộc tính đại diện trong isolate scope, thì Angular sẽ hiểu thuộc tính đại diện &lt;b&gt;chỉ nhận vào&lt;/b&gt; giá trị của &lt;b&gt;một&lt;/b&gt; &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo&lt;/span&gt; cụ thể ở DOM element, nhận giá trị từ thuộc tính của scope cha. Như hình mô tả bên dưới, các bạn có thể thấy thuộc tính đại diện “theName” trong isolate scope khai báo ‘@&lt;span class=&quot;red&quot;&gt;theAttr&lt;/span&gt;’ cùng tên với &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo “the-attr”&lt;/span&gt; ở DOM element &lt;my-directive&gt;, và &lt;span class=&quot;green&quot;&gt;thuộc tính khai báo &quot;the-attr&quot;&lt;/span&gt; nhận vào giá trị của thuộc tính &quot;name&quot; của parent scope. &lt;/my-directive&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/isolateScope_@attr.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Như vậy, điểm khác của khai báo ‘@attr’ với ‘@’ là muốn tách bạch tên thuộc tính đại diện với tên thuộc tính khai báo ở DOM element, việc sử dụng các thuộc tính của parent scope sẽ không bị phụ thuộc vào tên khai báo, mà chỉ thông qua các tên đại diện.&lt;/p&gt;
-
-&lt;p&gt;Các bạn hãy nhìn vào những mũi tên trong hình mô tả khai báo ‘@’ và ‘@attr’ bên trên, chúng đều chỉ có một chiều từ parent scope đi xuống isolate scope. Như vậy, điều quan trọng nhất khi sử dụng kiểu thuộc tính khai báo ‘@’ và ‘@attr’ đó là, mỗi một thay đổi ở parent scope thì sẽ làm ảnh hưởng đến giá trị nhận vào ở isolate scope, nhưng sự thay đổi ở isolate scope thì không hề ảnh hưởng đến parent scope (&lt;b&gt;one way binding&lt;/b&gt;).&lt;/p&gt;
-
-&lt;p&gt;Khai báo ‘@’ và ‘@attr’ chỉ nhận vào giá trị kiểu string.&lt;/p&gt;
-
-&lt;p&gt;&lt;span id=&quot;=_=attr&quot;&gt;2. Khai báo ‘=’ hay ‘=attr’&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Sử dụng tương tự như khai báo &lt;a href=&quot;#@_@attr&quot;&gt;’@’ và ‘@attr’&lt;/a&gt; đã được gỉải thích ở trên, điều khác biệt là mỗi một thay đổi ở parent scope thì sẽ làm ảnh hưởng đến giá trị nhận vào ở isolate scope, và ngược lại cũng vậy, mọi thay đổi trên giá trị nhận vào ở isolate scope cũng ảnh hưởng đến parent scope (&lt;b&gt;two way binding&lt;/b&gt;).&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/isolateScope_=attr.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Khai báo ‘=’ và ‘=attr’ nhận vào giá trị kiểu object. Vì khai báo ‘=’ có tính đồng bộ nên không thể truyền vào một thuộc tính của một object, mà phải truyền vào cả object.&lt;/p&gt;
-
-&lt;p&gt;&lt;span id=&quot;isolateScope_func&quot;&gt;3. Khai báo ‘&amp;amp;’ và ‘&amp;amp;attr’:&lt;/span&gt;&lt;/p&gt;
-
-&lt;p&gt;Sử dụng tương tự như khai báo &lt;a href=&quot;#@_@attr&quot;&gt;’@’ và ‘@attr’&lt;/a&gt; đã được gỉải thích ở trên, nhưng khai báo ‘&amp;amp;’ này dùng để gọi một function được khai báo ở parent scope vào sử dụng bên trong directive.&lt;/p&gt;
-
-&lt;iframe src=&quot;http://embed.plnkr.co/mTWEXBLVWf8oaUguVqCv/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;430px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
-
-&lt;h5 id=&quot;emtranscludeem&quot;&gt;&lt;em&gt;transclude&lt;/em&gt;&lt;/h5&gt;
-
-&lt;p&gt;Transclusion trong Directives &lt;/p&gt;
-
-&lt;p&gt;Từ “transclusion” là một từ không có nghĩa trong từ điển nhưng định nghĩa về nó có thể tìm thấy trên trang Wikipedia hoặc một số trang khác. Hầu hết các trang định nghĩa “transclusion” như sau:&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;“Nhúng một tài liệu hoặc một phần tài liệu vào trong một tài liệu khác bằng tham chiếu” (&lt;a href=&quot;http://en.wikipedia.org/wiki/Transclusion&quot;&gt;wiki/transclusion&lt;/a&gt;)&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Giống như việc bạn khai báo gọi một file CSS, file Javascript vào trang HTML. Hay cũng giống như việc bạn chia template ra từng phần header, footer, sidebar, … và khi viết nội dung một template bạn sẽ nhúng từng thành phần đó vào trong để tạo thành một file hoàn chỉnh.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/transclusion.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Thuộc tính khai báo transclude nhận giá trị kiểu boolean, mặc định là false, khi đó nội dung của directive sẽ thay thế hoàn toàn cho nội dung bên trong DOM element khai báo directive đó. Khi bạn khai báo &lt;span class=&quot;red&quot;&gt;“transclude: true”&lt;/span&gt; thì trong template của directive cần chỉ rõ nơi sẽ chứa nội dung được đưa vào bằng “ng-transclude”. Hình minh họa bên dưới sẽ giúp bạn hình dung dễ hơn về cách hoạt động của “transclusion” trong Angular Directives.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;../../images/Directive_transclude.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Như hình minh họa ở trên thì nội dung bên trong cặp thẻ &amp;lt;div output-text&amp;gt;&amp;lt;/div&amp;gt; sẽ được lấy ra và đưa vào trong cặp thẻ &amp;lt;div &lt;span class=&quot;red&quot;&gt;ng-transclude&lt;/span&gt;&amp;gt;&amp;lt;/div&amp;gt; của directive. &lt;/p&gt;
-
-&lt;iframe src=&quot;http://embed.plnkr.co/3Aixxx7i4fDDdsaJcx5q/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;230px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
-
-&lt;h5 id=&quot;em-idcompilecompileem&quot;&gt;&lt;em id=&quot;compile&quot;&gt;compile&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;Như đã giới thiệu ở phần &lt;a href=&quot;#compileHTML&quot;&gt;Cách directives được biên dịch&lt;/a&gt; thì compiler sẽ thực hiện việc biên dịch các directive. Trong một số trường hợp bạn muốn thay đổi cấu trúc HTML của directive tùy theo điều kiện, mà việc này không thể đặt template cứng thì bạn có thể sử dụng khai báo function compile() hay &lt;a href=&quot;#link&quot;&gt;link()&lt;/a&gt; trong directive để tái cấu trúc template cho directive khi được compiler biên dịch ra giao diện. Function compile() sẽ chỉ chạy một lần duy nhất. Function compile() khi kết thúc sẽ trả về function link(), và link() sẽ được gọi ngay sau khi directive được biên dịch xong. Nếu khai báo compile() chỉ trả về một function link(), thì mặc định Angular sẽ hiểu đó là &lt;a href=&quot;&quot;&gt;postLink&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;&lt;ins&gt;Ví dụ:&lt;/ins&gt;&lt;/p&gt;
-
-&lt;pre&gt;
-var myApp = angular.module(&quot;demoModule&quot;, []);
-myApp.directive(&#39;myDirective&#39;, function() {
-  return {
-    restrict: &#39;AE&#39;,
-    &lt;span class=&quot;red&quot;&gt;compile: function(element, attributes) {
-      // do one-time configuration of element.
-
-      var linkFunction = function($scope, element, atttributes) {
-        // bind element to data in $scope
-      }
-      return linkFunction;
-    }
-    &lt;/span&gt;
-  }
-});
-&lt;/pre&gt;
-
-&lt;p&gt;Như ví dụ trên thì compile nhận vào 2 tham số: element và attributes.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;element là đối tượng tham chiếu đến DOM element ngoài cùng, chứa tất cả các DOM element khác bên trong directive đó.&lt;/li&gt;
-  &lt;li&gt;attributes là đối tượng chứa tất cả các thuộc tính của DOM element. Để truy cập đến các thuộc tính thì bạn phải viết attributes.type.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Còn linkFunction nhận vào 3 tham số: $scope, element và attributes.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;$scope là đối tượng scope bình thường, hoặc &lt;a href=&quot;#childScope&quot;&gt;childScope&lt;/a&gt; hoặc &lt;a href=&quot;#isolateScope&quot;&gt;isolateScope&lt;/a&gt; tùy theo khai báo scope của directive đó.&lt;/li&gt;
-  &lt;li&gt;Còn element và attributes tương tự như ở khai báo compile.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h5 id=&quot;em-idlink-linkem&quot;&gt;&lt;em id=&quot;link&quot;&gt;link&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;Function link được khai báo khi chúng ta muốn đính kèm xử lý tác động, làm thay đổi nội dung phần hiển thị của directive. Chúng ta có thể dùng Javascript hoặc JQuery, nhưng trường hợp trên một giao diện có sử dụng nhiều directive có cùng một khai báo thì sẽ rất khó xác định chính xác vị trí của DOM element cần xử lý.&lt;/p&gt;
-
-&lt;p&gt;Khai báo link function cho directive có thể xử lý được việc hiển thị DOM elements trong phạm vi directive đó, mà không cần phải dùng Javascript selector đến chính xác DOM element cần xử lý. Như vậy, có thể hiểu khi một directive được $compile biên dịch, nó cũng sẽ được đính kèm các xử lý DOM elements bên trong đã được định nghĩa sẵn bởi link function. &lt;/p&gt;
-
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
-
-&lt;iframe src=&quot;http://embed.plnkr.co/nIFNV5jrqqaBZDF4Ea30/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;150px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
-
-&lt;p&gt;Link function được chia làm 2: preLink và postLink.&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;preLink: là xử lý được tự động thực thi sau khi directive được compiler biên dịch xong.&lt;/li&gt;
-  &lt;li&gt;postLink: là xử lý được đính kèm vào directive sau khi directive được compiler biên dịch xong, và preLink thực thi xong.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h5 id=&quot;ems-khc-nhau-gia-compile-v-linkem&quot;&gt;&lt;em&gt;Sự khác nhau giữa compile và link&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;Mục đích của việc khai báo compile và link đều là tác động, làm thay đổi nội dung hiển thị. Vậy khi nào chúng ta dùng compile, khi nào dùng link?&lt;/p&gt;
-
-&lt;p&gt;Khai báo function compile() được sử dụng khi chúng ta muốn thực thi việc xử lý nội dung hiển thị của directive &lt;span class=&quot;red&quot;&gt;trước khi được compiler biên dịch&lt;/span&gt; ra giao diện. Và compile trả về một function link() cụ thể, function link() này sẽ được đính kèm vào directive.&lt;/p&gt;
-
-&lt;p&gt;Khai báo function link() được sử dụng khi chúng ta muốn đính kèm xử lý hiển thị cho directive, và function link() chỉ được thực thi &lt;span class=&quot;red&quot;&gt;sau khi directive được compiler biên dịch&lt;/span&gt; xong. Khác với compile, việc khai báo xử lý cho function link() có thể là interface, và implement xử lý đó ở ngoài.&lt;/p&gt;
-
-&lt;p&gt;Thường chỉ khai báo một trong hai function, hoặc là compile, hoặc là link. Nếu vô tình khai báo cả 2 function compile và link, thì chỉ các function link() được khai báo trong compile được thực thi.&lt;/p&gt;
-
-&lt;p&gt;&lt;ins&gt;Ví dụ:&lt;/ins&gt;&lt;/p&gt;
-
-&lt;iframe src=&quot;http://embed.plnkr.co/LfxVTPT33rnQ8yvGHavk/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;230px&quot; width=&quot;100%&quot;&gt;&lt;/iframe&gt;
-
-&lt;h5 id=&quot;emrequireem&quot;&gt;&lt;em&gt;require&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;Khi bạn muốn sử dụng controller của một Directive khác, thì khai báo thuộc tính “require” để yêu cầu sử dụng controller của Directive cần sử dụng. Controller của những Directive được yêu cầu sẽ được nhúng (inject) vào trong link function của Sirective yêu cầu tại vị trí tham số thứ tư. Khai báo “require” nhận vào giá trị là một string, hoặc một mảng strings tên của các Directive. Mặc định tên của Directive sẽ đại diện cho phần thể hiện của controller của Directive đó. Nếu truyền vào là một mảng strings thì sẽ gọi các Directive theo thứ tự tương ứng trong mảng. Nếu không có Directive nào được tìm thấy hay Directive được yêu cầu không có controller thì sẽ bị báo lỗi. &lt;/p&gt;
-
-&lt;p&gt;Khai báo tên (phần hiển thị của controller) các Directive được yêu cầu với tiền tố như sau:&lt;/p&gt;
-
-&lt;p&gt;&lt;span class=&quot;red&quot;&gt;&lt;i&gt;“element hiện tại”: Là element khai báo/sử dụng Directive đang được phát triển.&lt;/i&gt;&lt;/span&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Không có tiền tố: Xác định controller được gọi trên element hiện tại. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;?&lt;/span&gt; : Xác định controller được gọi trên element hiện tại. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;^&lt;/span&gt; : Xác định controller được gọi trên element hiện tại và trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;^^&lt;/span&gt; : Xác định controller được gọi &lt;span class=&quot;red&quot;&gt;chỉ&lt;/span&gt; trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;?^&lt;/span&gt; : Xác định controller được gọi trên element hiện tại và trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;span class=&quot;red&quot;&gt;?^^&lt;/span&gt; : Xác định controller được gọi &lt;span class=&quot;red&quot;&gt;chỉ&lt;/span&gt; trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).&lt;/p&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h5 id=&quot;emcontrollerem&quot;&gt;&lt;em&gt;controller&lt;/em&gt;&lt;/h5&gt;
-&lt;p&gt;Khai báo function controller cho Directive nếu muốn cho phép Directive khác giao tiếp với nó.&lt;/p&gt;
-
-&lt;p&gt;&lt;ins&gt;Ví dụ:&lt;/ins&gt;&lt;/p&gt;
-
-&lt;pre&gt;
-app.directive(&#39;outerDirective&#39;, function() {
-  return {
-    scope: {},
-    restrict: &#39;AE&#39;,
-    controller: function($scope, $compile, $http) {
-      this.addChild = function(params) {
-        console.log(&#39;Got the message from nested directive:&#39; + params.message);
-      };
-    }
-  };
-});
-&lt;/pre&gt;
-
-&lt;p&gt;Đây là code yêu cầu đính kèm một controller được đặt tên “outerDirective” cho directive. Khi một Directive khác muốn giao tiếp với “outerDirective”, thì Directive đó cần được khai báo “require” để sử dụng phần thể hiện controller của “outerDirective”.&lt;/p&gt;
-
-&lt;pre&gt;
-app.directive(&#39;innerDirective&#39;, function() {
-    return {
-      scope: {},
-      restrict: &#39;AE&#39;,
-      require: &#39;^outerDirective&#39;,
-      link: function(scope, elem, attrs, controllerInstance) {
-        //Tham số thứ tư là đối tượng thể hiện controller của Directive &quot;outerDirective&quot; mà bạn yêu cầu
-        scope.message = &quot;Hi, Parent directive&quot;;
-        controllerInstance.addChild(scope);
-      }
-    };
-});
-&lt;/pre&gt;
-
-&lt;p&gt;Sử dụng trong file HTML như sau:&lt;/p&gt;
-
-&lt;pre&gt;
-  &amp;lt;outer-directive&amp;gt;
-    &amp;lt;inner-directive&amp;gt;&amp;lt;/inner-directive&amp;gt;
-  &amp;lt;/outer-directive&amp;gt;
-&lt;/pre&gt;
-
-&lt;p&gt;require: ‘^outerDirective’ nói cho Angular tìm kiếm controller của Directive “outerDirective” trên element hiện tại và trên thành phần cha của nó. Trong truờng hợp này là tìm thấy thể hiện của controller của directive “outerDirective” tại thành phần cha.&lt;/p&gt;
-
-&lt;h5 id=&quot;emcontrollerasem&quot;&gt;&lt;em&gt;ControllerAs&lt;/em&gt;&lt;/h5&gt;
-
-&lt;p&gt;ControllerAs dùng để định danh cho function controller của Directive. Mặc định thì Angular sẽ lấy tên của Directive làm tên định danh cho controller của directive đó.&lt;/p&gt;
-
 </description>
         <pubDate>Fri, 24 Oct 2014 00:00:00 +0700</pubDate>
-        <link>http://xuantain.github.io/javascript/angularjs/tim-hieu-ve-angularjs-directives.html</link>
-        <guid isPermaLink="true">http://xuantain.github.io/javascript/angularjs/tim-hieu-ve-angularjs-directives.html</guid>
+        <link>http://xuantain.github.io/javascript/angularjs/2014/10/24/tim-hieu-ve-angularjs-directives-phan1/</link>
+        <guid isPermaLink="true">http://xuantain.github.io/javascript/angularjs/2014/10/24/tim-hieu-ve-angularjs-directives-phan1/</guid>
+      </item>
+    
+      <item>
+        <title>Hello, Pixyll</title>
+        <description>&lt;p&gt;Hello.&lt;/p&gt;
+
+&lt;p&gt;Pixyll is a simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff. It’s mobile &lt;em&gt;first&lt;/em&gt;, fluidly responsive, and delightfully lightweight.&lt;/p&gt;
+
+&lt;p&gt;It’s pretty minimal, but leverages large type and drastic contrast to make a statement, on all devices.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;
+    Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
+  &lt;/p&gt;
+  &lt;footer&gt;&lt;cite title=&quot;Antoine de Saint-Exupéry&quot;&gt;Antoine de Saint-Exupéry&lt;/cite&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;where-is-it&quot;&gt;Where is it?&lt;/h2&gt;
+
+&lt;p&gt;Checkout the &lt;a href=&quot;https://github.com/johnotander/pixyll&quot;&gt;Github repository&lt;/a&gt; to download it, request a feature, or report a bug.&lt;/p&gt;
+
+&lt;p&gt;It’s free, and open source (&lt;a href=&quot;http://opensource.org/licenses/MIT&quot;&gt;MIT&lt;/a&gt;).&lt;/p&gt;
+</description>
+        <pubDate>Wed, 11 Jun 2014 22:31:19 +0700</pubDate>
+        <link>http://xuantain.github.io/jekyll/pixyll/2014/06/11/welcome-to-pixyll/</link>
+        <guid isPermaLink="true">http://xuantain.github.io/jekyll/pixyll/2014/06/11/welcome-to-pixyll/</guid>
+      </item>
+    
+      <item>
+        <title>Pixyll in Action</title>
+        <description>&lt;p&gt;There is a significant amount of subtle, yet precisely calibrated, styling to ensure
+that your content is emphasized while still looking aesthetically pleasing.&lt;/p&gt;
+
+&lt;p&gt;All links are easy to &lt;a href=&quot;#&quot;&gt;locate and discern&lt;/a&gt;, yet don’t detract from the harmony
+of a paragraph. The &lt;em&gt;same&lt;/em&gt; goes for italics and &lt;strong&gt;bold&lt;/strong&gt; elements. Even the the strikeout
+works if &lt;del&gt;for some reason you need to update your post&lt;/del&gt;. For consistency’s sake,
+&lt;ins&gt;The same goes for insertions&lt;/ins&gt;, of course.&lt;/p&gt;
+
+&lt;h3 id=&quot;code-with-syntax-highlighting&quot;&gt;Code, with syntax highlighting&lt;/h3&gt;
+
+&lt;p&gt;Code blocks use the &lt;a href=&quot;http://ethanschoonover.com/solarized&quot;&gt;solarized&lt;/a&gt; theme. Both the light and
+dark versions are included, so you can swap them out easily. &lt;em&gt;Solarized Dark&lt;/em&gt; is the default.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-ruby&quot; data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;k&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Awesome&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;ActiveRecord&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Base&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;include&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;EvenMoreAwesome&lt;/span&gt;
+
+  &lt;span class=&quot;n&quot;&gt;validates_presence_of&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:something&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;validates&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;:email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;ss&quot;&gt;email_format&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;true&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;initialize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nil&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;email&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;email&lt;/span&gt;
+    &lt;span class=&quot;nb&quot;&gt;self&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;name&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;name&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;end&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;headings&quot;&gt;Headings!&lt;/h1&gt;
+
+&lt;p&gt;They’re responsive, and well-proportioned (in &lt;code&gt;padding&lt;/code&gt;, &lt;code&gt;line-height&lt;/code&gt;, &lt;code&gt;margin&lt;/code&gt;, and &lt;code&gt;font-size&lt;/code&gt;).
+They also heavily rely on the awesome utility, &lt;a href=&quot;http://www.basscss.com/&quot;&gt;BASSCSS&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h5 id=&quot;they-draw-the-perfect-amount-of-attention&quot;&gt;They draw the perfect amount of attention&lt;/h5&gt;
+
+&lt;p&gt;This allows your content to have the proper informational and contextual hierarchy. Yay.&lt;/p&gt;
+
+&lt;h3 id=&quot;there-are-lists-too&quot;&gt;There are lists, too&lt;/h3&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Apples&lt;/li&gt;
+  &lt;li&gt;Oranges&lt;/li&gt;
+  &lt;li&gt;Potatoes&lt;/li&gt;
+  &lt;li&gt;Milk&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Mow the lawn&lt;/li&gt;
+  &lt;li&gt;Feed the dog&lt;/li&gt;
+  &lt;li&gt;Dance&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;images-look-great-too&quot;&gt;Images look great, too&lt;/h3&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://cloud.githubusercontent.com/assets/1424573/3378137/abac6d7c-fbe6-11e3-8e09-55745b6a8176.png&quot; alt=&quot;desk&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;there-are-also-pretty-colors&quot;&gt;There are also pretty colors&lt;/h3&gt;
+
+&lt;p&gt;Also the result of &lt;a href=&quot;http://www.basscss.com/&quot;&gt;BASSCSS&lt;/a&gt;, you can &lt;span class=&quot;bg-dark-gray white&quot;&gt;highlight&lt;/span&gt; certain components
+of a &lt;span class=&quot;red&quot;&gt;post&lt;/span&gt; &lt;span class=&quot;mid-gray&quot;&gt;with&lt;/span&gt; &lt;span class=&quot;green&quot;&gt;CSS&lt;/span&gt; &lt;span class=&quot;orange&quot;&gt;classes&lt;/span&gt;.&lt;/p&gt;
+
+&lt;p&gt;I don’t recommend using blue, though. It looks like a &lt;span class=&quot;blue&quot;&gt;link&lt;/span&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;stylish-blockquotes-included&quot;&gt;Stylish blockquotes included&lt;/h3&gt;
+
+&lt;p&gt;You can use the markdown quote syntax, &lt;code&gt;&amp;gt;&lt;/code&gt; for simple quotes.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse quis porta mauris.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;However, you need to inject html if you’d like a citation footer. I will be working on a way to
+hopefully sidestep this inconvenience.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;
+    Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
+  &lt;/p&gt;
+  &lt;footer&gt;&lt;cite title=&quot;Antoine de Saint-Exupéry&quot;&gt;Antoine de Saint-Exupéry&lt;/cite&gt;&lt;/footer&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;theres-more-being-added-all-the-time&quot;&gt;There’s more being added all the time&lt;/h3&gt;
+
+&lt;p&gt;Checkout the &lt;a href=&quot;https://github.com/johnotander/pixyll&quot;&gt;Github repository&lt;/a&gt; to request,
+or add, features.&lt;/p&gt;
+
+&lt;p&gt;Happy writing.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 10 Jun 2014 19:31:19 +0700</pubDate>
+        <link>http://xuantain.github.io/jekyll/pixyll/2014/06/10/see-pixyll-in-action/</link>
+        <guid isPermaLink="true">http://xuantain.github.io/jekyll/pixyll/2014/06/10/see-pixyll-in-action/</guid>
+      </item>
+    
+      <item>
+        <title>So, What is Jekyll?</title>
+        <description>&lt;p&gt;Jekyll is a tool for transforming your plain text into static websites and 
+blogs. It is simple, static, and blog-aware. Jekyll uses the 
+&lt;a href=&quot;http://docs.shopify.com/themes/liquid-basics&quot;&gt;Liquid&lt;/a&gt; templating
+language and has builtin &lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt;
+and &lt;a href=&quot;http://en.wikipedia.org/wiki/Textile_(markup_language)&quot;&gt;Textile&lt;/a&gt; support.&lt;/p&gt;
+
+&lt;p&gt;It also ties in nicely to &lt;a href=&quot;https://pages.github.com/&quot;&gt;Github Pages&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Learn more about Jekyll on their &lt;a href=&quot;http://jekyllrb.com/&quot;&gt;website&lt;/a&gt;.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 09 Jun 2014 19:32:18 +0700</pubDate>
+        <link>http://xuantain.github.io/jekyll/pixyll/2014/06/09/so-what-is-jekyll/</link>
+        <guid isPermaLink="true">http://xuantain.github.io/jekyll/pixyll/2014/06/09/so-what-is-jekyll/</guid>
+      </item>
+    
+      <item>
+        <title>Pixyll has Pagination</title>
+        <description>&lt;p&gt;This is an empty post to illustrate the pagination component with Pixyll.&lt;/p&gt;
+</description>
+        <pubDate>Sun, 08 Jun 2014 18:21:29 +0700</pubDate>
+        <link>http://xuantain.github.io/jekyll/pixyll/2014/06/08/pixyll-has-pagination/</link>
+        <guid isPermaLink="true">http://xuantain.github.io/jekyll/pixyll/2014/06/08/pixyll-has-pagination/</guid>
       </item>
     
   </channel>
