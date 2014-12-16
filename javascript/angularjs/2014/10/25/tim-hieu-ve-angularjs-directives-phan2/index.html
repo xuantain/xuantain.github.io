@@ -7,12 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Bài viết tìm hiểu về AngularJS Directives và cách tạo một Custom Directive - Phần 2 (replace, scope).">
     <meta name="author" content="Nguyen Xuan tai">
+    
     <meta name="keywords" content="javascript, angularjs">
+    
     <link rel="canonical" href="http://xuantain.github.io/javascript/angularjs/2014/10/25/tim-hieu-ve-angularjs-directives-phan2/">
     <link rel="shortcut icon" href="../favicon.ico" />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+    <!-- This css contains the default style for TOC -->
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/toc.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/jquery.toc.js"></script>
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
@@ -60,7 +66,13 @@
 </div>
 
 <article class="post-content">
-  <h5 id="emreplaceem"><em>replace</em></h5>
+  <script type="text/javascript">
+    $('#main_content').toc({
+        showAlways:true
+    });
+</script>
+
+<h5 id="emreplaceem"><em>replace</em></h5>
 
 <p>Replace nhận giá trị kỉểu boolean, mặc định là false.</p>
 
@@ -72,25 +84,25 @@
 <p><ins>VD:</ins></p>
 
 <pre>
-  var myApp = angular.module('demoModule', []);
-    myApp.directive('demoReplace', function(){
-      return {
-        restrict: "A",
-        template: "<span class="red">&lt;h3&gt;</span>This is directive1<span class="red">&lt;/h3&gt;</span>",
-        <span class="red">replace: true</span>
-  }});
+	var myApp = angular.module('demoModule', []);
+	myApp.directive('demoReplace', function(){
+	return {
+	restrict: "A",
+	template: "<span class="red">&lt;h3&gt;</span>This is directive1<span class="red">&lt;/h3&gt;</span>",
+	<span class="red">replace: true</span>
+}});
 </pre>
 
 <p>Khai báo sử dụng</p>
 
 <pre>
-  <span class="red">&lt;p</span> demo-replace <span class="red">&gt;&lt;/p&gt;</span>
+	<span class="red">&lt;p</span> demo-replace <span class="red">&gt;&lt;/p&gt;</span>
 </pre>
 
 <p>Kết quả</p>
 
 <pre>
-  <span class="red">&lt;h3</span> demo-replace <span class="red">&gt;This is directive1&lt;/h3&gt;</span>
+	<span class="red">&lt;h3</span> demo-replace <span class="red">&gt;This is directive1&lt;/h3&gt;</span>
 </pre>
 
 <h5 id="em-idscopescopeem"><em id="scope">scope</em></h5>
@@ -132,11 +144,11 @@
 
 <p>Nếu chỉ khai báo ‘@’ cho tên <span class="red">thuộc tính đại diện</span> trong isolate scope, thì Angular sẽ tự hiểu tên <span class="red">thuộc tính đại diện</span> cùng tên với <span class="green">thuộc tính khai báo</span> ở DOM element, nhận giá trị từ thuộc tính của scope cha. Như hình mô tả bên dưới, các bạn có thể thấy tên <span class="red">thuộc tính đại diện “theName”</span> trong isolate scope khai báo ‘@’ cùng tên với <span class="green">thuộc tính khai báo “the-name”</span> ở DOM element <my-directive> (khai báo tên theo kiểu camelCase), và <span class="green">thuộc tính khai báo "the-name"</span> nhận vào giá trị của thuộc tính "name" của parent scope.</my-directive></p>
 
-<p><img src="../../images/isolateScope_@.png" alt="desk" /></p>
+<p><img src="/images/isolateScope_@.png" alt="desk" /></p>
 
 <p>Nếu khai báo ‘@<span class="red">theAttr</span>’ cho thuộc tính đại diện trong isolate scope, thì Angular sẽ hiểu thuộc tính đại diện <b>chỉ nhận vào</b> giá trị của <b>một</b> <span class="green">thuộc tính khai báo</span> cụ thể ở DOM element, nhận giá trị từ thuộc tính của scope cha. Như hình mô tả bên dưới, các bạn có thể thấy thuộc tính đại diện “theName” trong isolate scope khai báo ‘@<span class="red">theAttr</span>’ cùng tên với <span class="green">thuộc tính khai báo “the-attr”</span> ở DOM element <my-directive>, và <span class="green">thuộc tính khai báo "the-attr"</span> nhận vào giá trị của thuộc tính "name" của parent scope. </my-directive></p>
 
-<p><img src="../../images/isolateScope_@attr.png" alt="desk" /></p>
+<p><img src="/images/isolateScope_@attr.png" alt="desk" /></p>
 
 <p>Như vậy, điểm khác của khai báo ‘@attr’ với ‘@’ là muốn tách bạch tên thuộc tính đại diện với tên thuộc tính khai báo ở DOM element, việc sử dụng các thuộc tính của parent scope sẽ không bị phụ thuộc vào tên khai báo, mà chỉ thông qua các tên đại diện.</p>
 
@@ -148,7 +160,7 @@
 
 <p>Sử dụng tương tự như khai báo <a href="#@_@attr">’@’ và ‘@attr’</a> đã được gỉải thích ở trên, điều khác biệt là mỗi một thay đổi ở parent scope thì sẽ làm ảnh hưởng đến giá trị nhận vào ở isolate scope, và ngược lại cũng vậy, mọi thay đổi trên giá trị nhận vào ở isolate scope cũng ảnh hưởng đến parent scope (<b>two way binding</b>).</p>
 
-<p><img src="../../images/isolateScope_=attr.png" alt="desk" /></p>
+<p><img src="/images/isolateScope_=attr.png" alt="desk" /></p>
 
 <p>Khai báo ‘=’ và ‘=attr’ nhận vào giá trị kiểu object. Vì khai báo ‘=’ có tính đồng bộ nên không thể truyền vào một thuộc tính của một object, mà phải truyền vào cả object.</p>
 

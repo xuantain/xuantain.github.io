@@ -5,14 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Khái niệm services trong AngularJS &#8211; xuantain's blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Đây là bài viết về khái niệm Services trong AngularJS.">
+    <meta name="description" content="Đây là bài viết tìm hiểu về khái niệm Services trong AngularJS.">
     <meta name="author" content="Nguyen Xuan tai">
+    
     <meta name="keywords" content="javascript, angularjs">
+    
     <link rel="canonical" href="http://xuantain.github.io/javascript/angularjs/2014/11/27/khai-niem-services-trong-angularjs/">
     <link rel="shortcut icon" href="../favicon.ico" />
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+    <!-- This css contains the default style for TOC -->
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/toc.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/jquery.toc.js"></script>
 
     <!-- Fonts -->
     <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
@@ -52,95 +58,20 @@
         
 
 
+
+
 <div class="post-header mb2">
   <h1 class="py2">Khái niệm services trong AngularJS</h1>
   <span class="post-meta">Nov 27, 2014</span><br>
   
-  <span class="post-meta small">2 minute read</span>
+  <span class="post-meta small">1 minute read</span>
 </div>
 
 <article class="post-content">
-  <h3 id="directives-l-g">Directives là gì?</h3>
+  <h3 id="services-trong-angularjs-l-g">Services trong AngularJS là gì?</h3>
 
-<p>Các thuộc tính, id, class, name, onClick, … của một DOM element được gọi chung là directives. AngularJS sẽ dựa vào những directive đó để đính kèm các chỉ thị hoặc các sự kiện tới DOM element cần xử lý, thậm chí là thay đổi cấu trúc của DOM. </p>
+<p>(comming soon)</p>
 
-<p>AngularJS có sẵn một bộ directives: ng-app, ng-module, ng-controller, …  Để phát triển ứng dụng với AngularJS thì cần phải nắm rõ cách hoạt động và mục đích sử dụng của những directive đó. Trong phạm vi bài viết này sẽ không giải thích và hướng dẫn cách sử dụng những directive sẵn có của AngularJS.</p>
-
-<h3 id="cch-directives-c-bin-dch">Cách directives được biên dịch</h3>
-<p>Khi một trang được load thì web browser sẽ tự động parses HTML vào DOM.
-Việc biên dịch HTML được thực thi trong 3 bước:</p>
-
-<h3 id="to-custom-directive">Tạo custom directive</h3>
-<p>Tên của Angular Directives được khai báo theo kiểu <a href="http://en.wikipedia.org/wiki/CamelCase">camelCase</a>.<br />
- Khi khai báo tên một directive thì tốt nhất bạn nên đặt thêm tiền tố, mục đích là trách bị trùng tên với các từ khoá của Angular hoặc của framework Javascript nào khác có sử dụng trong dự án. Thêm nữa, trong tương lai khi AngularJS nâng cấp version thì sẽ có bổ sung thêm các từ khóa có thể trùng với tên directive mà bạn đã đặt, bạn sẽ mất thời gian để chỉnh sửa lại. </p>
-
-<p><ins>VD:</ins><br />
-Khai báo directive</p>
-
-<pre>
-angular.module('demoModule', [])
-  .directive('<span class="red">demoDirective</span>', function(){
-    return {
-       // TODO
-    };
-  });
-</pre>
-
-<p>Khi sử dụng</p>
-
-<pre>
-&lt;p <span class="red">demo-directive</span> &gt;&lt;/p&gt;
-</pre>
-
-<h4 id="cc-thuc-tnh-khai-bo">Các thuộc tính khai báo</h4>
-
-<h5 id="emrestrictem"><em>restrict</em></h5>
-
-<p><ins>VD:</ins><br />
-index.html</p>
-<pre>
-
-<div ng-app="demoModule">
-  &lt;div ng-controller="demoController"&gt;
-    <span class="red">&lt;ANY demo-directive&gt;<any>
-    &lt;demo-directive&gt;&lt;/demo-directive&gt;
-    &lt;ANY class="demo-directive"&gt;</any>
-    &lt;!-- directive: demo-directive --&gt;</span>
-  &lt;/div&gt;
-&lt;/div&gt;
-
-
-
-
-##### <em id="template">template</em>
-Định nghĩa template, phần hỉển thị nội dung cho directive của bạn (không sử dụng nếu dùng [templateURL](#templateUrl)).
-
-<ins>VD:</ins><br />
-
-<pre>
-var myApp = angular.module('demoModule', []);
-myApp.directive('demoDirective', function(){
-  return {
-    restrict: "ACEM",
-    <span class="red">template: "&lt;h3&gt;This is demo directive&lt;/h3&gt;"</span>
-}});
-</pre>
-
-##### <em id="templateUrl">templateUrl</em>
-
-Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. không sử dụng nếu dùng [template](#template), nếu không directive sẽ ưu tiên sử dụng nội dung trong template.
-
-<ins>VD:</ins><br />
-
-<pre>
-var myApp = angular.module('demoModule', []);
-myApp.directive('demoDirective', function(){
-  return {
-    restrict: "AE",
-    <span class="red">templateUrl: "../templates/demoDirective.html"</span>
-}});
-</pre>
-</div></pre>
 
 </article>
 
