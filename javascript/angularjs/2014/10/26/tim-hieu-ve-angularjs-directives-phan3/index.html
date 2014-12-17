@@ -66,7 +66,9 @@
 </div>
 
 <article class="post-content">
-  <h5 id="emtranscludeem"><em>transclude</em></h5>
+  <h3 id="span-idcreatedcch-to-custom-directive-tip-theospan"><span id="createD">Cách tạo Custom Directive (tiếp theo)</span></h3>
+
+<h4 id="emtranscludeem"><em>transclude</em></h4>
 
 <p>Transclusion trong Directives </p>
 
@@ -88,7 +90,7 @@
 
 <iframe src="http://embed.plnkr.co/3Aixxx7i4fDDdsaJcx5q/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="230px" width="100%"></iframe>
 
-<h5 id="em-idcompilecompileem"><em id="compile">compile</em></h5>
+<h4 id="em-idcompilecompileem"><em id="compile">compile</em></h4>
 <p>Như đã giới thiệu ở phần <a href="#compileHTML">Cách directives được biên dịch</a> thì compiler sẽ thực hiện việc biên dịch các directive. Trong một số trường hợp bạn muốn thay đổi cấu trúc HTML của directive tùy theo điều kiện, mà việc này không thể đặt template cứng thì bạn có thể sử dụng khai báo function compile() hay <a href="#link">link()</a> trong directive để tái cấu trúc template cho directive khi được compiler biên dịch ra giao diện. Function compile() sẽ chỉ chạy một lần duy nhất. Function compile() khi kết thúc sẽ trả về function link(), và link() sẽ được gọi ngay sau khi directive được biên dịch xong. Nếu khai báo compile() chỉ trả về một function link(), thì mặc định Angular sẽ hiểu đó là <a href="">postLink</a>.</p>
 
 <p><ins>Ví dụ:</ins></p>
@@ -125,7 +127,7 @@ myApp.directive('myDirective', function() {
   <li>Còn element và attributes tương tự như ở khai báo compile.</li>
 </ol>
 
-<h5 id="em-idlinklinkem"><em id="link">link</em></h5>
+<h4 id="em-idlinklinkem"><em id="link">link</em></h4>
 <p>Function link được khai báo khi chúng ta muốn đính kèm xử lý tác động, làm thay đổi nội dung phần hiển thị của directive. Chúng ta có thể dùng Javascript hoặc JQuery, nhưng trường hợp trên một giao diện có sử dụng nhiều directive có cùng một khai báo thì sẽ rất khó xác định chính xác vị trí của DOM element cần xử lý.</p>
 
 <p>Khai báo link function cho directive có thể xử lý được việc hiển thị DOM elements trong phạm vi directive đó, mà không cần phải dùng Javascript selector đến chính xác DOM element cần xử lý. Như vậy, có thể hiểu khi một directive được $compile biên dịch, nó cũng sẽ được đính kèm các xử lý DOM elements bên trong đã được định nghĩa sẵn bởi link function. </p>
@@ -141,7 +143,7 @@ myApp.directive('myDirective', function() {
   <li>postLink: là xử lý được đính kèm vào directive sau khi directive được compiler biên dịch xong, và preLink thực thi xong.</li>
 </ol>
 
-<h5 id="ems-khc-nhau-gia-compile-v-linkem"><em>Sự khác nhau giữa compile và link</em></h5>
+<h4 id="ems-khc-nhau-gia-compile-v-linkem"><em>Sự khác nhau giữa compile và link</em></h4>
 <p>Mục đích của việc khai báo compile và link đều là tác động, làm thay đổi nội dung hiển thị. Vậy khi nào chúng ta dùng compile, khi nào dùng link?</p>
 
 <p>Khai báo function compile() được sử dụng khi chúng ta muốn thực thi việc xử lý nội dung hiển thị của directive <span class="red">trước khi được compiler biên dịch</span> ra giao diện. Và compile trả về một function link() cụ thể, function link() này sẽ được đính kèm vào directive.</p>
@@ -154,7 +156,7 @@ myApp.directive('myDirective', function() {
 
 <iframe src="http://embed.plnkr.co/LfxVTPT33rnQ8yvGHavk/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="230px" width="100%"></iframe>
 
-<h5 id="emrequireem"><em>require</em></h5>
+<h4 id="emrequireem"><em>require</em></h4>
 <p>Khi bạn muốn sử dụng controller của một Directive khác, thì khai báo thuộc tính “require” để yêu cầu sử dụng controller của Directive cần sử dụng. Controller của những Directive được yêu cầu sẽ được nhúng (inject) vào trong link function của Sirective yêu cầu tại vị trí tham số thứ tư. Khai báo “require” nhận vào giá trị là một string, hoặc một mảng strings tên của các Directive. Mặc định tên của Directive sẽ đại diện cho phần thể hiện của controller của Directive đó. Nếu truyền vào là một mảng strings thì sẽ gọi các Directive theo thứ tự tương ứng trong mảng. Nếu không có Directive nào được tìm thấy hay Directive được yêu cầu không có controller thì sẽ bị báo lỗi. </p>
 
 <p>Khai báo tên (phần hiển thị của controller) các Directive được yêu cầu với tiền tố như sau:</p>
@@ -182,7 +184,7 @@ myApp.directive('myDirective', function() {
   </li>
 </ul>
 
-<h5 id="emcontrollerem"><em>controller</em></h5>
+<h4 id="emcontrollerem"><em>controller</em></h4>
 <p>Khai báo function controller cho Directive nếu muốn cho phép Directive khác giao tiếp với nó.</p>
 
 <p><ins>Ví dụ:</ins></p>
@@ -228,7 +230,7 @@ app.directive('innerDirective', function() {
 
 <p>require: ‘^outerDirective’ nói cho Angular tìm kiếm controller của Directive “outerDirective” trên element hiện tại và trên thành phần cha của nó. Trong truờng hợp này là tìm thấy thể hiện của controller của directive “outerDirective” tại thành phần cha.</p>
 
-<h5 id="emcontrollerasem"><em>controllerAs</em></h5>
+<h4 id="emcontrollerasem"><em>controllerAs</em></h4>
 
 <p>ControllerAs dùng để định danh cho function controller của Directive. Mặc định thì Angular sẽ lấy tên của Directive làm tên định danh cho controller của directive đó.</p>
 
