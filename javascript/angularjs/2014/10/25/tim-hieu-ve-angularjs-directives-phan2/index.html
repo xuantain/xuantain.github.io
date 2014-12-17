@@ -80,26 +80,26 @@
 <p><ins>VD:</ins></p>
 
 <pre>
-var myApp = angular.module('demoModule', []);
-myApp.directive('demoReplace', function(){
-	return {
-		restrict: "A",
-		template: "<span class="red">&lt;h3&gt;</span>This is directive1<span class="red">&lt;/h3&gt;</span>",
-		<span class="red">replace: true</span>
-	}
-});
+  var myApp = angular.module('demoModule', []);
+  myApp.directive('demoReplace', function(){
+    return {
+      restrict: "A",
+      template: "<span class="red">&lt;h3&gt;</span>This is directive1<span class="red">&lt;/h3&gt;</span>",
+      <span class="red">replace: true</span>
+    }
+  });
 </pre>
 
 <p>Khai báo sử dụng</p>
 
 <pre>
-	<span class="red">&lt;p</span> demo-replace <span class="red">&gt;&lt;/p&gt;</span>
+  <span class="red">&lt;p</span> demo-replace <span class="red">&gt;&lt;/p&gt;</span>
 </pre>
 
 <p>Kết quả</p>
 
 <pre>
-	<span class="red">&lt;h3</span> demo-replace <span class="red">&gt;This is directive1&lt;/h3&gt;</span>
+  <span class="red">&lt;h3</span> demo-replace <span class="red">&gt;This is directive1&lt;/h3&gt;</span>
 </pre>
 
 <h4 id="em-idscopescopeem"><em id="scope">scope</em></h4>

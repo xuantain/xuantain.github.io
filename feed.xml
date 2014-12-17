@@ -50,20 +50,20 @@
 &lt;p&gt;&lt;ins&gt;Ví dụ:&lt;/ins&gt;&lt;/p&gt;
 
 &lt;pre&gt;
-var myApp = angular.module(&quot;demoModule&quot;, []);
-myApp.directive(&#39;myDirective&#39;, function() {
-  return {
-    restrict: &#39;AE&#39;,
-    &lt;span class=&quot;red&quot;&gt;compile: function(element, attributes) {
-      // do one-time configuration of element.
+  var myApp = angular.module(&quot;demoModule&quot;, []);
+  myApp.directive(&#39;myDirective&#39;, function() {
+    return {
+      restrict: &#39;AE&#39;,
+      &lt;span class=&quot;red&quot;&gt;compile: function(element, attributes) {
+        // do one-time configuration of element.
 
-      var linkFunction = function($scope, element, atttributes) {
-        // bind element to data in $scope
-      }
-      return linkFunction;
-    }&lt;/span&gt;
-  }
-});
+        var linkFunction = function($scope, element, atttributes) {
+          // bind element to data in $scope
+        }
+        return linkFunction;
+      }&lt;/span&gt;
+    }
+  });
 &lt;/pre&gt;
 
 &lt;p&gt;Như ví dụ trên thì compile nhận vào 2 tham số: element và attributes.&lt;/p&gt;
@@ -143,44 +143,44 @@ myApp.directive(&#39;myDirective&#39;, function() {
 &lt;p&gt;&lt;ins&gt;Ví dụ:&lt;/ins&gt;&lt;/p&gt;
 
 &lt;pre&gt;
-app.directive(&#39;outerDirective&#39;, function() {
-  return {
-    scope: {},
-    restrict: &#39;AE&#39;,
-    controller: function($scope, $compile, $http) {
-      this.addChild = function(params) {
-        console.log(&#39;Got the message from nested directive:&#39;
-                                           + params.message);
-      };
+  app.directive(&#39;outerDirective&#39;, function() {
+    return {
+      scope: {},
+      restrict: &#39;AE&#39;,
+      controller: function($scope, $compile, $http) {
+        this.addChild = function(params) {
+          console.log(&#39;Got the message from nested directive:&#39;
+                                             + params.message);
+        };
+      }
     }
-  }
-});
+  });
 &lt;/pre&gt;
 
 &lt;p&gt;Đây là code yêu cầu đính kèm một controller được đặt tên “outerDirective” cho directive. Khi một Directive khác muốn giao tiếp với “outerDirective”, thì Directive đó cần được khai báo “require” để sử dụng phần thể hiện controller của “outerDirective”.&lt;/p&gt;
 
 &lt;pre&gt;
-app.directive(&#39;innerDirective&#39;, function() {
-  return {
-    scope: {},
-    restrict: &#39;AE&#39;,
-    require: &#39;^outerDirective&#39;,
-    link: function(scope, elem, attrs, controllerInstance) {
-      //Tham số thứ tư là đối tượng thể hiện controller
-      //của Directive &quot;outerDirective&quot; mà bạn yêu cầu
-      scope.message = &quot;Hi, Parent directive&quot;;
-      controllerInstance.addChild(scope);
-    }
-  };
-});
+  app.directive(&#39;innerDirective&#39;, function() {
+    return {
+      scope: {},
+      restrict: &#39;AE&#39;,
+      require: &#39;^outerDirective&#39;,
+      link: function(scope, elem, attrs, controllerInstance) {
+        //Tham số thứ tư là đối tượng thể hiện controller
+        //của Directive &quot;outerDirective&quot; mà bạn yêu cầu
+        scope.message = &quot;Hi, Parent directive&quot;;
+        controllerInstance.addChild(scope);
+      }
+    };
+  });
 &lt;/pre&gt;
 
 &lt;p&gt;Sử dụng trong file HTML như sau:&lt;/p&gt;
 
 &lt;pre&gt;
-&amp;lt;outer-directive&amp;gt;
-  &amp;lt;inner-directive&amp;gt;&amp;lt;/inner-directive&amp;gt;
-&amp;lt;/outer-directive&amp;gt;
+  &amp;lt;outer-directive&amp;gt;
+    &amp;lt;inner-directive&amp;gt;&amp;lt;/inner-directive&amp;gt;
+  &amp;lt;/outer-directive&amp;gt;
 &lt;/pre&gt;
 
 &lt;p&gt;require: ‘^outerDirective’ nói cho Angular tìm kiếm controller của Directive “outerDirective” trên element hiện tại và trên thành phần cha của nó. Trong truờng hợp này là tìm thấy thể hiện của controller của directive “outerDirective” tại thành phần cha.&lt;/p&gt;
@@ -210,26 +210,26 @@ app.directive(&#39;innerDirective&#39;, function() {
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
 
 &lt;pre&gt;
-var myApp = angular.module(&#39;demoModule&#39;, []);
-myApp.directive(&#39;demoReplace&#39;, function(){
-	return {
-		restrict: &quot;A&quot;,
-		template: &quot;&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;This is directive1&lt;span class=&quot;red&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;&quot;,
-		&lt;span class=&quot;red&quot;&gt;replace: true&lt;/span&gt;
-	}
-});
+  var myApp = angular.module(&#39;demoModule&#39;, []);
+  myApp.directive(&#39;demoReplace&#39;, function(){
+    return {
+      restrict: &quot;A&quot;,
+      template: &quot;&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;This is directive1&lt;span class=&quot;red&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;&quot;,
+      &lt;span class=&quot;red&quot;&gt;replace: true&lt;/span&gt;
+    }
+  });
 &lt;/pre&gt;
 
 &lt;p&gt;Khai báo sử dụng&lt;/p&gt;
 
 &lt;pre&gt;
-	&lt;span class=&quot;red&quot;&gt;&amp;lt;p&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;red&quot;&gt;&amp;lt;p&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;&amp;lt;/p&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 
 &lt;p&gt;Kết quả&lt;/p&gt;
 
 &lt;pre&gt;
-	&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&lt;/span&gt;
+  &lt;span class=&quot;red&quot;&gt;&amp;lt;h3&lt;/span&gt; demo-replace &lt;span class=&quot;red&quot;&gt;&amp;gt;This is directive1&amp;lt;/h3&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
 
 &lt;h4 id=&quot;em-idscopescopeem&quot;&gt;&lt;em id=&quot;scope&quot;&gt;scope&lt;/em&gt;&lt;/h4&gt;
@@ -330,12 +330,12 @@ Khi khai báo tên một directive thì tốt nhất bạn nên đặt thêm ti�
 Khai báo directive&lt;/p&gt;
 
 &lt;pre&gt;
-angular.module(&#39;demoModule&#39;, [])
-  .directive(&#39;&lt;span class=&quot;red&quot;&gt;demoDirective&lt;/span&gt;&#39;, function(){
-  return {
-    // TODO
-  }
-});
+  angular.module(&#39;demoModule&#39;, [])
+    .directive(&#39;&lt;span class=&quot;red&quot;&gt;demoDirective&lt;/span&gt;&#39;, function(){
+    return {
+      // TODO
+    }
+  });
 &lt;/pre&gt;
 
 &lt;p&gt;Khi sử dụng&lt;/p&gt;
