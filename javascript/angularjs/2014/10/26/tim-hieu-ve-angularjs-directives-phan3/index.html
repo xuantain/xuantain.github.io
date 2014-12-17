@@ -199,7 +199,7 @@ app.directive('outerDirective', function() {
                                            + params.message);
       };
     }
-  };
+  }
 });
 </pre>
 
@@ -207,17 +207,17 @@ app.directive('outerDirective', function() {
 
 <pre>
 app.directive('innerDirective', function() {
-    return {
-      scope: {},
-      restrict: 'AE',
-      require: '^outerDirective',
-      link: function(scope, elem, attrs, controllerInstance) {
-        //Tham số thứ tư là đối tượng thể hiện controller
-        //của Directive "outerDirective" mà bạn yêu cầu
-        scope.message = "Hi, Parent directive";
-        controllerInstance.addChild(scope);
-      }
-    };
+  return {
+    scope: {},
+    restrict: 'AE',
+    require: '^outerDirective',
+    link: function(scope, elem, attrs, controllerInstance) {
+      //Tham số thứ tư là đối tượng thể hiện controller
+      //của Directive "outerDirective" mà bạn yêu cầu
+      scope.message = "Hi, Parent directive";
+      controllerInstance.addChild(scope);
+    }
+  };
 });
 </pre>
 
@@ -234,7 +234,6 @@ app.directive('innerDirective', function() {
 <h4 id="emcontrollerasem"><em>controllerAs</em></h4>
 
 <p>ControllerAs dùng để định danh cho function controller của Directive. Mặc định thì Angular sẽ lấy tên của Directive làm tên định danh cho controller của directive đó.</p>
-
 
 </article>
 

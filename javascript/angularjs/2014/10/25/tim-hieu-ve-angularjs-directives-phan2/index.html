@@ -80,13 +80,14 @@
 <p><ins>VD:</ins></p>
 
 <pre>
-	var myApp = angular.module('demoModule', []);
-	myApp.directive('demoReplace', function(){
+var myApp = angular.module('demoModule', []);
+myApp.directive('demoReplace', function(){
 	return {
-	restrict: "A",
-	template: "<span class="red">&lt;h3&gt;</span>This is directive1<span class="red">&lt;/h3&gt;</span>",
-	<span class="red">replace: true</span>
-}});
+		restrict: "A",
+		template: "<span class="red">&lt;h3&gt;</span>This is directive1<span class="red">&lt;/h3&gt;</span>",
+		<span class="red">replace: true</span>
+	}
+});
 </pre>
 
 <p>Khai báo sử dụng</p>

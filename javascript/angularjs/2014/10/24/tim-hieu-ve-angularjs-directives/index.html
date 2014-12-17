@@ -96,7 +96,7 @@ angular.module('demoModule', [])
   .directive('<span class="red">demoDirective</span>', function(){
   return {
     // TODO
-  };
+  }
 });
 </pre>
 
@@ -161,11 +161,12 @@ angular.module('demoModule', [])
 <br /></p>
 <pre>
   var myApp = angular.module('demoModule', []);
-    myApp.directive('demoDirective', function(){
+  myApp.directive('demoDirective', function(){
     return {
-    restrict: "ACEM",
-    <span class="red">template: "&lt;h3&gt;This is demo directive&lt;/h3&gt;"</span>
-  }});
+      restrict: "ACEM",
+      <span class="red">template: "&lt;h3&gt;This is demo directive&lt;/h3&gt;"</span>
+    }
+  });
 </pre>
 
 <h4 id="em-idtemplateurltemplateurlem"><em id="templateUrl">templateUrl</em></h4>

@@ -153,7 +153,7 @@ app.directive(&#39;outerDirective&#39;, function() {
                                            + params.message);
       };
     }
-  };
+  }
 });
 &lt;/pre&gt;
 
@@ -161,17 +161,17 @@ app.directive(&#39;outerDirective&#39;, function() {
 
 &lt;pre&gt;
 app.directive(&#39;innerDirective&#39;, function() {
-    return {
-      scope: {},
-      restrict: &#39;AE&#39;,
-      require: &#39;^outerDirective&#39;,
-      link: function(scope, elem, attrs, controllerInstance) {
-        //Tham số thứ tư là đối tượng thể hiện controller
-        //của Directive &quot;outerDirective&quot; mà bạn yêu cầu
-        scope.message = &quot;Hi, Parent directive&quot;;
-        controllerInstance.addChild(scope);
-      }
-    };
+  return {
+    scope: {},
+    restrict: &#39;AE&#39;,
+    require: &#39;^outerDirective&#39;,
+    link: function(scope, elem, attrs, controllerInstance) {
+      //Tham số thứ tư là đối tượng thể hiện controller
+      //của Directive &quot;outerDirective&quot; mà bạn yêu cầu
+      scope.message = &quot;Hi, Parent directive&quot;;
+      controllerInstance.addChild(scope);
+    }
+  };
 });
 &lt;/pre&gt;
 
@@ -188,7 +188,6 @@ app.directive(&#39;innerDirective&#39;, function() {
 &lt;h4 id=&quot;emcontrollerasem&quot;&gt;&lt;em&gt;controllerAs&lt;/em&gt;&lt;/h4&gt;
 
 &lt;p&gt;ControllerAs dùng để định danh cho function controller của Directive. Mặc định thì Angular sẽ lấy tên của Directive làm tên định danh cho controller của directive đó.&lt;/p&gt;
-
 </description>
         <pubDate>Sun, 26 Oct 2014 00:00:00 +0700</pubDate>
         <link>http://xuantain.github.io/javascript/angularjs/2014/10/26/tim-hieu-ve-angularjs-directives-phan3/</link>
@@ -211,13 +210,14 @@ app.directive(&#39;innerDirective&#39;, function() {
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;/p&gt;
 
 &lt;pre&gt;
-	var myApp = angular.module(&#39;demoModule&#39;, []);
-	myApp.directive(&#39;demoReplace&#39;, function(){
+var myApp = angular.module(&#39;demoModule&#39;, []);
+myApp.directive(&#39;demoReplace&#39;, function(){
 	return {
-	restrict: &quot;A&quot;,
-	template: &quot;&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;This is directive1&lt;span class=&quot;red&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;&quot;,
-	&lt;span class=&quot;red&quot;&gt;replace: true&lt;/span&gt;
-}});
+		restrict: &quot;A&quot;,
+		template: &quot;&lt;span class=&quot;red&quot;&gt;&amp;lt;h3&amp;gt;&lt;/span&gt;This is directive1&lt;span class=&quot;red&quot;&gt;&amp;lt;/h3&amp;gt;&lt;/span&gt;&quot;,
+		&lt;span class=&quot;red&quot;&gt;replace: true&lt;/span&gt;
+	}
+});
 &lt;/pre&gt;
 
 &lt;p&gt;Khai báo sử dụng&lt;/p&gt;
@@ -334,7 +334,7 @@ angular.module(&#39;demoModule&#39;, [])
   .directive(&#39;&lt;span class=&quot;red&quot;&gt;demoDirective&lt;/span&gt;&#39;, function(){
   return {
     // TODO
-  };
+  }
 });
 &lt;/pre&gt;
 
@@ -399,11 +399,12 @@ angular.module(&#39;demoModule&#39;, [])
 &lt;br /&gt;&lt;/p&gt;
 &lt;pre&gt;
   var myApp = angular.module(&#39;demoModule&#39;, []);
-    myApp.directive(&#39;demoDirective&#39;, function(){
+  myApp.directive(&#39;demoDirective&#39;, function(){
     return {
-    restrict: &quot;ACEM&quot;,
-    &lt;span class=&quot;red&quot;&gt;template: &quot;&amp;lt;h3&amp;gt;This is demo directive&amp;lt;/h3&amp;gt;&quot;&lt;/span&gt;
-  }});
+      restrict: &quot;ACEM&quot;,
+      &lt;span class=&quot;red&quot;&gt;template: &quot;&amp;lt;h3&amp;gt;This is demo directive&amp;lt;/h3&amp;gt;&quot;&lt;/span&gt;
+    }
+  });
 &lt;/pre&gt;
 
 &lt;h4 id=&quot;em-idtemplateurltemplateurlem&quot;&gt;&lt;em id=&quot;templateUrl&quot;&gt;templateUrl&lt;/em&gt;&lt;/h4&gt;
