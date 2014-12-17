@@ -92,7 +92,7 @@ Khi khai báo tên một directive thì tốt nhất bạn nên đặt thêm ti�
 Khai báo directive</p>
 
 <pre>
-  angular.module('demoModule', [])
+angular.module('demoModule', [])
   .directive('<span class="red">demoDirective</span>', function(){
   return {
     // TODO
@@ -109,35 +109,37 @@ Khai báo directive</p>
 <!-- <iframe src="http://embed.plnkr.co/0TCzKZfaq17oQCRkgV0K/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="250px" width="100%px"></iframe> -->
 
 <h4 id="emrestrictem"><em>restrict</em></h4>
-<p>khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive.</p>
+<p>khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive:</p>
 
-<ol>
+<ul>
   <li>Kiểu <span class="green">a</span>ttribute (A)<br /></li>
-</ol>
+</ul>
 <pre>
   <span class="blue">&lt;div</span> <span class="red">directive</span><span class="blue">&gt;</span>
 </pre>
-<ol>
+
+<ul>
   <li>Kiểu <span class="green">e</span>lement (E)<br /></li>
-</ol>
+</ul>
 <pre>
   <span class="blue">&lt;directive&gt;&lt;/directive&gt;</span>
 </pre>
-<ol>
+
+<ul>
   <li>Kiểu <span class="green">c</span>lass (C)<br /></li>
-</ol>
+</ul>
 <pre>
   <span class="blue">&lt;div</span> class=<span class="red">”directive”</span><span class="blue">&gt;</span>
 </pre>
-<ol>
+
+<ul>
   <li>Kiểu co<span class="green">m</span>ment (M)<br /></li>
-</ol>
+</ul>
 <pre>
   &lt;!-- directive: directive --&gt;
 </pre>
 
-<p><ins>VD:</ins><br />
-index.html</p>
+<p><ins>VD:</ins><br /></p>
 
 <pre>
   &lt;div ng-app="demoModule"&gt;
@@ -153,7 +155,7 @@ index.html</p>
 </pre>
 
 <h4 id="em-idtemplatetemplateem"><em id="template">template</em></h4>
-<p>Định nghĩa template, phần hỉển thị nội dung cho directive của bạn (không sử dụng nếu dùng <a href="#templateUrl">templateURL</a>).</p>
+<p>Định nghĩa template, phần hỉển thị nội dung cho directive của bạn (không sử dụng nếu dùng <a href="#templateUrl">templateUrl</a>).</p>
 
 <p><ins>VD:</ins>
 <br /></p>
@@ -167,7 +169,7 @@ index.html</p>
 </pre>
 
 <h4 id="em-idtemplateurltemplateurlem"><em id="templateUrl">templateUrl</em></h4>
-<p>Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. không sử dụng nếu dùng <a href="#template">template</a>, nếu không directive sẽ ưu tiên sử dụng nội dung trong template.</p>
+<p>Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. Không sử dụng nếu dùng <a href="#template">template</a>, nếu không directive sẽ ưu tiên sử dụng nội dung trong template.</p>
 
 <p><ins>VD:</ins>
 <br /></p>

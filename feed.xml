@@ -61,8 +61,7 @@ myApp.directive(&#39;myDirective&#39;, function() {
         // bind element to data in $scope
       }
       return linkFunction;
-    }
-    &lt;/span&gt;
+    }&lt;/span&gt;
   }
 });
 &lt;/pre&gt;
@@ -150,7 +149,8 @@ app.directive(&#39;outerDirective&#39;, function() {
     restrict: &#39;AE&#39;,
     controller: function($scope, $compile, $http) {
       this.addChild = function(params) {
-        console.log(&#39;Got the message from nested directive:&#39; + params.message);
+        console.log(&#39;Got the message from nested directive:&#39;
+                                           + params.message);
       };
     }
   };
@@ -166,7 +166,8 @@ app.directive(&#39;innerDirective&#39;, function() {
       restrict: &#39;AE&#39;,
       require: &#39;^outerDirective&#39;,
       link: function(scope, elem, attrs, controllerInstance) {
-        //Tham số thứ tư là đối tượng thể hiện controller của Directive &quot;outerDirective&quot; mà bạn yêu cầu
+        //Tham số thứ tư là đối tượng thể hiện controller
+        //của Directive &quot;outerDirective&quot; mà bạn yêu cầu
         scope.message = &quot;Hi, Parent directive&quot;;
         controllerInstance.addChild(scope);
       }
@@ -177,9 +178,9 @@ app.directive(&#39;innerDirective&#39;, function() {
 &lt;p&gt;Sử dụng trong file HTML như sau:&lt;/p&gt;
 
 &lt;pre&gt;
-  &amp;lt;outer-directive&amp;gt;
-    &amp;lt;inner-directive&amp;gt;&amp;lt;/inner-directive&amp;gt;
-  &amp;lt;/outer-directive&amp;gt;
+&amp;lt;outer-directive&amp;gt;
+  &amp;lt;inner-directive&amp;gt;&amp;lt;/inner-directive&amp;gt;
+&amp;lt;/outer-directive&amp;gt;
 &lt;/pre&gt;
 
 &lt;p&gt;require: ‘^outerDirective’ nói cho Angular tìm kiếm controller của Directive “outerDirective” trên element hiện tại và trên thành phần cha của nó. Trong truờng hợp này là tìm thấy thể hiện của controller của directive “outerDirective” tại thành phần cha.&lt;/p&gt;
@@ -329,7 +330,7 @@ Khi khai báo tên một directive thì tốt nhất bạn nên đặt thêm ti�
 Khai báo directive&lt;/p&gt;
 
 &lt;pre&gt;
-  angular.module(&#39;demoModule&#39;, [])
+angular.module(&#39;demoModule&#39;, [])
   .directive(&#39;&lt;span class=&quot;red&quot;&gt;demoDirective&lt;/span&gt;&#39;, function(){
   return {
     // TODO
@@ -346,35 +347,37 @@ Khai báo directive&lt;/p&gt;
 &lt;!-- &lt;iframe src=&quot;http://embed.plnkr.co/0TCzKZfaq17oQCRkgV0K/preview&quot; style=&quot;border:1px #FFFFFF none;&quot; name=&quot;myiFrame&quot; scrolling=&quot;no&quot; frameborder=&quot;1&quot; marginheight=&quot;0px&quot; marginwidth=&quot;0px&quot; height=&quot;250px&quot; width=&quot;100%px&quot;&gt;&lt;/iframe&gt; --&gt;
 
 &lt;h4 id=&quot;emrestrictem&quot;&gt;&lt;em&gt;restrict&lt;/em&gt;&lt;/h4&gt;
-&lt;p&gt;khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive.&lt;/p&gt;
+&lt;p&gt;khai báo kiểu directive. Có các giá trị (A, E, C, M) tương ứng 4 kiểu directive:&lt;/p&gt;
 
-&lt;ol&gt;
+&lt;ul&gt;
   &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;a&lt;/span&gt;ttribute (A)&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;pre&gt;
   &lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; &lt;span class=&quot;red&quot;&gt;directive&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
-&lt;ol&gt;
+
+&lt;ul&gt;
   &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;e&lt;/span&gt;lement (E)&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;pre&gt;
   &lt;span class=&quot;blue&quot;&gt;&amp;lt;directive&amp;gt;&amp;lt;/directive&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
-&lt;ol&gt;
+
+&lt;ul&gt;
   &lt;li&gt;Kiểu &lt;span class=&quot;green&quot;&gt;c&lt;/span&gt;lass (C)&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;pre&gt;
   &lt;span class=&quot;blue&quot;&gt;&amp;lt;div&lt;/span&gt; class=&lt;span class=&quot;red&quot;&gt;”directive”&lt;/span&gt;&lt;span class=&quot;blue&quot;&gt;&amp;gt;&lt;/span&gt;
 &lt;/pre&gt;
-&lt;ol&gt;
+
+&lt;ul&gt;
   &lt;li&gt;Kiểu co&lt;span class=&quot;green&quot;&gt;m&lt;/span&gt;ment (M)&lt;br /&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;pre&gt;
   &amp;lt;!-- directive: directive --&amp;gt;
 &lt;/pre&gt;
 
-&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;
-index.html&lt;/p&gt;
+&lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;pre&gt;
   &amp;lt;div ng-app=&quot;demoModule&quot;&amp;gt;
@@ -390,7 +393,7 @@ index.html&lt;/p&gt;
 &lt;/pre&gt;
 
 &lt;h4 id=&quot;em-idtemplatetemplateem&quot;&gt;&lt;em id=&quot;template&quot;&gt;template&lt;/em&gt;&lt;/h4&gt;
-&lt;p&gt;Định nghĩa template, phần hỉển thị nội dung cho directive của bạn (không sử dụng nếu dùng &lt;a href=&quot;#templateUrl&quot;&gt;templateURL&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Định nghĩa template, phần hỉển thị nội dung cho directive của bạn (không sử dụng nếu dùng &lt;a href=&quot;#templateUrl&quot;&gt;templateUrl&lt;/a&gt;).&lt;/p&gt;
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -404,7 +407,7 @@ index.html&lt;/p&gt;
 &lt;/pre&gt;
 
 &lt;h4 id=&quot;em-idtemplateurltemplateurlem&quot;&gt;&lt;em id=&quot;templateUrl&quot;&gt;templateUrl&lt;/em&gt;&lt;/h4&gt;
-&lt;p&gt;Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. không sử dụng nếu dùng &lt;a href=&quot;#template&quot;&gt;template&lt;/a&gt;, nếu không directive sẽ ưu tiên sử dụng nội dung trong template.&lt;/p&gt;
+&lt;p&gt;Khai báo đường dẫn (Url) của file định nghĩa template được dùng cho directive. Được sử dụng khi template của directive phức tạp, hoặc bạn muốn tách riêng phần định nghĩa template directive ra một file khác. Không sử dụng nếu dùng &lt;a href=&quot;#template&quot;&gt;template&lt;/a&gt;, nếu không directive sẽ ưu tiên sử dụng nội dung trong template.&lt;/p&gt;
 
 &lt;p&gt;&lt;ins&gt;VD:&lt;/ins&gt;
 &lt;br /&gt;&lt;/p&gt;

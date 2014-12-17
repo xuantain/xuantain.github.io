@@ -107,8 +107,7 @@ myApp.directive('myDirective', function() {
         // bind element to data in $scope
       }
       return linkFunction;
-    }
-    </span>
+    }</span>
   }
 });
 </pre>
@@ -196,7 +195,8 @@ app.directive('outerDirective', function() {
     restrict: 'AE',
     controller: function($scope, $compile, $http) {
       this.addChild = function(params) {
-        console.log('Got the message from nested directive:' + params.message);
+        console.log('Got the message from nested directive:'
+                                           + params.message);
       };
     }
   };
@@ -212,7 +212,8 @@ app.directive('innerDirective', function() {
       restrict: 'AE',
       require: '^outerDirective',
       link: function(scope, elem, attrs, controllerInstance) {
-        //Tham số thứ tư là đối tượng thể hiện controller của Directive "outerDirective" mà bạn yêu cầu
+        //Tham số thứ tư là đối tượng thể hiện controller
+        //của Directive "outerDirective" mà bạn yêu cầu
         scope.message = "Hi, Parent directive";
         controllerInstance.addChild(scope);
       }
@@ -223,9 +224,9 @@ app.directive('innerDirective', function() {
 <p>Sử dụng trong file HTML như sau:</p>
 
 <pre>
-  &lt;outer-directive&gt;
-    &lt;inner-directive&gt;&lt;/inner-directive&gt;
-  &lt;/outer-directive&gt;
+&lt;outer-directive&gt;
+  &lt;inner-directive&gt;&lt;/inner-directive&gt;
+&lt;/outer-directive&gt;
 </pre>
 
 <p>require: ‘^outerDirective’ nói cho Angular tìm kiếm controller của Directive “outerDirective” trên element hiện tại và trên thành phần cha của nó. Trong truờng hợp này là tìm thấy thể hiện của controller của directive “outerDirective” tại thành phần cha.</p>
