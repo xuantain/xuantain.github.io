@@ -194,13 +194,7 @@ app.directive(&#39;innerDirective&#39;, function() {
     
       <item>
         <title>Tìm hiểu về AngularJS Directives (Phần 2)</title>
-        <description>&lt;script type=&quot;text/javascript&quot;&gt;
-    $(&#39;#main_content&#39;).toc({
-        showAlways:true
-    });
-&lt;/script&gt;
-
-&lt;h5 id=&quot;emreplaceem&quot;&gt;&lt;em&gt;replace&lt;/em&gt;&lt;/h5&gt;
+        <description>&lt;h5 id=&quot;emreplaceem&quot;&gt;&lt;em&gt;replace&lt;/em&gt;&lt;/h5&gt;
 
 &lt;p&gt;Replace nhận giá trị kỉểu boolean, mặc định là false.&lt;/p&gt;
 
@@ -305,9 +299,7 @@ app.directive(&#39;innerDirective&#39;, function() {
     
       <item>
         <title>Tìm hiểu về AngularJS Directives (Phần 1)</title>
-        <description>&lt;h2 id=&quot;ni-dung&quot;&gt;Nội dung&lt;/h2&gt;
-
-&lt;h3 id=&quot;span-idwiddirectives-l-gspan&quot;&gt;&lt;span id=&quot;WiD&quot;&gt;Directives là gì?&lt;/span&gt;&lt;/h3&gt;
+        <description>&lt;h3 id=&quot;span-idwiddirectives-l-gspan&quot;&gt;&lt;span id=&quot;WiD&quot;&gt;Directives là gì?&lt;/span&gt;&lt;/h3&gt;
 
 &lt;p&gt;Các thuộc tính, id, class, name, onClick, … của một DOM element được gọi chung là directives. AngularJS sẽ dựa vào những directive đó để đính kèm các chỉ thị hoặc các sự kiện tới DOM element cần xử lý, thậm chí là thay đổi cấu trúc của DOM. &lt;/p&gt;
 

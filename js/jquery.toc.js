@@ -48,12 +48,40 @@
 
         var tocContainer = $(this);
 
-        tocContainer.find('h1').each(function() {
+        //TaiNX ADD START - 20141217
+        var hParent;
+        var p;
+
+        hParent = tocContainer.has('h1');
+        p = 1;
+        if(hParent.length == 0){
+            hParent = tocContainer.has('h2');
+            p = 2;
+            if(hParent.length == 0){
+                hParent = tocContainer.has('h3');
+                p = 3;
+                if(hParent.length == 0){
+                    hParent = tocContainer.has('h4');
+                    p = 4;
+                    if(hParent.length == 0){
+                        hParent = tocContainer.has('h5');
+                        p = 5;
+                    }
+                }
+            }
+        }
+        
+        hParent = 'h'+p;
+        var hChild = 'h'+(p+1);
+        //TaiNX ADD END - 20141217
+
+        tocContainer.find(hParent).each(function() {
+        //tocContainer.find('h3').each(function() {
             var levelHTML = '';
             var innerSection = 0;
-            var h1 = $(this);
+            var hCurrent = $(this);
 
-            h1.nextUntil('h1').filter('h2').each(function() {
+            hCurrent.nextUntil(hParent).filter(hChild).each(function() {
                 ++innerSection;
                 var anchorId = config.anchorPrefix + tocLevel + '-' + tocSection + '-' +  + innerSection;
                 $(this).attr('id', anchorId);
@@ -67,12 +95,12 @@
                 levelHTML = '<ul>' + levelHTML + '</ul>\n';
             }
             var anchorId = config.anchorPrefix + tocLevel + '-' + tocSection;
-            h1.attr('id', anchorId);
+            hCurrent.attr('id', anchorId);
             tocHTML += createLevelHTML(anchorId,
                 tocLevel,
                 tocSection,
                 itemNumber,
-                h1.text(),
+                hCurrent.text(),
                 levelHTML);
 
             tocSection += 1 + innerSection;
