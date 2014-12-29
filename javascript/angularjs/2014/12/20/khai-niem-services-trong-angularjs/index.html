@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Khái niệm services trong AngularJS &#8211; xuantain's blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Đây là bài viết tìm hiểu về khái niệm Services trong AngularJS.">
+    <meta name="author" content="Nguyen Xuan tai">
+    
+    <meta name="keywords" content="javascript, angularjs">
+    
+    <link rel="canonical" href="http://xuantain.github.io/javascript/angularjs/2014/12/20/khai-niem-services-trong-angularjs/">
+    <link rel="shortcut icon" href="../favicon.ico" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/pixyll.css" type="text/css">
+    <!-- This css contains the default style for TOC -->
+    <link rel="stylesheet" type="text/css" media="screen" href="/css/toc.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="/js/jquery.toc.js"></script>
+
+    <!-- Fonts -->
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Khái niệm services trong AngularJS">
+    <meta property="og:description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.">
+    <meta property="og:url" content="http://xuantain.github.io/javascript/angularjs/2014/12/20/khai-niem-services-trong-angularjs/">
+    <meta property="og:site_name" content="xuantain's blog">
+</head>
+
+<body class="animated fade-in-down">
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="http://xuantain.github.io" class="site-title">xuantain's blog</a>
+      <nav class="site-nav right">
+        <a href="/about/">About</a>
+<a href="/contact/">Contact</a>
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1 class="py2">Khái niệm services trong AngularJS</h1>
+  <span class="post-meta">Dec 20, 2014</span><br>
+  
+  <span class="post-meta small">6 minute read</span>
+</div>
+
+<article class="post-content">
+  <h3 id="span-idwhatisseviceangular-services-l-gspan"><span id="whatissevice">Angular Services là gì?</span></h3>
+
+<p>Angular Services là những đối tượng <a href="http://en.wikipedia.org/wiki/Singleton_pattern">singleton</a>, cung cấp các phương thức (method) liên quan đến một chức năng cụ thể, được dùng chung và chỉ được khởi tạo một lần duy nhất trong một ứng dụng Angular.</p>
+
+<ul>
+  <li>Một Service chỉ được khởi tạo khi có thành phần trong ứng dụng phụ thuộc vào nó.</li>
+  <li>Mỗi thành phần trong ứng dụng phụ thuộc vào một Service nào đó, thì chỉ nhận được tham chiếu đến duy nhất một đối tượng thể hiện của Service đó.</li>
+</ul>
+
+<p>Các thành phần trong Angular có thể trao đổi, chia sẻ dữ liệu với nhau thông qua Service.</p>
+
+<p>Angular cung cấp sẵn một số Service để xây dựng ứng dụng:</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$anchorScroll</td>
+      <td>$exceptionHandler</td>
+      <td>$locale</td>
+      <td>$q</td>
+    </tr>
+    <tr>
+      <td>$animate</td>
+      <td>$log</td>
+      <td>$location</td>
+      <td>$rootElement</td>
+    </tr>
+    <tr>
+      <td>$cacheFactory</td>
+      <td>$filter</td>
+      <td>$templateCache</td>
+      <td>$rootScope</td>
+    </tr>
+    <tr>
+      <td>$compile</td>
+      <td>$http</td>
+      <td>$templateRequest</td>
+      <td>$sce</td>
+    </tr>
+    <tr>
+      <td>$controller</td>
+      <td>$httpBackend</td>
+      <td>$timeout</td>
+      <td>$sceDelegate</td>
+    </tr>
+    <tr>
+      <td>$document</td>
+      <td>$interpolate</td>
+      <td>$interval</td>
+      <td>$parse</td>
+    </tr>
+    <tr>
+      <td>$window</td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="cch-s-dng-services">Cách sử dụng Services</h3>
+
+<p>Sử dụng Services bằng cách bơm truyền (inject) các đối tượng Service vào trong hàm khai báo của các thành phần trong Angular (controller, service, filter or directive). Bạn có thể tìm hiểu cách bơm truyền (inject) qua bài viết <a href="http://acegik.net/blog/javascript/angularjs/tong-quan-ve-dependency-injection-trong-angularjs-p1.html">dependency injection</a>.</p>
+
+<p><ins>Ví dụ:</ins></p>
+
+<pre>
+var myApp = angular.module('demoModule', []);
+
+myApp.controller('demoController', [<span class="red">'$window'</span>, function(<span class="red">win</span>){
+    <span class="red">win</span>.alert('This is the demo for using $window Service');
+}]);
+</pre>
+<p>Hay</p>
+
+<pre>
+var myApp = angular.module('demoModule', []);
+
+myApp.controller('demoController', function(<span class="red">$window</span>){
+    <span class="red">$window</span>.alert('This is the demo for using $window Service');
+});
+</pre>
+
+<h3 id="span-idcreateservicecch-to-mt-custom-servicespan"><span id="createService">Cách tạo một Custom Service</span></h3>
+
+<h4 id="s-dng-method-provider--khai-bo">Sử dụng method Provider để khai báo</h4>
+
+<pre>
+myApp.<span class="red">provider</span>('createdByProvider', function() {
+    this.$get = function() {
+        return {
+            myValue : "Using Provider method must be return an object inside of '$get' method",
+            showText: function() {
+                return "This text was created by Provider function";
+            }
+        }
+    };
+});
+</pre>
+
+<p>Tham số thứ nhất ‘createdByProvider’ là tên của Service cần tạo, tham số thứ hai là function(){…} <span class="red">định nghĩa <b>method this.$get</b> xử lý trả về kết quả là một đối tượng (object)</span>.</p>
+
+<h4 id="s-dng-method-factory--khai-bo">Sử dụng method Factory để khai báo</h4>
+
+<pre>
+myApp.<span class="red">factory</span>('createdByFactory', function() {
+    return {
+        myValue : "Using Factory method must be return an object",
+        showText: function() {
+            return "This text was created by Factory function";
+        }
+    };
+});
+</pre>
+
+<p>Tham số thứ nhất ‘createdByFactory’ là tên của Service cần tạo, tham số thứ hai là function(){…} <span class="red">xử lý trả về kết quả là một đối tượng (object)</span>.</p>
+
+<h4 id="s-dng-method-service--khai-bo">Sử dụng method Service để khai báo</h4>
+
+<pre>
+myApp.<span class="red">service</span>('createdByService', function() {
+    this.myValue = "Using Service method will return an object";
+    this.showText = function() {
+        return "This text was created by Service function";
+    };
+});
+</pre>
+
+<p>Tham số thứ nhất ‘createdByService’ là tên của Service cần tạo, tham số thứ hai là function(){…} <span class="red">định nghĩa một class</span>.</p>
+
+<h3 id="s-khc-nhau-gia-khai-bo-service-bng-cc-method-provider-factory-v-service">Sự khác nhau giữa khai báo Service bằng các method Provider, Factory và Service</h3>
+
+<p>Cả 3 cách khai báo được trình bày ở phần trên đều có thể tạo được một Service. Nhưng sự khác nhau giữa 3 cách khai báo trên là gì? Chúng ta sẽ tìm hiểu thông qua source code của AngularJS v1.3.8.</p>
+
+<h4 id="source-code-ca-method-provider">Source code của method provider</h4>
+
+<pre>
+function provider(name, provider_) {
+    assertNotHasOwnProperty(name, 'service');
+    if (isFunction(provider_) || isArray(provider_)) {
+        provider_ = providerInjector.instantiate(provider_);
+    }
+    if (!provider_.$get) {
+        throw $injectorMinErr('pget', "Provider '{0}' must define $get factory method.", name);
+    }
+    return providerCache[name + providerSuffix] = provider_;
+}
+</pre>
+
+<p>Tham số “name” là một string, tham số “provider_” là một trong 3 thành phần sau:</p>
+
+<ol>
+  <li>Function: Phải trả về một đối tượng có method “$get”.</li>
+  <li>Array: Được coi như sử dụng inline Annotation, và phải trả về một đối tượng với method “$get”.</li>
+  <li>Object: Nếu là object thì phải có method “$get”.</li>
+</ol>
+
+<p>Như vậy, tham số thứ hai “provider_” cho dù là gì thì cũng phải có chứa khai báo method $get.</p>
+
+<h4 id="source-code-ca-method-factory">Source code của method factory</h4>
+
+<pre>
+function <span class="red">factory</span>(name, factoryFn, enforce) {
+    return provider(name, {
+        $get: enforce !== false ? 
+              enforceReturnValue(name, factoryFn) : factoryFn
+    });
+}
+</pre>
+
+<p>Method factory thực thi method provider để trả lại kết quả. Tham số thứ hai được truyền vào method provider là một đối tượng có khai báo method $get, method $get được khai báo bằng tham số thứ hai của method factory. Tham số thứ ba sẽ check để gán giá trị cho method $get, mặc định sẽ là ‘!==false’ nếu không khai báo và thực thi ‘enforceReturnValue’ trả về kết quả, ngược lại sẽ gán ‘functionFn’ cho method $get.</p>
+
+<p>Có thể nói method factory là bản rút gọn của method provider cho trường hợp tham số thứ hai là đối tượng (object) có chứa method $get.</p>
+
+<h4 id="source-code-ca-method-service">Source code của method service</h4>
+
+<pre>
+function service(name, constructor) {
+    return factory(name, ['$injector', function($injector) {
+        return $injector.instantiate(constructor);
+    }]);
+}
+</pre>
+
+<p>Method service thực thi method factory để trả lại kết quả. Tham số thứ hai được truyền vào method factory là một array (kiểu khai báo sử dụng Inline Annotation), sử dụng service $injector để khởi tạo đối tượng bằng method instantiate, tham số được truyền vào method instantiate là tham số thứ hai của method service. </p>
+
+<p>Các bạn hãy xem ví dụ sau đây để thấy sự khác biệt giữa 3 đối tượng được tạo từ method Provider, Factory và Service.</p>
+
+<p><ins>Ví dụ:</ins></p>
+
+<iframe src="http://embed.plnkr.co/KUElg1NmWi1KDerqK4Gj/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="230px" width="100%"></iframe>
+
+<p>Theo ví dụ trên, cả 3 cách khai báo đều dùng chung một hàm khai báo “MyFn”, nhưng khi được gọi sử dụng trong Directive thì cho ra kết quả khác nhau. </p>
+
+<p>Đối tượng được khai báo bởi:</p>
+
+<ul>
+  <li>Method Factory: Trong mỗi lần được gọi, function MyFn được thực thi trả về kết quả. </li>
+  <li>Method Provider: Trong mỗi lần được gọi, function $get bên trong khai báo MyFn được thực thi trả về kết quả. </li>
+  <li>Method Service: Tạo ra một đối tượng singleton dựa vào khai báo MyFn.</li>
+</ul>
+
+<p>Như vậy theo định nghĩa Angular Service ở phần đầu <a href="#whatissevice">Angular Services là gì?</a>, thì một Service phải là một <span class="red">đối tượng singleton</span>. Vì vậy, nếu sử dụng một trong ba method Provider, Factory hay Service để khai báo một Service thì phải chú ý đến tham số thứ hai (đã đề cập ở phần <a href="#createService">Cách tạo một Custom Service</a>).</p>
+
+<ul>
+  <li>Method Factory: Khai báo function phải trả về một đối tượng.</li>
+  <li>Method Provider: Khai báo function chứa method $get trả về một đối tượng.</li>
+  <li>Method Service: Khai báo function như định nghĩa một đối tượng.</li>
+</ul>
+
+<h3 id="ti-liu-tham-kho">Tài liệu tham khảo</h3>
+<p>Bài viết giới thiệu về Angular Services có tham khảo các nguồn tài liệu sau:</p>
+
+<ol>
+  <li><a href="https://docs.angularjs.org/guide/services">https://docs.angularjs.org/guide/services</a></li>
+  <li><a href="http://www.ng-newsletter.com/posts/beginner2expert-services.html">http://www.ng-newsletter.com/posts/beginner2expert-services.html</a></li>
+  <li><a href="http://slides.wesalvaro.com/20121113/#/2/3">http://slides.wesalvaro.com/20121113/#/2/3</a></li>
+  <li><a href="http://acegik.net/blog/javascript/angularjs/tong-quan-ve-dependency-injection-trong-angularjs-p1.html">Tìm hiểu về Dependency Injection trong AngularJS</a></li>
+</ol>
+
+</article>
+
+
+
+
+
+<script type="text/javascript">
+    $('.post-content').toc({
+        showAlways:true
+    });
+</script>
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+  <div class="p2 wrap">
+    <div class="measure mt1 center">
+      <small>
+        xuantain's blog <a href="https://facebook.com/xuantain">Xuan Tai</a> (<a href="https://twitter.com/xuantain">@xuantain</a>).
+      </small>
+    </div>
+  </div>
+</footer>
+
+
+
+</body>
+</html>
