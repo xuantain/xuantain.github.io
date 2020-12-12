@@ -149,10 +149,10 @@ theme: huxblog
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/xuantain/blog.github.io.git
+  repo: https://github.com/xuantain/xuantain.github.io.git
   branch: main
   #token: ''
-  message: [message]
+  message: "{{ now('YYYY-MM-DD HH:mm:ss') }}"
   name: [xuantain]
   email: [xuantain@gmail.com]
   #extend_dirs: [extend directory]
