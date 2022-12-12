@@ -60,7 +60,7 @@ duoshuo_share: false                     # set to false if you want to use Comme
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
 sidebar-about-description: "A Human"
-sidebar-avatar: /img/avatar.jpg         # use absolute URL, seeing it's used in both `/` and `/about/`
+sidebar-avatar: img/avatar.jpg         # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
 # Featured Tags
@@ -73,22 +73,6 @@ friends: [
     {
         title: "Toiviet's Blog",
         href: "http://toiviet.github.io"
-    },
-    {
-        title: "acegik’s blog",
-        href: "http://acegik.net/blog"
-    },
-    {
-        title: "thapsang’s blog",
-        href: "http://thapsang.net"
-    },
-    {
-        title: "MaxVien’s blog",
-        href: "http://maxvien.github.io"
-    },
-    {
-        title: "DongDiemThuy’s blog",
-        href: "http://dongdiemthuy.github.io"
     }
 ]
 

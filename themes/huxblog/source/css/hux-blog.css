@@ -951,3 +951,12 @@ body {
 .page-fullscreen footer .copyright a:hover {
   color: #ddd;
 }
+.profile-header tr {
+  height: 24px;
+}
+.profile-header td {
+  height: 24px;
+  line-height: 24px !important;
+  border: none !important;
+  padding: 0 8px !important;
+}
