@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="It&#39;s a IT blog...">
+    <meta name="keyword" content="Javascript,Angular,IT blog,Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          xuantain&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://github.com/xuantain/xuantain.github.io/profile/profile-2.html">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">xuantain&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/profile/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="It&#39;s a IT blog...">
+    <meta name="keyword" content="Javascript,Angular,IT blog,Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          xuantain&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://github.com/xuantain/xuantain.github.io/profile/profile-2.html">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<!-- hack iOS CSS :active style -->
+
+<body ontouchstart="">
+
+<!-- Main Content -->
+<div class="container">
+    <!-- Profile Container -->
+    <div class="row">
+    <div class="col-lg-12 col-md-12 profile-container">
+
+    <!-- Top padding -->
+    <br>
+
+    <table class="profile-header">
+        <tr>
+            <td rowspan="6" style="width: 25%;">
+                <img src="../img/avatar_2020.jpg" alt="avatar" style="width: 200px;" />
+            </td>
+        </tr>
+        <tr>
+            <td><span style="font-size: 2em;">Nguyễn Xuân Tài (Tài)</span></td>
+        </tr>
+        <tr>
+            <td>Blog: <a href="http://xuantain.github.io">xuantain.github.io</a></td>
+        </tr>
+        <tr>
+            <td>Github: <a href="https://github.com/xuantain">github.com/xuantain</a></td>
+        </tr>
+        <tr>
+            <td>Email: <a href="mailto:xuantain@gmail.com">xuantain@gmail.com</a></td>
+        </tr>
+        <tr>
+            <td>Phone: (+84) 795751424</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <table class="profile-header">
+        <tr>
+            <td style="width: 25%;"><span style="font-size:1.6em; font-weight:700;">Profile</span></td>
+            <td>
+                <span> - Multiple years of App and Web App programming (PHP, JS, MYSQL, CouchDB). Profound understanding of JavaScript. </span>
+                <br>
+                <span> - I have developed and maintained systems with open source technologies using Symfony, AngularJs, VueJs, ReactJs, Ionic. </span>
+                <br>
+                <span> - I also have working experience with Rabbitmq, Docker, Gitlab, GNU/Linux, TypeScript, NodeJS, GruntJs/GulpJs, Sass, BEM methodology. </span>
+                <br>
+                <span> - I am passionate about the technologies, problem solving and writing clean code. </span>
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <table class="profile-header">
+        <tr>
+            <td style="width: 25%;"><span style="font-size:1.6em; font-weight:700;">Professional Summary</span></td>
+            <td>
+                <span> - 8+ years working as software developer. Strong skills in Symfony and AngularJS/VueJs. Solid understanding PHP, JavaScript, HTML/CSS. </span>
+                <br>
+                <span> - 5+ years working with AngularJS, VueJs and TypeScrip, CouchDB/PouchDB. </span>
+                <br>
+                <span> - 4+ years working with Symfony, MySQL, Rabbitmq, Docker. </span>
+                <br>
+                <span> - 4+ years working with responsive design and grid framework Bootstrap 3, CSS pre-processor including SASS. </span>
+                <br>
+                <span> - Interested to learn more on some topics: AI and Machine Learning, Blockchain, Deno with Oak, new JS frameworks. </span>
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <table class="profile-header">
+        <tr>
+            <td rowspan="6" style="width: 25%;"><span style="font-size:1.6em; font-weight:700;">Experience</span></td>
+        </tr>
+        <tr>
+            <td style="position: relative;">
+                <span style="font-size:1.3em; font-weight:700;">Pivot88 Solution</span><br>
+                <span style="font-size:1.1em; font-weight:700;">App/Web-App Developer</span><br>
+                <span style="position: absolute; right: 15px; top: 10px;">Mar 2017 - Now</span>
+                <span> I have been developing and maintaining a SAAS system that includes hybric mobile apps and web apps. 
+                    <br>  I also support to the clients in VietNam, set up devices and support solving problem for the client's factories. </span>
+            </td>
+        </tr>
+        <tr>
+            <td style="position: relative;">
+                <hr>
+                <span style="font-size:1.3em; font-weight:700;">SmartDev LLC</span><br>
+                <span style="font-size:1.1em; font-weight:700;">Javascript Developer</span><br>
+                <span style="position: absolute; right: 15px; top: 50px;">Jan 2016 - Feb 2017</span>
+                <span> I have joined the team to develop mobile apps, web apps for the customer, Pivot88 company, which comes from Canada by using Cordova, Ionic & Symphony. 
+                    <br> I have been maintaining the old application is used in factories to control the quality, and developing another new application to improve performance and UX. </span>
+            </td>
+        </tr>
+        <tr>
+            <td style="position: relative;">
+                <hr>
+                <span style="font-size:1.3em; font-weight:700;">Freelancer</span><br>
+                <span style="position: absolute; right: 15px; top: 40px;">May 2015 - Jan 2016</span>
+                <span> Some projects such as website, web ​app, mobile app. I have used Wordpress, AngularJS, Ionic, Bootstrap
+                    3, with MySQL & CouchDB/PouchDB to develop Back​ end and Front ​end. </span>
+            </td>
+        </tr>
+        <tr>
+            <td style="position: relative;">
+                <hr>
+                <span style="font-size:1.3em; font-weight:700;">FPT Software</span><br>
+                <span style="font-size:1.1em; font-weight:700;">Java Developer</span><br>
+                <span style="position: absolute; right: 15px; top: 50px;">May 2014 - Apr 2015</span>
+                <span> Joining development and maintaining software for Japan Customers. Human Resource Management System was
+                    built by the Spring/Structs frameworks with Java build tool Ant, database SQL Server & Oracle. The primary
+                    job when joining the project was creating detailed design documents, program checklist, test cases, and
+                    coding. Developing and maintaining the system with high-performance requirements and also keeping everything
+                    work well. </span>
+            </td>
+        </tr>
+        <tr>
+            <td style="position: relative;">
+                <hr>
+                <span style="font-size:1.3em; font-weight:700;">RMS Technology JSC</span><br>
+                <span style="font-size:1.1em; font-weight:700;">.NET Developer</span><br>
+                <span style="position: absolute; right: 15px; top: 50px;">Jul 2013 - Feb 2014</span>
+                <span> Joining development, coding, and refactoring the project. Provisioning of Supply Chain Management
+                    Integrated Database (SCM Cloud) & Tender Paper Writer for Petronas Carigali Sdn Bhd. The primary job when
+                    joining the project was building the features based according to SRS, building controlling components,
+                    structuring UI for the software manage to bid for Petronas company from Malaysia. We had been developing by
+                    using MVC3, SQL Server, Dev ​Express, and Adwords. </span>
+            </td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <table class="profile-header">
+        <tr>
+            <td style="width: 25%;"><span style="font-size:1.6em; font-weight:700;">Education</span></td>
+            <td>
+                <span style="font-size:1.3em; font-weight:700;">DuyTan University - DaNang, VietNam</span>
+                <span style="font-size:1.1em; font-weight:700;">Information Technology Major</span>
+            </td>
+        </tr>
+    </table>
+
+    <p style="text-align: center;">Nguyễn Xuân Tài - xuantain@gmail.com - (+84) 795751424 </p>
+
+    </div>
+    </div>
+    <!-- END Profile Container -->
+</div>
+<!-- END Main Content -->
+
+</body>
+
+</html>
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/tthinking">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; xuantain&#39;s Blog 2022 
+                    <!-- <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://github.com/xuantain/xuantain.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://github.com/xuantain/xuantain.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="It&#39;s a IT blog...">
+    <meta name="keyword" content="Javascript,Angular,IT blog,Blog">
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <title>
+        
+          Tìm hiểu về AngularJS Directives (Phần 3) - xuantain&#39;s Blog
+        
+    </title>
+
+    <link rel="canonical" href="https://github.com/xuantain/xuantain.github.io/2014/10/26/tim-hieu-ve-angularjs-directives-phan3/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">xuantain&#39;s Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archives/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/profile/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    
+<!-- Image to hack wechat -->
+<!-- <img src="https://github.com/xuantain/xuantain.github.io/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        background-image: url('/img/home-bg.jpg')
+    }
+</style>
+<header class="intro-header" >
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                          <a class="tag" href="/tags/#Angular" title="Angular">Angular</a>
+                        
+                          <a class="tag" href="/tags/#Angular 1" title="Angular 1">Angular 1</a>
+                        
+                          <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+                        
+                    </div>
+                    <h1>Tìm hiểu về AngularJS Directives (Phần 3)</h1>
+                    <h2 class="subheading">Bài viết tìm hiểu về AngularJS Directives và cách tạo một Custom Directive - Phần 3 (transclude, compile, link, require, controller, controllerAs).</h2>
+                    <span class="meta">
+                        Posted by xuantain on
+                        2014-10-26
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h3 id="Cach-tao-Custom-Directive-tiep-theo"><a href="#Cach-tao-Custom-Directive-tiep-theo" class="headerlink" title="Cách tạo Custom Directive (tiếp theo)"></a>Cách tạo Custom Directive (tiếp theo)</h3><h4 id="transclude"><a href="#transclude" class="headerlink" title="transclude"></a><em>transclude</em></h4><p>Transclusion trong Directives </p>
+<p>Từ “transclusion” là một từ không có nghĩa trong từ điển nhưng định nghĩa về nó có thể tìm thấy trên trang Wikipedia hoặc một số trang khác. Hầu hết các trang định nghĩa “transclusion” như sau:</p>
+<blockquote>
+<p>“Nhúng một tài liệu hoặc một phần tài liệu vào trong một tài liệu khác bằng tham chiếu” (<a href="http://en.wikipedia.org/wiki/Transclusion" target="_blank" rel="noopener">wiki/transclusion</a>)</p>
+</blockquote>
+<p>Giống như việc bạn khai báo gọi một file CSS, file Javascript vào trang HTML. Hay cũng giống như việc bạn chia template ra từng phần header, footer, sidebar, … và khi viết nội dung một template bạn sẽ nhúng từng thành phần đó vào trong để tạo thành một file hoàn chỉnh.</p>
+<p><img src="transclusion.png" alt="desk"></p>
+<p>Thuộc tính khai báo transclude nhận giá trị kiểu boolean, mặc định là false, khi đó nội dung của directive sẽ thay thế hoàn toàn cho nội dung bên trong DOM element khai báo directive đó. Khi bạn khai báo <span class="red">“transclude: true”</span> thì trong template của directive cần chỉ rõ nơi sẽ chứa nội dung được đưa vào bằng “ng-transclude”. Hình minh họa bên dưới sẽ giúp bạn hình dung dễ hơn về cách hoạt động của “transclusion” trong Angular Directives.</p>
+<p><img src="Directive_transclude.png" alt="desk"></p>
+<p>Như hình minh họa ở trên thì nội dung bên trong cặp thẻ &lt;div output-text&gt;&lt;/div&gt; sẽ được lấy ra và đưa vào trong cặp thẻ &lt;div <span class="red">ng-transclude</span>&gt;&lt;/div&gt; của directive. </p>
+<iframe src="http://embed.plnkr.co/3Aixxx7i4fDDdsaJcx5q/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="230px" width="100%"></iframe>
+
+
+<h4 id="compile"><a href="#compile" class="headerlink" title="compile"></a><em id="compile">compile</em></h4><p>Như đã giới thiệu ở phần <a href="#compileHTML">Cách directives được biên dịch</a> thì compiler sẽ thực hiện việc biên dịch các directive. Trong một số trường hợp bạn muốn thay đổi cấu trúc HTML của directive tùy theo điều kiện, mà việc này không thể đặt template cứng thì bạn có thể sử dụng khai báo function compile() hay <a href="#link">link()</a> trong directive để tái cấu trúc template cho directive khi được compiler biên dịch ra giao diện. Function compile() sẽ chỉ chạy một lần duy nhất. Function compile() khi kết thúc sẽ trả về function link(), và link() sẽ được gọi ngay sau khi directive được biên dịch xong. Nếu khai báo compile() chỉ trả về một function link(), thì mặc định Angular sẽ hiểu đó là <a href>postLink</a>.</p>
+<p><ins>Ví dụ:</ins></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myApp = angular.module(<span class="string">"demoModule"</span>, []);</span><br><span class="line">myApp.directive(<span class="string">'myDirective'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    restrict: <span class="string">'AE'</span>,</span><br><span class="line">    &lt;span <span class="class"><span class="keyword">class</span></span>=<span class="string">"red"</span>&gt;compile: <span class="function"><span class="keyword">function</span>(<span class="params">element, attributes</span>) </span>&#123;</span><br><span class="line">      <span class="comment">// do one-time configuration of element.</span></span><br><span class="line"></span><br><span class="line">      <span class="keyword">var</span> linkFunction = <span class="function"><span class="keyword">function</span>(<span class="params">$scope, element, atttributes</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// bind element to data in $scope</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">return</span> linkFunction;</span><br><span class="line">    &#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br><span class="line"><span class="regexp">&#125;);</span></span><br></pre></td></tr></table></figure>
+<p>Như ví dụ trên thì compile nhận vào 2 tham số: element và attributes.</p>
+<ol>
+<li>element là đối tượng tham chiếu đến DOM element ngoài cùng, chứa tất cả các DOM element khác bên trong directive đó.</li>
+<li>attributes là đối tượng chứa tất cả các thuộc tính của DOM element. Để truy cập đến các thuộc tính thì bạn phải viết attributes.type.</li>
+</ol>
+<p>Còn linkFunction nhận vào 3 tham số: $scope, element và attributes.</p>
+<ol>
+<li>$scope là đối tượng scope bình thường, hoặc <a href="#childScope">childScope</a> hoặc <a href="#isolateScope">isolateScope</a> tùy theo khai báo scope của directive đó.</li>
+<li>Còn element và attributes tương tự như ở khai báo compile.</li>
+</ol>
+<h4 id="link"><a href="#link" class="headerlink" title="link"></a><em id="link">link</em></h4><p>Function link được khai báo khi chúng ta muốn đính kèm xử lý tác động, làm thay đổi nội dung phần hiển thị của directive. Chúng ta có thể dùng Javascript hoặc JQuery, nhưng trường hợp trên một giao diện có sử dụng nhiều directive có cùng một khai báo thì sẽ rất khó xác định chính xác vị trí của DOM element cần xử lý.</p>
+<p>Khai báo link function cho directive có thể xử lý được việc hiển thị DOM elements trong phạm vi directive đó, mà không cần phải dùng Javascript selector đến chính xác DOM element cần xử lý. Như vậy, có thể hiểu khi một directive được $compile biên dịch, nó cũng sẽ được đính kèm các xử lý DOM elements bên trong đã được định nghĩa sẵn bởi link function. </p>
+<p><ins>VD:</ins></p>
+<iframe src="http://embed.plnkr.co/nIFNV5jrqqaBZDF4Ea30/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="150px" width="100%"></iframe>
+
+<p>Link function được chia làm 2: preLink và postLink.</p>
+<ol>
+<li>preLink: là xử lý được tự động thực thi sau khi directive được compiler biên dịch xong.</li>
+<li>postLink: là xử lý được đính kèm vào directive sau khi directive được compiler biên dịch xong, và preLink thực thi xong.</li>
+</ol>
+<h4 id="Su-khac-nhau-giua-compile-va-link"><a href="#Su-khac-nhau-giua-compile-va-link" class="headerlink" title="Sự khác nhau giữa compile và link"></a><em>Sự khác nhau giữa compile và link</em></h4><p>Mục đích của việc khai báo compile và link đều là tác động, làm thay đổi nội dung hiển thị. Vậy khi nào chúng ta dùng compile, khi nào dùng link?</p>
+<p>Khai báo function compile() được sử dụng khi chúng ta muốn thực thi việc xử lý nội dung hiển thị của directive <span class="red">trước khi được compiler biên dịch</span> ra giao diện. Và compile trả về một function link() cụ thể, function link() này sẽ được đính kèm vào directive.</p>
+<p>Khai báo function link() được sử dụng khi chúng ta muốn đính kèm xử lý hiển thị cho directive, và function link() chỉ được thực thi <span class="red">sau khi directive được compiler biên dịch</span> xong. Khác với compile, việc khai báo xử lý cho function link() có thể là interface, và implement xử lý đó ở ngoài.</p>
+<p>Thường chỉ khai báo một trong hai function, hoặc là compile, hoặc là link. Nếu vô tình khai báo cả 2 function compile và link, thì chỉ các function link() được khai báo trong compile được thực thi.</p>
+<p><ins>Ví dụ:</ins></p>
+<iframe src="http://embed.plnkr.co/LfxVTPT33rnQ8yvGHavk/preview" style="border:1px #FFFFFF none;" name="myiFrame" scrolling="no" frameborder="1" marginheight="0px" marginwidth="0px" height="230px" width="100%"></iframe>
+
+
+<h4 id="require"><a href="#require" class="headerlink" title="require"></a><em>require</em></h4><p>Khi bạn muốn sử dụng controller của một Directive khác, thì khai báo thuộc tính “require” để yêu cầu sử dụng controller của Directive cần sử dụng. Controller của những Directive được yêu cầu sẽ được nhúng (inject) vào trong link function của Directive yêu cầu tại vị trí tham số thứ tư. Khai báo “require” nhận vào giá trị là một string, hoặc một mảng strings tên của các Directive. Mặc định tên của Directive sẽ đại diện cho phần thể hiện của controller của Directive đó. Nếu truyền vào là một mảng strings thì sẽ gọi các Directive theo thứ tự tương ứng trong mảng. Nếu không có Directive nào được tìm thấy hay Directive được yêu cầu không có controller thì sẽ bị báo lỗi. </p>
+<p>Khai báo tên (phần hiển thị của controller) các Directive được yêu cầu với tiền tố như sau:</p>
+<p><span class="red"><em>“element hiện tại”: Là element khai báo/sử dụng Directive đang được phát triển.</em></span></p>
+<ul>
+<li>Không có tiền tố: Xác định controller được gọi trên element hiện tại. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.</li>
+<li><span class="red">^</span> : Xác định controller được gọi trên element hiện tại và trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.</li>
+<li><span class="red">^^</span> : Xác định controller được gọi <span class="red">chỉ</span> trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ ném ra lỗi.</li>
+<li><span class="red">?</span> : Xác định controller được gọi trên element hiện tại. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).</li>
+<li><span class="red">?^</span> : Xác định controller được gọi trên element hiện tại và trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).</li>
+<li><span class="red">?^^</span> : Xác định controller được gọi <span class="red">chỉ</span> trên thành phần cha của nó. Nếu không tồn tại controller được gọi thì sẽ trả về null (pass null).</li>
+</ul>
+<h4 id="controller"><a href="#controller" class="headerlink" title="controller"></a><em>controller</em></h4><p>Khai báo function controller cho Directive nếu muốn cho phép Directive khác giao tiếp với nó.</p>
+<p><ins>Ví dụ:</ins></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">app.directive(<span class="string">'outerDirective'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    scope: &#123;&#125;,</span><br><span class="line">    restrict: <span class="string">'AE'</span>,</span><br><span class="line">    controller: <span class="function"><span class="keyword">function</span>(<span class="params">$scope, $compile, $http</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.addChild = <span class="function"><span class="keyword">function</span>(<span class="params">params</span>) </span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Got the message from nested directive:'</span></span><br><span class="line">                                           + params.message);</span><br><span class="line">      &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Đây là code yêu cầu đính kèm một controller được đặt tên “outerDirective” cho directive. Khi một Directive khác muốn giao tiếp với “outerDirective”, thì Directive đó cần được khai báo “require” để sử dụng phần thể hiện controller của “outerDirective”.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">app.directive(<span class="string">'innerDirective'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    scope: &#123;&#125;,</span><br><span class="line">    restrict: <span class="string">'AE'</span>,</span><br><span class="line">    <span class="built_in">require</span>: <span class="string">'^outerDirective'</span>,</span><br><span class="line">    link: <span class="function"><span class="keyword">function</span>(<span class="params">scope, elem, attrs, controllerInstance</span>) </span>&#123;</span><br><span class="line">      <span class="comment">//Tham số thứ tư là đối tượng thể hiện controller</span></span><br><span class="line">      <span class="comment">//của Directive "outerDirective" mà bạn yêu cầu</span></span><br><span class="line">      scope.message = <span class="string">"Hi, Parent directive"</span>;</span><br><span class="line">      controllerInstance.addChild(scope);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>Sử dụng trong file HTML như sau:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">outer-directive</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">inner-directive</span>&gt;</span><span class="tag">&lt;/<span class="name">inner-directive</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">outer-directive</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>require: ‘^outerDirective’ nói cho Angular tìm kiếm controller của Directive “outerDirective” trên element hiện tại và trên thành phần cha của nó. Trong truờng hợp này là tìm thấy thể hiện của controller của directive “outerDirective” tại thành phần cha.</p>
+<h4 id="controllerAs"><a href="#controllerAs" class="headerlink" title="controllerAs"></a><em>controllerAs</em></h4><p>ControllerAs dùng để định danh cho function controller của Directive. Mặc định thì Angular sẽ lấy tên của Directive làm tên định danh cho controller của directive đó.</p>
+
+
+                <hr>
+
+                
+
+                <ul class="pager">
+                    
+                        <li class="previous">
+                            <a href="/2014/12/20/khai-niem-services-trong-angularjs/" data-toggle="tooltip" data-placement="top" title="Khái niệm services trong AngularJS">&larr; Previous Post</a>
+                        </li>
+                    
+                    
+                        <li class="next">
+                            <a href="/2014/10/25/tim-hieu-ve-angularjs-directives-phan2/" data-toggle="tooltip" data-placement="top" title="Tìm hiểu về AngularJS Directives (Phần 2)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>
+    <!-- Side Catalog Container -->
+        
+
+    <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Angular" title="Angular">Angular</a>
+                        
+                          <a class="tag" href="/tags/#Angular 1" title="Angular 1">Angular 1</a>
+                        
+                          <a class="tag" href="/tags/#Javascript" title="Javascript">Javascript</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="http://toiviet.github.io" target="_blank">Toiviet&#39;s Blog</a></li>
+                    
+                </ul>
+                
+            </div>
+
+        </div>
+    </div>
+</article>
+
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "xuantainblog";
+    var disqus_identifier = "https://github.com/xuantain/xuantain.github.io/2014/10/26/tim-hieu-ve-angularjs-directives-phan3/";
+    var disqus_url = "https://github.com/xuantain/xuantain.github.io/2014/10/26/tim-hieu-ve-angularjs-directives-phan3/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/tthinking">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; xuantain&#39;s Blog 2022 
+                    <!-- <br>
+                    Theme by <a href="http://huangxuan.me">Hux</a> 
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    Ported by <a href="http://blog.kaijun.rocks">Kaijun</a> | 
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="91px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=kaijun&repo=hexo-theme-huxblog&type=star&count=true" >
+                    </iframe> -->
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("https://github.com/xuantain/xuantain.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="https://github.com/xuantain/xuantain.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
