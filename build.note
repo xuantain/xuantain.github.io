@@ -1,0 +1,7 @@
+# Install Hexo tool => https://hexo.io/docs/index.html
+$ npm install -g hexo-cli
+
+# Writting/Serve/Deploy => https://github.com/Kaijun/hexo-theme-huxblog
+$ hexo new post IMAPOST
+$ hexo serve // run hexo in local environment
+$ hexo clean && hexo deploy // hexo will push the static files automatically into the specific branch(gh-pages) of your repo!
